@@ -1,0 +1,55 @@
+name: breeder
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.3"
+  flutter: "^3.16.5"
+
+dependencies:
+  # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
+  # https://pub.dev/packages/auto_route
+  auto_route: ^7.8.4
+
+  # A Dart package that helps to implement value based equality without needing to explicitly override == and hashCode.
+  # https://pub.dev/packages/equatable
+  equatable: ^2.0.5
+
+  # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
+  # https://pub.dev/packages/flutter_bloc
+  flutter_bloc: ^8.1.3
+
+  # Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.
+  # https://pub.dev/packages/intl
+  intl: ^0.19.0
+
+  # Small, easy to use and extensible logger which prints beautiful logs.
+  logger: ^2.0.2+1
+
+  # Simple direct Service Locator that allows to decouple the interface from a concrete implementation and to access the concrete implementation from everywhere in your App"
+  # https://pub.dev/packages/get_it
+  get_it: ^7.6.4
+
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
+  # https://pub.dev/packages/auto_route_generator
+  auto_route_generator: ^7.3.2
+
+  # A build system for Dart code generation and modular compilation.
+  # https://pub.dev/packages/build_runner
+  build_runner: ^2.4.7
+
+  # Recommended lints for Flutter apps, packages, and plugins to encourage good coding practices.
+  # https://pub.dev/packages/flutter_lints
+  flutter_lints: ^3.0.1
+
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
