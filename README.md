@@ -1,1 +1,2 @@
-# breeder
+# Breeder
+The Breeder App is an Android mobile application designed to assist users in the monster breeding. The app utilizes algorithms to sort and select monsters, facilitating the creation of a genealogy tree. The app provides a user-friendly experience for creating monsters with perfect values based on their genetics.
