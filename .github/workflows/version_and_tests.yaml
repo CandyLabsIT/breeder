@@ -57,4 +57,4 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter analyze
-      - run: flutter test "test/unit" --platform chrome --null-assertions
+      - run: flutter test "test/unit" --null-assertions

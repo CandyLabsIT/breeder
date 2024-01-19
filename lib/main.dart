@@ -1,25 +1,17 @@
+import 'package:breeder/views/pages/main_menu_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const AppCore());
-}
-
-class AppCore extends StatelessWidget {
-  const AppCore({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World'),
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFFFFEAC5),
+          ),
+          child: const MainMenu(),
         ),
       ),
-    );
-  }
+    ),
+  );
 }
