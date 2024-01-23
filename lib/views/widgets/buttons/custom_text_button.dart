@@ -34,6 +34,7 @@ class _CustomTextButtonState extends State<CustomTextButton> {
       ),
       child: TextButton(
         onPressed: widget._onPressed,
+
         style: TextButton.styleFrom(
           foregroundColor: Colors.black,
           textStyle: const TextStyle(

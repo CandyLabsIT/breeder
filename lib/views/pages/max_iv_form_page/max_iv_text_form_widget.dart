@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MaxIVTextFormWidget extends StatelessWidget {
+class MaxIVTextFormWidget extends StatefulWidget {
   final int _indexTextEditingControllerList;
   final int _inputWeight;
   final String _ivTextInfo;
@@ -22,7 +22,8 @@ class MaxIVTextFormWidget extends StatelessWidget {
     required int maxLength,
     required int maxSlots,
     Key? key,
-  })  : _indexTextEditingControllerList = indexTextEditingControllerList,
+  })
+      : _indexTextEditingControllerList = indexTextEditingControllerList,
         _inputWeight = inputWeight,
         _ivTextInfo = ivTextInfo,
         _maxLength = maxLength,
@@ -30,9 +31,16 @@ class MaxIVTextFormWidget extends StatelessWidget {
         super(key: key);
 
   @override
+  State<MaxIVTextFormWidget> createState(){
+    return _MaxIVTextFormWidgetState();
+  }
+}
+
+class _MaxIVTextFormWidgetState extends State<MaxIVTextFormWidget>{
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<MaxIVFormCubit, AMaxIVFormState>(
-      bloc: _maxIVFormCubit,
+      bloc: widget._maxIVFormCubit,
       builder: (BuildContext context, AMaxIVFormState maxIVFormState) {
         return Row(
           children: <Widget>[
@@ -44,7 +52,7 @@ class MaxIVTextFormWidget extends StatelessWidget {
                     height: 44,
                     width: 40,
                     child: Text(
-                      _ivTextInfo,
+                      widget._ivTextInfo,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -58,7 +66,7 @@ class MaxIVTextFormWidget extends StatelessWidget {
               child: SizedBox(
                 width: 150,
                 child: TextFormField(
-                  controller: _getTextEditingController(_indexTextEditingControllerList),
+                  controller: _getTextEditingController(widget._indexTextEditingControllerList),
                   decoration: InputDecoration(
                       isCollapsed: true,
                       alignLabelWithHint: true,
@@ -69,7 +77,7 @@ class MaxIVTextFormWidget extends StatelessWidget {
                         height: 0,
                       ),
                       enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                      helperText: '${_calculateMaxIVAmountLeft(_inputWeight)} of ${_maxSlots} slots remaining',
+                      helperText: '${_calculateMaxIVAmountLeft(widget._inputWeight)} of ${widget._maxSlots} slots remaining',
                       focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                       floatingLabelBehavior: FloatingLabelBehavior.never),
                   style: const TextStyle(
@@ -79,15 +87,15 @@ class MaxIVTextFormWidget extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(_maxLength),
+                    LengthLimitingTextInputFormatter(widget._maxLength),
                     MaxIVValueLimitInputFormatter(
                       formsSum: _getMaxIVFormWeightedSum(maxIVFormState),
-                      inputWeight: _inputWeight,
+                      inputWeight: widget._inputWeight,
                     ),
                   ],
                   maxLines: 1,
                   onChanged: (String value) {
-                    _maxIVFormCubit.calculateSum();
+                    widget._maxIVFormCubit.calculateSum();
                   },
                 ),
               ),
@@ -108,10 +116,10 @@ class MaxIVTextFormWidget extends StatelessWidget {
   }
 
   int _calculateMaxIVAmountLeft(int inputWeight) {
-    return _maxIVFormCubit.maxIVFormModel.calculateAmountLeft(inputWeight);
+    return widget._maxIVFormCubit.maxIVFormModel.calculateAmountLeft(inputWeight);
   }
 
   TextEditingController _getTextEditingController(int indexTextEditingControllerList) {
-    return _maxIVFormCubit.maxIVFormModel.maxIVTextEditingControllersList[indexTextEditingControllerList];
+    return widget._maxIVFormCubit.maxIVFormModel.maxIVTextEditingControllersList[indexTextEditingControllerList];
   }
 }

@@ -9,9 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:breeder/views/pages/main_menu_page.dart' as _i1;
-import 'package:breeder/views/pages/max_iv_form_page/max_iv_form_page.dart'
-    as _i2;
+import 'package:breeder/views/pages/iv_creator/iv_creator_page.dart' as _i1;
+import 'package:breeder/views/pages/main_menu_page.dart' as _i2;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i3;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
@@ -19,16 +18,16 @@ abstract class $AppRouter extends _i4.RootStackRouter {
 
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
+    IVCreatorRoute.name: (routeData) {
+      return _i4.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i1.IVCreatorPage(),
+      );
+    },
     MainMenuRoute.name: (routeData) {
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.MainMenuPage(),
-      );
-    },
-    MaxIVFormRoute.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i2.MaxIVFormPage(),
+        child: const _i2.MainMenuPage(),
       );
     },
     NewBreedingRoute.name: (routeData) {
@@ -41,7 +40,21 @@ abstract class $AppRouter extends _i4.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.MainMenuPage]
+/// [_i1.IVCreatorPage]
+class IVCreatorRoute extends _i4.PageRouteInfo<void> {
+  const IVCreatorRoute({List<_i4.PageRouteInfo>? children})
+      : super(
+          IVCreatorRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'IVCreatorRoute';
+
+  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.MainMenuPage]
 class MainMenuRoute extends _i4.PageRouteInfo<void> {
   const MainMenuRoute({List<_i4.PageRouteInfo>? children})
       : super(
@@ -50,20 +63,6 @@ class MainMenuRoute extends _i4.PageRouteInfo<void> {
         );
 
   static const String name = 'MainMenuRoute';
-
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i2.MaxIVFormPage]
-class MaxIVFormRoute extends _i4.PageRouteInfo<void> {
-  const MaxIVFormRoute({List<_i4.PageRouteInfo>? children})
-      : super(
-          MaxIVFormRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'MaxIVFormRoute';
 
   static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
 }
