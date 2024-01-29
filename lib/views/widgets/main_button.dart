@@ -1,31 +1,44 @@
 import 'package:flutter/material.dart';
 
-class MainButton extends StatelessWidget {
+class MainButton extends StatefulWidget {
+  final VoidCallback? _onPressed;
+  final String _buttonText;
+
   const MainButton({
     required String buttonText,
-    required void Function() onPressed,
-    super.key,
+    void Function()? onPressed,
+    Key? key,
   })  : _onPressed = onPressed,
-        _buttonText = buttonText;
+        _buttonText = buttonText,
+        super(key: key);
 
-  final String _buttonText;
-  final void Function() _onPressed;
+  @override
+  State<MainButton> createState() {
+    return _MainButtonState();
+  }
+}
 
+class _MainButtonState extends State<MainButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 30.0),
+      margin: const EdgeInsets.only(top: 15.0),
       child: ElevatedButton(
-        onPressed: _onPressed,
+        onPressed: widget._onPressed,
         style: ElevatedButton.styleFrom(
           foregroundColor: const Color(0xFF000000),
           backgroundColor: const Color(0xFFfed291),
+          shadowColor: const Color(0xffd2d2d2),
           elevation: 10,
-          textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          textStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
           minimumSize: const Size(290, 70),
           shape: const StadiumBorder(),
         ),
-        child: Text(_buttonText),
+        // maximumSize: MaterialStateProperty.all<Size>()
+        child: Text(widget._buttonText),
       ),
     );
   }

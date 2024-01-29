@@ -5,6 +5,9 @@ import 'package:breeder/shared/router/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes {
-    return <AutoRoute>[];
+    return <AutoRoute>[
+      AutoRoute(page: MainMenuRoute.page, initial: true),
+      AutoRoute(page: NewBreedingRoute.page),
+    ];
   }
 }
