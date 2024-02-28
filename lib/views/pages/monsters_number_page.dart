@@ -88,10 +88,16 @@ class _MonstersNumberState extends State<MonstersNumberPage> {
                           leftMargin: 25,
                           onPressed: () => AutoRouter.of(context).push(const MainMenuRoute()),
                         ),
-                        const CustomTextButton(
+                        CustomTextButton(
                           buttonText: 'Next',
                           icon: Icons.navigate_next,
                           leftMargin: 25,
+                          onPressed:  () {
+                            List<int> monstersCount = _monstersModel.getListValues();
+                            if (monstersCount.isNotEmpty && monstersCount[0] != 0) {
+                              // AutoRouter.of(context).push(OneIvMonstersRoute(monstersModel: _monstersModel));
+                            }
+                          }
                         ),
                       ],
                     ),

@@ -6,8 +6,12 @@ class MonstersModel {
 
   MonstersModel({required this.monstersNumber});
 
+  List<int> getListValues(){
+    return monstersNumber.map((TextEditingController controller) => int.tryParse(controller.text) ?? 0).toList();
+  }
+
   int calculateMonstersSum() {
-    List<int> monstersCount = monstersNumber.map((TextEditingController controller) => int.tryParse(controller.text) ?? 0).toList();
+    List<int> monstersCount = getListValues();
     monstersCount[1] *= 2;
     monstersCount[2] *= 4;
     monstersCount[3] *= 8;

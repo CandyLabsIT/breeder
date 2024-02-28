@@ -1,4 +1,5 @@
 import 'package:breeder/shared/cubit/input_cubit.dart';
+import 'package:breeder/shared/cubit/input_state.dart';
 import 'package:breeder/shared/models/monsters_model.dart';
 import 'package:breeder/views/widgets/generic/custom_text_form.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +21,8 @@ class CustomTextFormsWidget extends StatefulWidget {
 class _CustomTextFormsWidgetState extends State<CustomTextFormsWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InputCubit, int>(
-      builder: (BuildContext context, int state) {
+    return BlocBuilder<InputCubit, InputState>(
+      builder: (BuildContext context, InputState state) {
         return SizedBox(
           width: 200,
           child: Column(
@@ -37,7 +38,7 @@ class _CustomTextFormsWidgetState extends State<CustomTextFormsWidget> {
                     int sum = widget._model.calculateMonstersSum();
                     context.read<InputCubit>().getInputsSum(sum);
                   },
-                  inputsSum: state,
+                  inputsSum: state.monsterValue,
                   inputWeight: 1,
                 ),
               ),
@@ -52,7 +53,7 @@ class _CustomTextFormsWidgetState extends State<CustomTextFormsWidget> {
                     int sum = widget._model.calculateMonstersSum();
                     context.read<InputCubit>().getInputsSum(sum);
                   },
-                  inputsSum: state,
+                  inputsSum: state.monsterValue,
                   inputWeight: 2,
                 ),
               ),
@@ -67,7 +68,7 @@ class _CustomTextFormsWidgetState extends State<CustomTextFormsWidget> {
                     int sum = widget._model.calculateMonstersSum();
                     context.read<InputCubit>().getInputsSum(sum);
                   },
-                  inputsSum: state,
+                  inputsSum: state.monsterValue,
                   inputWeight: 4,
                 ),
               ),
@@ -82,7 +83,7 @@ class _CustomTextFormsWidgetState extends State<CustomTextFormsWidget> {
                     int sum = widget._model.calculateMonstersSum();
                     context.read<InputCubit>().getInputsSum(sum);
                   },
-                  inputsSum: state,
+                  inputsSum: state.monsterValue,
                   inputWeight: 8,
                 ),
               ),
@@ -97,7 +98,7 @@ class _CustomTextFormsWidgetState extends State<CustomTextFormsWidget> {
                     int sum = widget._model.calculateMonstersSum();
                     context.read<InputCubit>().getInputsSum(sum);
                   },
-                  inputsSum: state,
+                  inputsSum: state.monsterValue,
                   inputWeight: 16,
                 ),
               )
