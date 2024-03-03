@@ -95,7 +95,7 @@ class _MonstersNumberState extends State<MonstersNumberPage> {
                           onPressed:  () {
                             List<int> monstersCount = _monstersModel.getListValues();
                             if (monstersCount.isNotEmpty && monstersCount[0] != 0) {
-                              // AutoRouter.of(context).push(OneIvMonstersRoute(monstersModel: _monstersModel));
+                              AutoRouter.of(context).push(OneIvMonstersRoute(monstersModel: _monstersModel));
                             }
                           }
                         ),

@@ -1,15 +1,18 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:breeder/shared/models/monsters_model.dart';
+import 'package:breeder/config/locator.dart';
+import 'package:breeder/shared/cubit/input_cubit.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/buttons/custom_text_button.dart';
 import 'package:breeder/views/widgets/generic/custom_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 @RoutePage()
 class OneIvMonstersPage extends StatelessWidget {
-  final MonstersModel monstersModel;
+  final InputCubit inputCubit = serviceLocator<InputCubit>();
+  final TextEditingController textEditingController = TextEditingController();
 
-  const OneIvMonstersPage({@PathParam('monster-model') required this.monstersModel, Key? key}) : super(key: key);
+  OneIvMonstersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,17 @@ class OneIvMonstersPage extends StatelessWidget {
             ),
           ),
         ),
+        // SizedBox(
+        //   width: 150,
+        //   child: TextFormField(
+        //     controller: textEditingController,
+        //     inputFormatters: <TextInputFormatter>[
+        //       FilteringTextInputFormatter.digitsOnly,
+        //       LengthLimitingTextInputFormatter(inputCubit.state),
+        //       LimitInputFormatter(inputsSum: inputCubit.state, inputWeight: 1),
+        //     ],
+        //   ),
+        // ),
         SizedBox(
           width: 300,
           child: Center(
