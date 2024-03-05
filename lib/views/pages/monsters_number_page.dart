@@ -94,8 +94,14 @@ class _MonstersNumberState extends State<MonstersNumberPage> {
                           leftMargin: 25,
                           onPressed:  () {
                             List<int> monstersCount = _monstersModel.getListValues();
-                            if (monstersCount.isNotEmpty && monstersCount[0] != 0) {
-                              AutoRouter.of(context).push(OneIvMonstersRoute(monstersModel: _monstersModel));
+                            for (int i = 0; i < 5; i++){
+                            if (monstersCount[i] > 0) {
+                              switch(i){
+                                case 0:
+                                  AutoRouter.of(context).push(SingleIVCreatorRoute());
+                                  break;
+                              }
+                            }
                             }
                           }
                         ),

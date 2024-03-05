@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 @RoutePage()
-class OneIvMonstersPage extends StatelessWidget {
-  final InputCubit inputCubit = serviceLocator<InputCubit>();
+class SingleIVCreatorPage extends StatelessWidget {
+  final InputCubit inputCubit = globalLocator<InputCubit>();
   final TextEditingController textEditingController = TextEditingController();
 
-  OneIvMonstersPage({Key? key}) : super(key: key);
+  SingleIVCreatorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

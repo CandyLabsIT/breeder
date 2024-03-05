@@ -9,7 +9,7 @@ class AppRouter extends $AppRouter {
       AutoRoute(page: MainMenuRoute.page, initial: true),
       AutoRoute(page: NewBreedingRoute.page),
       AutoRoute(page: MonstersNumberRoute.page),
-      AutoRoute(page: OneIvMonstersRoute.page)
+      AutoRoute(page: SingleIVCreatorRoute.page)
     ];
   }
 }

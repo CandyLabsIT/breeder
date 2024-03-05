@@ -9,12 +9,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:breeder/shared/models/monsters_model.dart' as _i6;
 import 'package:breeder/views/pages/main_menu_page.dart' as _i1;
 import 'package:breeder/views/pages/monsters_number_page.dart' as _i2;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i3;
-import 'package:breeder/views/pages/one_iv_monsters_page.dart' as _i4;
-import 'package:flutter/material.dart' as _i7;
+import 'package:breeder/views/pages/single_iv_creator_page.dart' as _i4;
+import 'package:flutter/material.dart' as _i6;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -39,14 +38,12 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         child: const _i3.NewBreedingPage(),
       );
     },
-    OneIvMonstersRoute.name: (routeData) {
-      final args = routeData.argsAs<OneIvMonstersRouteArgs>();
+    SingleIVCreatorRoute.name: (routeData) {
+      final args = routeData.argsAs<SingleIVCreatorRouteArgs>(
+          orElse: () => const SingleIVCreatorRouteArgs());
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.OneIvMonstersPage(
-          monstersModel: args.monstersModel,
-          key: args.key,
-        ),
+        child: _i4.SingleIVCreatorPage(key: args.key),
       );
     },
   };
@@ -95,39 +92,30 @@ class NewBreedingRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.OneIvMonstersPage]
-class OneIvMonstersRoute extends _i5.PageRouteInfo<OneIvMonstersRouteArgs> {
-  OneIvMonstersRoute({
-    required _i6.MonstersModel monstersModel,
-    _i7.Key? key,
+/// [_i4.SingleIVCreatorPage]
+class SingleIVCreatorRoute extends _i5.PageRouteInfo<SingleIVCreatorRouteArgs> {
+  SingleIVCreatorRoute({
+    _i6.Key? key,
     List<_i5.PageRouteInfo>? children,
   }) : super(
-          OneIvMonstersRoute.name,
-          args: OneIvMonstersRouteArgs(
-            monstersModel: monstersModel,
-            key: key,
-          ),
+          SingleIVCreatorRoute.name,
+          args: SingleIVCreatorRouteArgs(key: key),
           initialChildren: children,
         );
 
-  static const String name = 'OneIvMonstersRoute';
+  static const String name = 'SingleIVCreatorRoute';
 
-  static const _i5.PageInfo<OneIvMonstersRouteArgs> page =
-      _i5.PageInfo<OneIvMonstersRouteArgs>(name);
+  static const _i5.PageInfo<SingleIVCreatorRouteArgs> page =
+      _i5.PageInfo<SingleIVCreatorRouteArgs>(name);
 }
 
-class OneIvMonstersRouteArgs {
-  const OneIvMonstersRouteArgs({
-    required this.monstersModel,
-    this.key,
-  });
+class SingleIVCreatorRouteArgs {
+  const SingleIVCreatorRouteArgs({this.key});
 
-  final _i6.MonstersModel monstersModel;
-
-  final _i7.Key? key;
+  final _i6.Key? key;
 
   @override
   String toString() {
-    return 'OneIvMonstersRouteArgs{monstersModel: $monstersModel, key: $key}';
+    return 'SingleIVCreatorRouteArgs{key: $key}';
   }
 }
