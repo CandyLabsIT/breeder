@@ -1,11 +1,11 @@
 import 'package:flutter/services.dart';
 
-class LimitInputFormatter extends TextInputFormatter {
+class ValueLimitInputFormatter extends TextInputFormatter {
   final int _maxSlots = 32;
   final int _inputWeight;
   final int _slotsSum;
 
-  LimitInputFormatter({required int inputsSum, required int inputWeight})
+  ValueLimitInputFormatter({required int inputsSum, required int inputWeight})
       : _inputWeight = inputWeight,
         _slotsSum = inputsSum;
 
@@ -17,8 +17,8 @@ class LimitInputFormatter extends TextInputFormatter {
     }
     newInputValue *= _inputWeight;
     int oldInputValue = (int.tryParse(oldValue.text) ?? 0) * _inputWeight;
-    int remainSlots = (_maxSlots + oldInputValue) - (_slotsSum + newInputValue);
-    if (remainSlots >= 0) {
+    int slotsRemaining = (_maxSlots + oldInputValue) - (_slotsSum + newInputValue);
+    if (slotsRemaining >= 0) {
       return newValue;
     } else {
       return oldValue;

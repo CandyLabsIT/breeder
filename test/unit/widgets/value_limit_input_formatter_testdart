@@ -1,15 +1,15 @@
-import 'package:breeder/views/widgets/limit_input_formatter.dart';
+import 'package:breeder/views/widgets/value_limit_input_formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Tests of LimitInputFormatter.formatEditUpdate()', () {
+  group('Tests of ValueLimitInputFormatter.formatEditUpdate()', () {
     group('Test for [IVS]', () {
       test('Should return [new value] if [old value is empty] and [new value does not exceed the limit]', () {
         const int inputSum = 16;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -36,7 +36,7 @@ void main() {
         const int inputSum = 16;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -65,7 +65,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -94,7 +94,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -122,7 +122,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -150,7 +150,7 @@ void main() {
         const int inputSum = 16;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -177,7 +177,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -201,7 +201,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -225,7 +225,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -252,7 +252,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -281,7 +281,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -310,7 +310,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -338,7 +338,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -366,7 +366,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -393,7 +393,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -417,7 +417,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -441,7 +441,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -468,7 +468,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -497,7 +497,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -525,7 +525,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '4',
           selection: TextSelection.collapsed(offset: 1),
@@ -552,7 +552,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '4',
           selection: TextSelection.collapsed(offset: 1),
@@ -576,7 +576,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '4',
           selection: TextSelection.collapsed(offset: 1),
@@ -600,7 +600,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -627,7 +627,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
@@ -656,7 +656,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -684,7 +684,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -711,7 +711,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -735,7 +735,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -759,7 +759,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -787,7 +787,7 @@ void main() {
         const int inputSum = 0;
         const int inputWeight = 16;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
@@ -816,7 +816,7 @@ void main() {
         const int inputSum = 0;
         const int inputWeight = 16;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -844,7 +844,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -871,7 +871,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -895,7 +895,7 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        LimitInputFormatter actualLimitInputFormatter = LimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
