@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:breeder/blocks/pages/max_iv_slots_page/a_iv_slots_amount_state.dart';
-import 'package:breeder/blocks/pages/max_iv_slots_page/iv_slots_amount_cubit.dart';
-import 'package:breeder/blocks/pages/max_iv_slots_page/states/iv_slots_amount_list.dart';
+import 'package:breeder/blocks/pages/max_iv_slots_creator_page/a_max_iv_slots_state.dart';
+import 'package:breeder/blocks/pages/max_iv_slots_creator_page/max_iv_slots_cubit.dart';
+import 'package:breeder/blocks/pages/max_iv_slots_creator_page/states/max_iv_slots_amount_change_state.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/pages/max_iv_slots/max_iv_value_limit_input_formatter.dart';
 import 'package:breeder/views/widgets/buttons/custom_text_button.dart';
@@ -24,8 +24,8 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage>{
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<IVSlotsAmountCubit, AIVTextFormsState>(
-        builder: (BuildContext context, AIVTextFormsState ivTextFormsState) {
+    return BlocBuilder<MaxIVSlotsCubit, AMaxIVSlotsState>(
+        builder: (BuildContext context, AMaxIVSlotsState maxIVSlotsState) {
           return CustomContainer(
               containerHeight: 450,
               containerWidth: 350,
@@ -48,12 +48,12 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage>{
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(2),
                       MaxIVValueLimitInputFormatter(
-                        inputsSum: _value(ivTextFormsState),
+                        inputsSum: _value(maxIVSlotsState),
                         inputWeight: 1,
                       ),
                     ],
                     onChanged: (_) {
-                      context.read<IVSlotsAmountCubit>().ivSlotsAmountList();
+                      context.read<MaxIVSlotsCubit>().maxIVSlotsAmountList();
                     },
                   ),
                 ),
@@ -89,9 +89,9 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage>{
     );
   }
 
-  int _value(AIVTextFormsState ivTextFormsState) {
-    if (ivTextFormsState is IVSlotsAmountListState) {
-      int value = ivTextFormsState.slotsList[0];
+  int _value(AMaxIVSlotsState maxIVSlotsState) {
+    if (maxIVSlotsState is MaxIVSlotsAmountChangedState) {
+      int value = maxIVSlotsState.maxIVSlotsAmountList[0];
       return value;
     }
     return 0;
