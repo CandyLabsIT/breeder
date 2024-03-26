@@ -1,12 +1,12 @@
-import 'package:breeder/blocks/pages/max_iv_slots_page/a_iv_slots_amount_state.dart';
-import 'package:breeder/blocks/pages/max_iv_slots_page/iv_slots_amount_cubit.dart';
-import 'package:breeder/blocks/pages/max_iv_slots_page/states/iv_slots_sum_state.dart';
-import 'package:breeder/views/widgets/value_limit_input_formatter.dart';
+import 'package:breeder/blocks/pages/max_iv_slots_creator_page/a_max_iv_slots_state.dart';
+import 'package:breeder/blocks/pages/max_iv_slots_creator_page/max_iv_slots_cubit.dart';
+import 'package:breeder/blocks/pages/max_iv_slots_creator_page/states/max_iv_slots_sum_changed_state.dart';
+import 'package:breeder/views/pages/max_iv_slots/max_iv_value_limit_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MaxIVSlotsTextForm extends StatefulWidget {
+class MaxIVSlotsTextForm extends StatelessWidget {
   final String _ivTextInfo;
   final int _maxLength;
   final int _maxSlots;
@@ -28,16 +28,11 @@ class MaxIVSlotsTextForm extends StatefulWidget {
         super(key: key);
 
   @override
-  _MaxIVSlotsTextFormState createState() => _MaxIVSlotsTextFormState();
-}
-
-class _MaxIVSlotsTextFormState extends State<MaxIVSlotsTextForm> {
-  @override
   Widget build(BuildContext context) {
-    final IVSlotsAmountCubit ivSlotsAmountCubit = context.read<IVSlotsAmountCubit>();
-    return BlocBuilder<IVSlotsAmountCubit, AIVTextFormsState>(
+    final MaxIVSlotsCubit ivSlotsAmountCubit = context.read<MaxIVSlotsCubit>();
+    return BlocBuilder<MaxIVSlotsCubit, AMaxIVSlotsState>(
       bloc: ivSlotsAmountCubit,
-      builder: (BuildContext context, AIVTextFormsState ivSlotsAmountState) {
+      builder: (BuildContext context, AMaxIVSlotsState maxIVTextEditingControllersState) {
         return Row(
           children: <Widget>[
             Column(
@@ -48,7 +43,7 @@ class _MaxIVSlotsTextFormState extends State<MaxIVSlotsTextForm> {
                     height: 44,
                     width: 40,
                     child: Text(
-                      widget._ivTextInfo,
+                      _ivTextInfo,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -62,7 +57,7 @@ class _MaxIVSlotsTextFormState extends State<MaxIVSlotsTextForm> {
               child: SizedBox(
                 width: 150,
                 child: TextFormField(
-                  controller: ivSlotsAmountCubit.ivSlotsAmountModel.ivSlotsDataList[widget._indexTextEditingControllerList],
+                  controller: ivSlotsAmountCubit.maxIVSlotsModel.maxIVTextEditingControllersList[_indexTextEditingControllerList],
                   decoration: InputDecoration(
                       isCollapsed: true,
                       alignLabelWithHint: true,
@@ -73,7 +68,7 @@ class _MaxIVSlotsTextFormState extends State<MaxIVSlotsTextForm> {
                         height: 0,
                       ),
                       enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                      helperText: '${ivSlotsAmountCubit.ivSlotsAmountModel.getSlotsLeft(widget._inputWeight)} of ${widget._maxSlots} slots remaining',
+                      helperText: '${ivSlotsAmountCubit.maxIVSlotsModel.calculateMaxIVAmountLeft(_inputWeight)} of ${_maxSlots} slots remaining',
                       focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                       floatingLabelBehavior: FloatingLabelBehavior.never),
                   style: const TextStyle(
@@ -83,17 +78,15 @@ class _MaxIVSlotsTextFormState extends State<MaxIVSlotsTextForm> {
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(widget._maxLength),
-                    ValueLimitInputFormatter(
-                      inputsSum: _textFormsSum(ivSlotsAmountState),
-                      inputWeight: widget._inputWeight,
+                    LengthLimitingTextInputFormatter(_maxLength),
+                    MaxIVValueLimitInputFormatter(
+                      inputsSum: _textFormsSum(maxIVTextEditingControllersState),
+                      inputWeight: _inputWeight,
                     ),
                   ],
                   maxLines: 1,
                   onChanged: (String value) {
-                    ivSlotsAmountCubit
-                    ..ivSlotsSum()
-                    ..updateTextFormValue(widget._indexTextEditingControllerList, value);
+                    ivSlotsAmountCubit.calculateMaxIVSlotsSum();
                   },
                 ),
               ),
@@ -104,9 +97,9 @@ class _MaxIVSlotsTextFormState extends State<MaxIVSlotsTextForm> {
     );
   }
 
-  int _textFormsSum(AIVTextFormsState ivTextFormsState) {
-    if (ivTextFormsState is IVTextFormValueChangedState) {
-      return ivTextFormsState.textFormsSum;
+  int _textFormsSum(AMaxIVSlotsState maxIVTextEditingControllersState) {
+    if (maxIVTextEditingControllersState is MaxIVSlotsSumChangedState) {
+      return maxIVTextEditingControllersState.maxIVSlotsSum;
     }
     return 0;
   }

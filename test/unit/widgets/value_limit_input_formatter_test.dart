@@ -1,15 +1,16 @@
-import 'package:breeder/views/widgets/value_limit_input_formatter.dart';
+import 'package:breeder/views/pages/max_iv_slots/max_iv_value_limit_input_formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('Tests of ValueLimitInputFormatter.formatEditUpdate()', () {
+  group('Tests of MaxIVValueLimitInputFormatter.formatEditUpdate()', () {
     group('Test for [IVS]', () {
       test('Should return [new value] if [old value is empty] and [new value does not exceed the limit]', () {
         const int inputSum = 16;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -20,7 +21,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -36,7 +37,8 @@ void main() {
         const int inputSum = 16;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -48,7 +50,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -65,7 +67,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -77,7 +80,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 2),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -94,7 +97,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -105,7 +109,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -122,7 +126,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -133,7 +138,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -150,7 +155,8 @@ void main() {
         const int inputSum = 16;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -161,7 +167,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -177,7 +183,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -188,7 +195,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -201,7 +208,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 1;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -212,7 +220,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 3),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -225,7 +233,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -236,7 +245,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -252,7 +261,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -264,7 +274,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -281,7 +291,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -293,7 +304,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 2),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -310,7 +321,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -321,7 +333,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -338,7 +350,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -349,7 +362,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -366,7 +379,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -377,7 +391,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -393,7 +407,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -404,7 +419,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -417,7 +432,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 2;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '7',
           selection: TextSelection.collapsed(offset: 1),
@@ -428,7 +444,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 3),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -441,7 +457,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -452,7 +469,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -468,7 +485,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
@@ -480,7 +498,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -497,7 +515,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -508,7 +527,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -525,7 +544,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '4',
           selection: TextSelection.collapsed(offset: 1),
@@ -536,7 +556,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -552,7 +572,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '4',
           selection: TextSelection.collapsed(offset: 1),
@@ -563,7 +584,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -576,7 +597,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 4;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '4',
           selection: TextSelection.collapsed(offset: 1),
@@ -587,7 +609,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 3),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -600,7 +622,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -611,7 +634,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -627,7 +650,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
@@ -639,7 +663,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -656,7 +680,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -667,7 +692,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -684,7 +709,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -695,7 +721,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -711,7 +737,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -722,7 +749,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -735,7 +762,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 8;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '2',
           selection: TextSelection.collapsed(offset: 1),
@@ -746,7 +774,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 3),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -759,7 +787,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '',
           selection: TextSelection.collapsed(offset: 0),
@@ -770,7 +799,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -787,7 +816,8 @@ void main() {
         const int inputSum = 0;
         const int inputWeight = 16;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
 
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
@@ -799,7 +829,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -816,7 +846,8 @@ void main() {
         const int inputSum = 0;
         const int inputWeight = 16;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -827,7 +858,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -844,7 +875,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -855,7 +887,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 1),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -871,7 +903,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -882,7 +915,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 0),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );
@@ -895,7 +928,8 @@ void main() {
         const int inputSum = 12;
         const int inputWeight = 16;
 
-        ValueLimitInputFormatter actualLimitInputFormatter = ValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
+        MaxIVValueLimitInputFormatter actualMaxIVValueLimitInputFormatter =
+        MaxIVValueLimitInputFormatter(inputsSum: inputSum, inputWeight: inputWeight);
         TextEditingValue actualOldTextEditingValue = const TextEditingValue(
           text: '1',
           selection: TextSelection.collapsed(offset: 1),
@@ -906,7 +940,7 @@ void main() {
           selection: TextSelection.collapsed(offset: 3),
         );
 
-        TextEditingValue actualTextEditingValue = actualLimitInputFormatter.formatEditUpdate(
+        TextEditingValue actualTextEditingValue = actualMaxIVValueLimitInputFormatter.formatEditUpdate(
           actualOldTextEditingValue,
           actualNewTextEditingValue,
         );

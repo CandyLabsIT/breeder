@@ -3,9 +3,9 @@ import 'package:breeder/blocks/pages/max_iv_slots_page/a_iv_slots_amount_state.d
 import 'package:breeder/blocks/pages/max_iv_slots_page/iv_slots_amount_cubit.dart';
 import 'package:breeder/blocks/pages/max_iv_slots_page/states/iv_slots_amount_list.dart';
 import 'package:breeder/shared/router/router.gr.dart';
+import 'package:breeder/views/pages/max_iv_slots/max_iv_value_limit_input_formatter.dart';
 import 'package:breeder/views/widgets/buttons/custom_text_button.dart';
 import 'package:breeder/views/widgets/generic/custom_container.dart';
-import 'package:breeder/views/widgets/value_limit_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +47,7 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage>{
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(2),
-                      ValueLimitInputFormatter(
+                      MaxIVValueLimitInputFormatter(
                         inputsSum: _value(ivTextFormsState),
                         inputWeight: 1,
                       ),
