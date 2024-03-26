@@ -15,10 +15,14 @@ Future<void> main() async {
     final MaxIVTextEditingControllersList maxIVTextEditingControllersList = MaxIVTextEditingControllersList();
     final MaxIVSlotsModel maxIVSlotsModel = MaxIVSlotsModel()
       ..maxIVTextEditingControllersList = maxIVTextEditingControllersList.maxIVTextEditingControllersList;
+    MaxIVSlotsCubit actualMaxIVSlotsCubit = globalLocator<MaxIVSlotsCubit>();
+    maxIVTextEditingControllersList.maxIVTextEditingControllersList[0].text = '2';
+    maxIVTextEditingControllersList.maxIVTextEditingControllersList[1].text = '1';
+    maxIVTextEditingControllersList.maxIVTextEditingControllersList[2].text = '1';
+    maxIVTextEditingControllersList.maxIVTextEditingControllersList[3].text = '1';
+    maxIVTextEditingControllersList.maxIVTextEditingControllersList[4].text = '1';
 
     test('Should emit initial state', () async {
-      MaxIVSlotsCubit actualMaxIVSlotsCubit = globalLocator<MaxIVSlotsCubit>();
-
       AMaxIVSlotsState expectMaxIVSlotsState = MaxIVSlotsInitialState();
 
       // ignore: avoid_print
@@ -27,15 +31,12 @@ Future<void> main() async {
       expect(actualMaxIVSlotsCubit.state.runtimeType, expectMaxIVSlotsState.runtimeType);
 
       // ************************************************************************************************
-      maxIVTextEditingControllersList.maxIVTextEditingControllersList[0].text = '2';
-      maxIVTextEditingControllersList.maxIVTextEditingControllersList[1].text = '1';
-      maxIVTextEditingControllersList.maxIVTextEditingControllersList[2].text = '1';
-      maxIVTextEditingControllersList.maxIVTextEditingControllersList[3].text = '1';
-      maxIVTextEditingControllersList.maxIVTextEditingControllersList[4].text = '1';
+    });
 
+    test('Should return MaxIVSlotsAmountChangeState', () async {
       actualMaxIVSlotsCubit.maxIVSlotsAmountList();
 
-      expectMaxIVSlotsState = MaxIVSlotsAmountChangedState(maxIVSlotsAmountList: maxIVSlotsModel.getMaxIVSlotsAmountList());
+      AMaxIVSlotsState expectMaxIVSlotsState = MaxIVSlotsAmountChangedState(maxIVSlotsAmountList: maxIVSlotsModel.getMaxIVSlotsAmountList());
 
       // ignore: avoid_print
       print('Should return MaxIVSlotsAmountChangeState');
@@ -43,10 +44,12 @@ Future<void> main() async {
       expect(actualMaxIVSlotsCubit.state.runtimeType, expectMaxIVSlotsState.runtimeType);
 
       // ************************************************************************************************
+    });
 
+    test('Should return return MaxIVSlotsSumChangedState', () async {
       actualMaxIVSlotsCubit.calculateMaxIVSlotsSum();
 
-      expectMaxIVSlotsState = MaxIVSlotsSumChangedState(maxIVSlotsSum: maxIVSlotsModel.calculateMaxIVSlotsSum());
+      AMaxIVSlotsState expectMaxIVSlotsState = MaxIVSlotsSumChangedState(maxIVSlotsSum: maxIVSlotsModel.calculateMaxIVSlotsSum());
 
       // ignore: avoid_print
       print('Should return MaxIVSlotsSumChangedState');

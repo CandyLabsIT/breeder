@@ -10,10 +10,9 @@ class MaxIVSlotsModel {
     maxIVTextEditingControllersList = ivTextEditingControllers.maxIVTextEditingControllersList;
   }
 
-  List<int> getMaxIVSlotsAmountList() {
-    List<int> maxIVSSlotsAmountList =
-        maxIVTextEditingControllersList.map((TextEditingController textEditingController) => int.tryParse(textEditingController.text) ?? 0).toList();
-    return maxIVSSlotsAmountList;
+  int calculateMaxIVAmountLeft(int inputWeight) {
+    int maxIVSlotsAmountLeft = ((32 - calculateMaxIVSlotsSum()) / inputWeight).truncate();
+    return maxIVSlotsAmountLeft;
   }
 
   int calculateMaxIVSlotsSum() {
@@ -26,8 +25,9 @@ class MaxIVSlotsModel {
     return maxIVSlotsSum;
   }
 
-  int calculateMaxIVAmountLeft(int inputWeight) {
-    int maxIVSlotsAmountLeft = ((32 - calculateMaxIVSlotsSum()) / inputWeight).truncate();
-    return maxIVSlotsAmountLeft;
+  List<int> getMaxIVSlotsAmountList() {
+    List<int> maxIVSSlotsAmountList =
+        maxIVTextEditingControllersList.map((TextEditingController textEditingController) => int.tryParse(textEditingController.text) ?? 0).toList();
+    return maxIVSSlotsAmountList;
   }
 }

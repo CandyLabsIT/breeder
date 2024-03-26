@@ -33,6 +33,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [new value does not exceed the limit]', () {
         const int inputSum = 16;
         const int inputWeight = 1;
@@ -179,6 +180,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is empty]', () {
         const int inputSum = 12;
         const int inputWeight = 2;
@@ -204,6 +206,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is not composed of digits]', () {
         const int inputSum = 12;
         const int inputWeight = 1;
@@ -229,6 +232,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [old value is empty] and [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 2;
@@ -257,6 +261,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 2;
@@ -403,6 +408,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is empty]', () {
         const int inputSum = 12;
         const int inputWeight = 2;
@@ -428,6 +434,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is not composed of digits]', () {
         const int inputSum = 12;
         const int inputWeight = 2;
@@ -453,6 +460,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [old value is empty] and [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 4;
@@ -481,6 +489,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 4;
@@ -568,6 +577,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is empty]', () {
         const int inputSum = 12;
         const int inputWeight = 4;
@@ -593,6 +603,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is not composed of digits]', () {
         const int inputSum = 12;
         const int inputWeight = 4;
@@ -618,6 +629,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [old value is empty] and [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 8;
@@ -646,6 +658,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 8;
@@ -733,7 +746,8 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
-      test('SShould return [an empty field] if [new value is empty]', () {
+
+      test('Should return [an empty field] if [new value is empty]', () {
         const int inputSum = 12;
         const int inputWeight = 8;
 
@@ -758,6 +772,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is not composed of digits]', () {
         const int inputSum = 12;
         const int inputWeight = 8;
@@ -783,6 +798,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [new value] if [old value is empty] and [new value does not exceed the limit]', () {
         const int inputSum = 12;
         const int inputWeight = 16;
@@ -899,6 +915,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is empty]', () {
         const int inputSum = 12;
         const int inputWeight = 16;
@@ -924,6 +941,7 @@ void main() {
 
         expect(actualTextEditingValue, expectedTextEditingValue);
       });
+
       test('Should return [an empty field] if [new value is not composed of digits]', () {
         const int inputSum = 12;
         const int inputWeight = 16;

@@ -7,24 +7,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MaxIVSlotsTextForm extends StatelessWidget {
+  final int _indexTextEditingControllerList;
+  final int _inputWeight;
   final String _ivTextInfo;
   final int _maxLength;
   final int _maxSlots;
-  final int _indexTextEditingControllerList;
-  final int _inputWeight;
 
   const MaxIVSlotsTextForm({
+    required int indexTextEditingControllerList,
+    required int inputWeight,
     required String ivTextInfo,
     required int maxLength,
     required int maxSlots,
-    required int indexTextEditingControllerList,
-    required int inputWeight,
     Key? key,
   })  : _indexTextEditingControllerList = indexTextEditingControllerList,
+        _inputWeight = inputWeight,
         _ivTextInfo = ivTextInfo,
         _maxLength = maxLength,
         _maxSlots = maxSlots,
-        _inputWeight = inputWeight,
         super(key: key);
 
   @override
@@ -80,7 +80,7 @@ class MaxIVSlotsTextForm extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(_maxLength),
                     MaxIVValueLimitInputFormatter(
-                      inputsSum: _textFormsSum(maxIVTextEditingControllersState),
+                      inputsSum: _maxIVSlotsSum(maxIVTextEditingControllersState),
                       inputWeight: _inputWeight,
                     ),
                   ],
@@ -97,9 +97,9 @@ class MaxIVSlotsTextForm extends StatelessWidget {
     );
   }
 
-  int _textFormsSum(AMaxIVSlotsState maxIVTextEditingControllersState) {
-    if (maxIVTextEditingControllersState is MaxIVSlotsSumChangedState) {
-      return maxIVTextEditingControllersState.maxIVSlotsSum;
+  int _maxIVSlotsSum(AMaxIVSlotsState maxIVSlotsState) {
+    if (maxIVSlotsState is MaxIVSlotsSumChangedState) {
+      return maxIVSlotsState.maxIVSlotsSum;
     }
     return 0;
   }

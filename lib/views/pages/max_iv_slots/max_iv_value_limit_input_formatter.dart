@@ -12,12 +12,15 @@ class MaxIVValueLimitInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     int? newInputValue = int.tryParse(newValue.text);
+
     if (newInputValue == null) {
       return TextEditingValue.empty;
     }
+
     newInputValue *= _inputWeight;
     int oldInputValue = (int.tryParse(oldValue.text) ?? 0) * _inputWeight;
     int slotsRemaining = (_maxSlots + oldInputValue) - (_slotsSum + newInputValue);
+
     if (slotsRemaining >= 0) {
       return newValue;
     } else {
