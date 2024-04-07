@@ -1,7 +1,9 @@
+import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  await initLocator();
   runApp(const CoreApp());
 }
 
