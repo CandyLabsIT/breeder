@@ -31,9 +31,7 @@ class MaxIVTextFormWidget extends StatefulWidget {
         super(key: key);
 
   @override
-  State<MaxIVTextFormWidget> createState(){
-    return _MaxIVTextFormWidgetState();
-  }
+  State<StatefulWidget> createState() => _MaxIVTextFormWidgetState();
 }
 
 class _MaxIVTextFormWidgetState extends State<MaxIVTextFormWidget>{
