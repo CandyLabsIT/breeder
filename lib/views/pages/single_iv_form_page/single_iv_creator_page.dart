@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:breeder/blocks/pages/max_iv_form/a_max_iv_form_state.dart';
 import 'package:breeder/blocks/pages/max_iv_form/max_iv_form_cubit.dart';
 import 'package:breeder/blocks/pages/max_iv_form/states/max_iv_form_list_parsed_state.dart';
+import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/pages/max_iv_form_page/max_iv_value_limit_input_formatter.dart';
 import 'package:breeder/views/widgets/buttons/custom_text_button.dart';
@@ -11,18 +12,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SingleIVCreatorPage extends StatefulWidget {
-  const SingleIVCreatorPage({Key? key}) : super(key: key);
+  final MaxIVFormCubit _maxIVFormCubit = globalLocator<MaxIVFormCubit>();
+  
+  SingleIVCreatorPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SingleIVCreatorState();
 }
 
 class _SingleIVCreatorState extends State<SingleIVCreatorPage> {
+
   final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MaxIVFormCubit, AMaxIVFormState>(
+      bloc: widget._maxIVFormCubit,
       builder: (BuildContext context, AMaxIVFormState maxIVFormState) {
         return CustomContainer(
           containerHeight: 450,
@@ -50,8 +55,8 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage> {
                     formsSum: _value(maxIVFormState),
                   ),
                 ],
-                onChanged: (_) {
-                  context.read<MaxIVFormCubit>().getListAmount();
+                onChanged: (String value) {
+                  widget._maxIVFormCubit.getListAmount();
                 },
               ),
             ),
@@ -60,11 +65,13 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage> {
               child: Center(
                 child: Row(
                   children: <Widget>[
-                    const CustomTextButton(
+                     CustomTextButton(
                       buttonText: 'Back',
                       icon: Icons.navigate_before,
                       leftMargin: 25,
-                      // onPressed: () => AutoRouter.of(context).push(const MaxIVSlotsCreatorRoute()),
+                      onPressed: () {
+                        widget._maxIVFormCubit.calculateSum();
+                      },
                     ),
                     CustomTextButton(
                       buttonText: 'Cancel',
@@ -76,6 +83,9 @@ class _SingleIVCreatorState extends State<SingleIVCreatorPage> {
                       buttonText: 'Next',
                       icon: Icons.navigate_next,
                       leftMargin: 25,
+                      // onPressed: (){
+                      //   widget._maxIVFormCubit.calculateSum();
+                      // },
                     ),
                   ],
                 ),

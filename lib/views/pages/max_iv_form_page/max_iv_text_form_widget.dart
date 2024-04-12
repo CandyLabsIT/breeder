@@ -31,15 +31,19 @@ class MaxIVTextFormWidget extends StatefulWidget {
         super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MaxIVTextFormWidgetState();
+  State<MaxIVTextFormWidget> createState(){
+    return _MaxIVTextFormWidgetState();
+  }
 }
 
 class _MaxIVTextFormWidgetState extends State<MaxIVTextFormWidget>{
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MaxIVFormCubit, AMaxIVFormState>(
       bloc: widget._maxIVFormCubit,
       builder: (BuildContext context, AMaxIVFormState maxIVFormState) {
+
         return Row(
           children: <Widget>[
             Column(

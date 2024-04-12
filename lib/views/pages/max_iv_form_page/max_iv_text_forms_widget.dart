@@ -1,14 +1,9 @@
 import 'package:breeder/views/pages/max_iv_form_page/max_iv_text_form_widget.dart';
 import 'package:flutter/material.dart';
 
-class MaxIVTextFormsWidget extends StatefulWidget {
+class MaxIVTextFormsWidget extends StatelessWidget {
   const MaxIVTextFormsWidget({Key? key}) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _MaxIVTextFormsWidget();
-}
-
-class _MaxIVTextFormsWidget extends State<MaxIVTextFormsWidget>{
   @override
   Widget build(BuildContext context) {
     return SizedBox(
