@@ -25,4 +25,27 @@ class SingleIVFormModel {
 
     return formsSum;
   }
+
+  Map<String, int> getIVMap(){
+    List<int> amountList = getAmountList();
+    List<String> ivKeys = <String>['atk', 'hp', 'def', 'speed', 'sp.atk', 'sp.def'];
+
+    Map<String, int> ivMap = <String, int>{};
+
+    for (int i = 0; i < 6; i++){
+      String key = ivKeys[i];
+      int value = amountList[i];
+
+      ivMap[key] = value;
+    }
+    return ivMap;
+
+  }
+
+  List<int> getAmountList() {
+    List<int> amountList = singleIVTextEditingControllersList
+        .map((TextEditingController textEditingController) => int.tryParse(textEditingController.text) ?? 0)
+        .toList();
+    return amountList;
+  }
 }
