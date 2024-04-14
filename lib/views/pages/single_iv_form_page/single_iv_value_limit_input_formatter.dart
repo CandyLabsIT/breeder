@@ -1,4 +1,3 @@
-
 import 'package:flutter/services.dart';
 
 class SingleIVValueLimitInputFormatter extends TextInputFormatter {
@@ -17,7 +16,7 @@ class SingleIVValueLimitInputFormatter extends TextInputFormatter {
       return TextEditingValue.empty;
     }
 
-    int oldInputValue = int.tryParse(oldValue.text) ?? 0 ;
+    int oldInputValue = int.tryParse(oldValue.text) ?? 0;
     int slotsRemaining = (_maxSlots + oldInputValue) - (_formsSum + newInputValue);
 
     if (slotsRemaining >= 0) {

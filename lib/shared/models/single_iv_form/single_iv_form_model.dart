@@ -17,29 +17,26 @@ class SingleIVFormModel {
   }
 
   int calculateSum() {
-    List<int> amountList = singleIVTextEditingControllersList
-        .map((TextEditingController textEditingController) => int.tryParse(textEditingController.text) ?? 0)
-        .toList();
+    List<int> amountList = getAmountList();
 
     int formsSum = amountList.fold(0, (int previousValue, int element) => previousValue + element);
 
     return formsSum;
   }
 
-  Map<String, int> getIVMap(){
+  Map<String, int> getIVMap() {
     List<int> amountList = getAmountList();
     List<String> ivKeys = <String>['atk', 'hp', 'def', 'speed', 'sp.atk', 'sp.def'];
 
     Map<String, int> ivMap = <String, int>{};
 
-    for (int i = 0; i < 6; i++){
+    for (int i = 0; i < 6; i++) {
       String key = ivKeys[i];
       int value = amountList[i];
 
       ivMap[key] = value;
     }
     return ivMap;
-
   }
 
   List<int> getAmountList() {

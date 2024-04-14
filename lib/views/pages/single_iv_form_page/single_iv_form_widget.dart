@@ -1,7 +1,7 @@
-import 'package:breeder/blocks/pages/max_iv_form/a_max_iv_form_state.dart';
-import 'package:breeder/blocks/pages/max_iv_form/max_iv_form_cubit.dart';
-import 'package:breeder/blocks/pages/max_iv_form/states/max_iv_form_list_parsed_state.dart';
-import 'package:breeder/shared/models/single_iv_form/single_iv_form_model.dart';
+import 'package:breeder/blocks/pages/single_iv_form/a_single_iv_form_state.dart';
+import 'package:breeder/blocks/pages/single_iv_form/single_iv_form_cubit.dart';
+import 'package:breeder/blocks/pages/single_iv_form/states/single_iv_form_sum_calulated_state.dart';
+import 'package:breeder/config/locator.dart';
 import 'package:breeder/views/pages/single_iv_form_page/single_iv_value_limit_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +12,7 @@ class SingleIVTextFormWidget extends StatefulWidget {
   final String _ivTextInfo;
   final int _maxLength;
   final int _maxSlots;
-  final SingleIVFormModel _singleIVFormModel = SingleIVFormModel();
-  final MaxIVFormCubit _maxIVFormCubit = MaxIVFormCubit();
+  final SingleIVFormCubit _singleIVFormCubit = globalLocator<SingleIVFormCubit>();
 
   SingleIVTextFormWidget({
     required int indexTextEditingControllerList,
@@ -36,9 +35,9 @@ class SingleIVTextFormWidget extends StatefulWidget {
 class _SingleIVTextFormWidget extends State<SingleIVTextFormWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MaxIVFormCubit, AMaxIVFormState>(
-      bloc: widget._maxIVFormCubit,
-      builder: (BuildContext context, AMaxIVFormState maxIVFormState) {
+    return BlocBuilder<SingleIVFormCubit, ASingleIVFormState>(
+      bloc: widget._singleIVFormCubit,
+      builder: (BuildContext context, ASingleIVFormState singleIVFormState) {
         return Row(
           children: <Widget>[
             Column(
@@ -74,7 +73,7 @@ class _SingleIVTextFormWidget extends State<SingleIVTextFormWidget> {
                         height: 0,
                       ),
                       enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-                      helperText: '${_calculateSingleIVAmountLeft(_getSingleIVValue(maxIVFormState))} of ${widget._maxSlots} slots remaining',
+                      helperText: '${_calculateSingleIVAmountLeft(widget._maxSlots)} of ${widget._maxSlots} slots remaining',
                       focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.black)),
                       floatingLabelBehavior: FloatingLabelBehavior.never),
                   style: const TextStyle(
@@ -86,13 +85,13 @@ class _SingleIVTextFormWidget extends State<SingleIVTextFormWidget> {
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(widget._maxLength),
                     SingleIVValueLimitInputFormatter(
-                      formsSum: widget._singleIVFormModel.calculateSum(),
-                      maxSlots: _getSingleIVValue(maxIVFormState),
+                      formsSum: _getSingleIVFormSum(singleIVFormState),
+                      maxSlots: widget._maxSlots,
                     ),
                   ],
                   maxLines: 1,
                   onChanged: (String value) {
-                    widget._maxIVFormCubit.getListAmount();
+                    widget._singleIVFormCubit.calculateSum();
                   },
                 ),
               ),
@@ -103,20 +102,18 @@ class _SingleIVTextFormWidget extends State<SingleIVTextFormWidget> {
     );
   }
 
-  // TODO(balladyna): After the MaxIVSlotsChangedState is called, the state remains unchanged thereafter, which can lead to problems in the future. Consider rewriting both the cubit and view.
-
-  int _getSingleIVValue(AMaxIVFormState maxIVFormState) {
-    if (maxIVFormState is MaxIVFormListParsedState) {
-      return maxIVFormState.maxIVList[0];
+  int _getSingleIVFormSum(ASingleIVFormState singleIVFormState) {
+    if (singleIVFormState is SingleIVFormSumCalculatedState) {
+      return singleIVFormState.singleIVFormSum;
     }
     return 0;
   }
 
   int _calculateSingleIVAmountLeft(int inputWeight) {
-    return widget._singleIVFormModel.calculateAmountLeft(inputWeight);
+    return widget._singleIVFormCubit.singleIVFormModel.calculateAmountLeft(inputWeight);
   }
 
   TextEditingController _getTextEditingController(int indexTextEditingControllerList) {
-    return widget._singleIVFormModel.singleIVTextEditingControllersList[indexTextEditingControllerList];
+    return widget._singleIVFormCubit.singleIVFormModel.singleIVTextEditingControllersList[indexTextEditingControllerList];
   }
 }
