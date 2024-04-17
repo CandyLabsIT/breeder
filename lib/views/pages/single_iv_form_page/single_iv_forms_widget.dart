@@ -20,7 +20,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 40),
+                  margin: const EdgeInsets.only(top: 20, bottom: 25),
                   child: SingleIVTextFormWidget(
                     indexTextEditingControllerList: 0,
                     ivTextInfo: 'HP',
@@ -29,7 +29,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 40),
+                  margin: const EdgeInsets.only(bottom: 25),
                   child: SingleIVTextFormWidget(
                     indexTextEditingControllerList: 1,
                     ivTextInfo: 'Atk',
@@ -38,7 +38,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 40),
+                  margin: const EdgeInsets.only(bottom: 25),
                   child: SingleIVTextFormWidget(
                     indexTextEditingControllerList: 2,
                     ivTextInfo: 'Def',
@@ -47,7 +47,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 40),
+                  margin: const EdgeInsets.only(bottom: 25),
                   child: SingleIVTextFormWidget(
                     indexTextEditingControllerList: 3,
                     ivTextInfo: 'Speed',
@@ -56,7 +56,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 40),
+                  margin: const EdgeInsets.only(bottom: 25),
                   child: SingleIVTextFormWidget(
                     indexTextEditingControllerList: 4,
                     ivTextInfo: 'Sp.Atk',

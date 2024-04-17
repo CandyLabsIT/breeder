@@ -9,7 +9,6 @@ import 'package:breeder/views/widgets/generic/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// @RoutePage()
 class MaxIVFormPage extends StatefulWidget {
   final MaxIVFormCubit _maxIVFormCubit = globalLocator<MaxIVFormCubit>();
 

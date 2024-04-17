@@ -6,5 +6,5 @@ class SingleIVFormSumCalculatedState extends ASingleIVFormState {
   const SingleIVFormSumCalculatedState({required this.singleIVFormSum});
 
   @override
-  List<Object> get props => <Object>[singleIVFormSum];
+  List<int> get props => <int>[singleIVFormSum];
 }

@@ -46,9 +46,10 @@ class _SingleIVTextFormWidget extends State<SingleIVTextFormWidget> {
                   alignment: Alignment.topLeft,
                   child: SizedBox(
                     height: 44,
-                    width: 80,
+                    width: 50,
                     child: Text(
                       widget._ivTextInfo,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,

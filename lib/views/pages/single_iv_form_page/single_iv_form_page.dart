@@ -27,7 +27,7 @@ class _SingleIVFormState extends State<SingleIVFormPage> {
       bloc: widget._maxIVFormCubit,
       builder: (BuildContext context, AMaxIVFormState maxIVFormState) {
         return CustomContainer(
-          containerHeight: 850,
+          containerHeight: 720,
           containerWidth: 350,
           columnItems: <Widget>[
             Container(
