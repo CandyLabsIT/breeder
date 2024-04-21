@@ -12,6 +12,8 @@ class SingleIVTextFormsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int singleIVAmount = maxIVFormCubit.maxIVFormModel.getAmountList()[0];
+
     return BlocBuilder<MaxIVFormCubit, AMaxIVFormState>(
         bloc: maxIVFormCubit,
         builder: (BuildContext context, AMaxIVFormState maxIVFormState) {
@@ -25,7 +27,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                     indexTextEditingControllerList: 0,
                     ivTextInfo: 'HP',
                     maxLength: getLength(),
-                    maxSlots: maxIVFormCubit.maxIVFormModel.getAmountList()[0],
+                    maxSlots: singleIVAmount,
                   ),
                 ),
                 Container(
@@ -34,7 +36,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                     indexTextEditingControllerList: 1,
                     ivTextInfo: 'Atk',
                     maxLength: getLength(),
-                    maxSlots: maxIVFormCubit.maxIVFormModel.getAmountList()[0],
+                    maxSlots: singleIVAmount,
                   ),
                 ),
                 Container(
@@ -43,7 +45,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                     indexTextEditingControllerList: 2,
                     ivTextInfo: 'Def',
                     maxLength: getLength(),
-                    maxSlots: maxIVFormCubit.maxIVFormModel.getAmountList()[0],
+                    maxSlots: singleIVAmount,
                   ),
                 ),
                 Container(
@@ -52,7 +54,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                     indexTextEditingControllerList: 3,
                     ivTextInfo: 'Speed',
                     maxLength: getLength(),
-                    maxSlots: maxIVFormCubit.maxIVFormModel.getAmountList()[0],
+                    maxSlots: singleIVAmount,
                   ),
                 ),
                 Container(
@@ -61,7 +63,7 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                     indexTextEditingControllerList: 4,
                     ivTextInfo: 'Sp.Atk',
                     maxLength: getLength(),
-                    maxSlots: maxIVFormCubit.maxIVFormModel.getAmountList()[0],
+                    maxSlots: singleIVAmount,
                   ),
                 ),
                 Container(
@@ -70,14 +72,13 @@ class SingleIVTextFormsWidget extends StatelessWidget {
                     indexTextEditingControllerList: 5,
                     ivTextInfo: 'Sp.Def',
                     maxLength: getLength(),
-                    maxSlots: maxIVFormCubit.maxIVFormModel.getAmountList()[0],
+                    maxSlots: singleIVAmount,
                   ),
                 )
               ],
             ),
           );
-        }
-    );
+        });
   }
 
   int getLength() {
