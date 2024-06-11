@@ -90,9 +90,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
       _firstGenCubit.firstGenModel.firstGenMap[fatherFirstGenIndex]!.ivColorList[0]
     ];
 
-    bool isAutoFilledBool = secondGenModel.secondGenMap[secondGenIndex]!.isAutoFilledBool;
-
-    if (parentsList.contains(IVColor.defaultColor) || isAutoFilledBool) {
+    if (parentsList.contains(IVColor.defaultColor)) {
       secondGenModel.setDefaultValues(secondGenIndex);
     } else {
       secondGenModel.inheritIVFromParents(secondGenIndex, parentsList);

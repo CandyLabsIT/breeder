@@ -37,18 +37,15 @@ class FirstGenCubit extends Cubit<AFirstGenState> {
   }
 
   void setIVStateIndexOne() {
-    Map<IVColor, bool> ivButtonsMap = Map<IVColor, bool>.from(_ivButtonsModel.ivButtonsMap);
-    List<IVColor> currentIVColorList = firstGenModel.firstGenMap[FirstGenIndex.one]!.ivColorList;
+    Map<IVColor, bool> ivButtonsMap = _initializeIVButtonsMap();
     if (firstGenModel.hasNonDefaultIVColor(FirstGenIndex.one)) {
-      for (IVColor key in ivButtonsMap.keys) {
-        ivButtonsMap[key] = currentIVColorList.contains(key);
-      }
+      ivButtonsMap = _getSingledUnblockedIVButtonMap(FirstGenIndex.one);
     }
     emit(FirstGenIVButtonsState(ivButtonMap: ivButtonsMap));
   }
 
   void setIVStateIndexTwo() {
-    Map<IVColor, bool> ivButtonsMap = _updateMapFromPreviousMonster(FirstGenIndex.one);
+    Map<IVColor, bool> ivButtonsMap = _getSingleBlockedIVButtonMap(FirstGenIndex.one);
     List<IVColor> currentIVColorList = firstGenModel.firstGenMap[FirstGenIndex.two]!.ivColorList;
     if (firstGenModel.hasNonDefaultIVColor(FirstGenIndex.two)) {
       for (IVColor key in ivButtonsMap.keys) {
@@ -58,11 +55,44 @@ class FirstGenCubit extends Cubit<AFirstGenState> {
     emit(FirstGenIVButtonsState(ivButtonMap: ivButtonsMap));
   }
 
+  void setIVStateIndexThree() {
+    Map<IVColor, bool> ivButtonsMap = _initializeIVButtonsMap();
+    if (firstGenModel.hasNonDefaultIVColor(FirstGenIndex.three)) {
+      ivButtonsMap = _getSingledUnblockedIVButtonMap(FirstGenIndex.three);
+    }
+    emit(FirstGenIVButtonsState(ivButtonMap: ivButtonsMap));
+  }
+
+  void setIVStateIndexFour() {
+    Map<IVColor, bool> ivButtonsMap = _initializeIVButtonsMap();
+
+    if (firstGenModel.hasNonDefaultIVColor(FirstGenIndex.four)) {
+      ivButtonsMap = _getSingledUnblockedIVButtonMap(FirstGenIndex.four);
+    } else {
+      Map<FirstGenIndex, List<IVColor>> ivColorMap = _getIVColorMap();
+
+      bool previousIVColorBool = _hasPreviousIVColor(FirstGenIndex.three);
+
+      if (previousIVColorBool) {
+        for (IVColor key in ivButtonsMap.keys) {
+          ivButtonsMap[key] = !ivColorMap.values.any((List<IVColor> ivColorList) => ivColorList.contains(key));
+        }
+      } else {
+        for (IVColor key in ivButtonsMap.keys) {
+          ivButtonsMap[key] = ivColorMap.entries
+              .where((MapEntry<FirstGenIndex, List<IVColor>> entry) => entry.key.value < FirstGenIndex.three.value)
+              .any((MapEntry<FirstGenIndex, List<IVColor>> entry) => entry.value.contains(key));
+        }
+      }
+    }
+    emit(FirstGenIVButtonsState(ivButtonMap: ivButtonsMap));
+  }
+
   Map<IVColor, bool> getIVButtonsState() {
     if (state is FirstGenIVButtonsState) {
       return (state as FirstGenIVButtonsState).ivButtonMap;
     } else {
-      return _initializeIVButtons();
+      return _initializeIVButtonsMap();
     }
   }
 
@@ -100,7 +130,7 @@ class FirstGenCubit extends Cubit<AFirstGenState> {
   bool _isMonsterEnabled(FirstGenIndex firstGenIndex) {
     if (firstGenIndex.value == 1) {
       return true;
-    } else if (firstGenIndex.value > 2) {
+    } else if (firstGenIndex.value > 4) {
       return false;
     }
 
@@ -111,13 +141,13 @@ class FirstGenCubit extends Cubit<AFirstGenState> {
     return firstGenModel.hasNonDefaultIVColor(previousIndex);
   }
 
-  Map<IVColor, bool> _updateMapFromPreviousMonster(FirstGenIndex firstGenIndex) {
-    Map<IVColor, bool> ivButtonsMap = Map<IVColor, bool>.from(_ivButtonsModel.ivButtonsMap);
-    List<IVColor> previousMonsterIVList = firstGenModel.firstGenMap[firstGenIndex]!.ivColorList;
-    for (IVColor key in ivButtonsMap.keys) {
-      ivButtonsMap[key] = !previousMonsterIVList.contains(key);
-    }
-    return ivButtonsMap;
+  bool _hasPreviousIVColor(FirstGenIndex firstGenIndex) {
+    Map<FirstGenIndex, List<IVColor>> ivColorMap = _getIVColorMap();
+    List<IVColor> femaleIVColorList = ivColorMap[firstGenIndex]!;
+    bool hasIVColorBool = ivColorMap.entries
+        .where((MapEntry<FirstGenIndex, List<IVColor>> entry) => entry.key.value < firstGenIndex.value)
+        .any((MapEntry<FirstGenIndex, List<IVColor>> entry) => entry.value.contains(femaleIVColorList[0]));
+    return hasIVColorBool;
   }
 
   Map<FirstGenIndex, List<IVColor>> _getIVColorMap() {
@@ -126,7 +156,25 @@ class FirstGenCubit extends Cubit<AFirstGenState> {
     return ivColorMap;
   }
 
-  Map<IVColor, bool> _initializeIVButtons() {
+  Map<IVColor, bool> _getSingleBlockedIVButtonMap(FirstGenIndex firstGenIndex) {
+    Map<IVColor, bool> ivButtonsMap = Map<IVColor, bool>.from(_ivButtonsModel.ivButtonsMap);
+    List<IVColor> previousMonsterIVList = firstGenModel.firstGenMap[firstGenIndex]!.ivColorList;
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = !previousMonsterIVList.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> _getSingledUnblockedIVButtonMap(FirstGenIndex firstGenIndex) {
+    Map<IVColor, bool> ivButtonsMap = Map<IVColor, bool>.from(_ivButtonsModel.ivButtonsMap);
+    List<IVColor> currentIVColorList = firstGenModel.firstGenMap[firstGenIndex]!.ivColorList;
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = currentIVColorList.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> _initializeIVButtonsMap() {
     Map<IVColor, bool> ivButtonMap = Map<IVColor, bool>.from(_ivButtonsModel.ivButtonsMap);
     return ivButtonMap;
   }
