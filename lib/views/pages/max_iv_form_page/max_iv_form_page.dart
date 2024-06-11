@@ -13,54 +13,65 @@ class MaxIVFormPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double containerWidth = screenSize.width * 0.8;
+    final double containerHeight = screenSize.height * 0.75;
+
     return BlocProvider<MaxIVFormCubit>(
       create: (_) => MaxIVFormCubit(),
-      child: Scaffold(
-        body: Center(
-          child: SingleChildScrollView(
-            child: CustomContainer(
-              containerWidth: 350,
-              containerHeight: 650,
-              columnItems: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 25),
-                  child: const Text(
-                    'Enter the quantity of monsters with maximum IVs',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
+      child: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) {
+          AutoRouter.of(context).push(const NewBreedingRoute());
+        },
+        child: Scaffold(
+          body: Center(
+            child: SingleChildScrollView(
+              child: CustomContainer(
+                containerWidth: containerWidth,
+                containerHeight: containerHeight,
+                columnItems: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(top: 10, left: 30, right: 30),
+                    child: const Text(
+                      'Enter the quantity of monsters with maximum IVs',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
-                ),
-                const MaxIVTextFormsWidget(),
-                SizedBox(
-                  width: 300,
-                  child: Center(
-                    child: Row(
-                      children: <Widget>[
-                        CustomTextButton(
-                          buttonText: 'Back',
-                          icon: Icons.navigate_before,
-                          leftMargin: 25,
-                          onPressed: () => AutoRouter.of(context).push(const NewBreedingRoute()),
-                        ),
-                        CustomTextButton(
-                          buttonText: 'Cancel',
-                          icon: Icons.cancel,
-                          leftMargin: 25,
-                          onPressed: () => AutoRouter.of(context).push(const MainMenuRoute()),
-                        ),
-                        const CustomTextButton(
-                          buttonText: 'Next',
-                          icon: Icons.navigate_next,
-                          leftMargin: 25,
-                        ),
-                      ],
+                  const MaxIVTextFormsWidget(),
+                  SizedBox(
+                    width: containerWidth,
+                    child: Center(
+                      child: Row(
+                        children: <Widget>[
+                          CustomTextButton(
+                            buttonText: 'Back',
+                            icon: Icons.navigate_before,
+                            leftMargin: 25,
+                            onPressed: () => AutoRouter.of(context).push(const NewBreedingRoute()),
+                          ),
+                          CustomTextButton(
+                            buttonText: 'Cancel',
+                            icon: Icons.cancel,
+                            leftMargin: 25,
+                            onPressed: () => AutoRouter.of(context).push(const MainMenuRoute()),
+                          ),
+                          CustomTextButton(
+                            buttonText: 'Next',
+                            icon: Icons.navigate_next,
+                            leftMargin: 25,
+                            onPressed: () => AutoRouter.of(context).push(const GenealogicalTreeRoute()),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

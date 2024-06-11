@@ -42,7 +42,7 @@ class MaxIVTextFormWidget extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: SizedBox(
                     height: 44,
-                    width: 40,
+                    width: 50,
                     child: Text(
                       _ivTextInfo,
                       style: const TextStyle(
