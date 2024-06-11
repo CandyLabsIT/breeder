@@ -33,6 +33,12 @@ dependencies:
   # https://pub.dev/packages/get_it
   get_it: ^7.6.4
 
+  # A sliding up panel widget which can be used to show or hide content, beautiful and simple.
+  # https://pub.dev/packages/flutter_sliding_up_panel
+  sliding_up_panel: ^2.0.0+1
+
+  collection: ^1.16.0
+
   flutter:
     sdk: flutter
 

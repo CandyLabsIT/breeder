@@ -51,10 +51,11 @@ class MaxIVFormPage extends StatelessWidget {
                           leftMargin: 25,
                           onPressed: () => AutoRouter.of(context).push(const MainMenuRoute()),
                         ),
-                        const CustomTextButton(
+                        CustomTextButton(
                           buttonText: 'Next',
                           icon: Icons.navigate_next,
                           leftMargin: 25,
+                          onPressed: () => AutoRouter.of(context).push(const SecondGenerationWidget()),
                         ),
                       ],
                     ),
