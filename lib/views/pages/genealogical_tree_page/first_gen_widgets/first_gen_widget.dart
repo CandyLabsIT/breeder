@@ -28,8 +28,8 @@ class _FirstGenWidgetState extends State<FirstGenWidget> {
     final Map<FirstGenIndex, VoidCallback> buttonMethods = <FirstGenIndex, VoidCallback>{
       FirstGenIndex.one: firstGenCubit.setIVStateIndexOne,
       FirstGenIndex.two: firstGenCubit.setIVStateIndexTwo,
-      FirstGenIndex.three: () {},
-      FirstGenIndex.four: () {},
+      FirstGenIndex.three: firstGenCubit.setIVStateIndexThree,
+      FirstGenIndex.four: firstGenCubit.setIVStateIndexFour,
       FirstGenIndex.five: () {},
       FirstGenIndex.six: () {},
       FirstGenIndex.seven: () {},
