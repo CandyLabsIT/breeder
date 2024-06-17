@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:breeder/blocks/pages/second_generation/a_second_generation_cubit.dart';
+import 'package:breeder/blocks/pages/second_generation/a_second_generation_state.dart';
 
 class RestartedMaleValuesState extends ASecondGenerationState {
   final List<Color> valuesList;

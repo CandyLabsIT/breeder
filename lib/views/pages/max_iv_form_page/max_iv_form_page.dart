@@ -7,7 +7,7 @@ import 'package:breeder/views/widgets/generic/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-@RoutePage()
+// @RoutePage()
 class MaxIVFormPage extends StatelessWidget {
   const MaxIVFormPage({Key? key}) : super(key: key);
 

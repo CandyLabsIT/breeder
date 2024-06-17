@@ -17,7 +17,7 @@ class AttributeValueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 40.0, left: 30, right: 30),
+      margin: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
       child: GestureDetector(
         child: ElevatedButton(
           onPressed: isEnabled ? onPressed : null,

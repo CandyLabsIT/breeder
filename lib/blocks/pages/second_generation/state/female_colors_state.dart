@@ -1,4 +1,4 @@
-import 'package:breeder/blocks/pages/second_generation/a_second_generation_cubit.dart';
+import 'package:breeder/blocks/pages/second_generation/a_second_generation_state.dart';
 import 'package:flutter/animation.dart';
 
 class FemaleColorsState extends ASecondGenerationState {

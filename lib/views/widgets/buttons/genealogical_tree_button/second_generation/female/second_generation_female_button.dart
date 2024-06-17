@@ -20,42 +20,34 @@ class SecondGenerationFemaleButton extends StatelessWidget {
       width: 250,
       child: Row(
         children: <Widget>[
-          _buildButton(),
-          _buildCustomPaint(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildButton() {
-    return SizedBox(
-      height: 65,
-      width: 100,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: onPressed,
-            child: Row(
-              children: <Widget>[
-                Expanded(child: Container(color: leftColor)),
-                Expanded(child: Container(color: rightColor)),
-              ],
+          SizedBox(
+            height: 65,
+            width: 100,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onPressed,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(child: Container(color: leftColor)),
+                      Expanded(child: Container(color: rightColor)),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCustomPaint() {
-    return SizedBox(
-      height: 400,
-      width: 150,
-      child: CustomPaint(
-        size: const Size(400, 400),
-        painter: FemaleBranchLinePainter(),
+          SizedBox(
+            height: 400,
+            width: 150,
+            child: CustomPaint(
+              size: const Size(400, 400),
+              painter: FemaleBranchLinePainter(),
+            ),
+          ),
+        ],
       ),
     );
   }
