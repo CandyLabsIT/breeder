@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-abstract class ASecondGenerationState extends Equatable {
-  const ASecondGenerationState();
+abstract class AThirdGenerationState extends Equatable {
+  const AThirdGenerationState();
 
   @override
   List<Object> get props => <Object>[];
-
 }

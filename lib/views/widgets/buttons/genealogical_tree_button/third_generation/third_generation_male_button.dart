@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class SecondGenerationMaleButton extends StatelessWidget {
+class ThirdGenerationMaleButton extends StatelessWidget {
   final Color leftColor;
   final Color middleColor;
   final Color rightColor;
   final VoidCallback onPressed;
 
-  const SecondGenerationMaleButton({
+  const ThirdGenerationMaleButton({
     required this.leftColor,
     required this.middleColor,
     required this.rightColor,
