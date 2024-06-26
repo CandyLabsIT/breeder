@@ -7,6 +7,7 @@ import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_ge
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_male_button.dart';
 import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
+import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_female_sliding_panel.dart';
 import 'package:breeder/views/widgets/second_generation_widget/second_generation_sliding_panel/second_generation_female_sliding_panel.dart';
 import 'package:breeder/views/widgets/second_generation_widget/second_generation_sliding_panel/second_generation_male_sliding_panel.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
               children: <Widget>[
                 SlidingPanelWidget(
                   controller: _femalePanelController,
-                  panel: const SecondGenerationFemaleSlidingPanel(),
+                  panel: const ThirdGenerationFemaleSlidingPanel(listIndex: 0),
                   onTap: () => _closePanelIfOpen(_femalePanelController),
                   bodyContent: SizedBox(
                     width: double.infinity,
@@ -100,12 +101,14 @@ class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
                         children: <Widget>[
                           ThirdGenerationFemaleButton(
                             leftColor: femaleColorsOne[0],
-                            rightColor: femaleColorsOne[1],
-                            onPressed: () => _togglePanel(_femalePanelController, _malePanelController), middleColor: null,
+                            middleColor: femaleColorsOne[1],
+                            rightColor: femaleColorsOne[2],
+                            onPressed: () => _togglePanel(_femalePanelController, _malePanelController),
                           ),
-                          SecondGenerationMaleButton(
-                            leftColor: maleColors[0],
-                            rightColor: maleColors[1],
+                          ThirdGenerationMaleButton(
+                            leftColor: maleColorsOne[0],
+                            middleColor: femaleColorsOne[1],
+                            rightColor: maleColorsOne[2],
                             onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
                           ),
                         ],
