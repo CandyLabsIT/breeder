@@ -75,9 +75,9 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
       return (state as RestartedThirdGenerationFemaleValuesState).valuesList;
     }
     return <Color>[
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][1][0]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][1][1]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][1][2]).color,
+      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][0][0]).color,
+      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][0][1]).color,
+      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][0][2]).color,
     ];
   }
 

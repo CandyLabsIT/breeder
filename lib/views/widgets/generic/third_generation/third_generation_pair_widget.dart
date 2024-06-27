@@ -1,28 +1,28 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.dart';
 import 'package:breeder/blocks/pages/third_generation/third_generation_cubit.dart';
 import 'package:breeder/config/locator.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/female/second_generation_female_button.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/male/second_generation_male_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_male_button.dart';
 import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
 import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_female_sliding_panel.dart';
-import 'package:breeder/views/widgets/second_generation_widget/second_generation_sliding_panel/second_generation_female_sliding_panel.dart';
-import 'package:breeder/views/widgets/second_generation_widget/second_generation_sliding_panel/second_generation_male_sliding_panel.dart';
+import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_male_sliding_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-@RoutePage()
-class ThirdGenerationWidget extends StatefulWidget {
-  const ThirdGenerationWidget({super.key});
+class ThirdGenerationPairWidget extends StatefulWidget {
+  final int listIndex;
+
+  const ThirdGenerationPairWidget({
+    required this.listIndex,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _ThirdGenerationWidgetState createState() => _ThirdGenerationWidgetState();
+  _ThirdGenerationPairWidgetState createState() => _ThirdGenerationPairWidgetState();
 }
 
-class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
+class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
   final ThirdGenerationCubit thirdGenerationCubit = globalLocator<ThirdGenerationCubit>();
 
   late PanelController _femalePanelController;
@@ -57,19 +57,18 @@ class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
       child: BlocBuilder<ThirdGenerationCubit, AThirdGenerationState>(
         bloc: thirdGenerationCubit,
         builder: (BuildContext context, AThirdGenerationState state) {
-          final List<Color> femaleColorsZero = thirdGenerationCubit.getFemaleButtonColors(0);
-          final List<Color> maleColorsZero = thirdGenerationCubit.getMaleButtonColors(0);
-          final List<Color> femaleColorsOne = thirdGenerationCubit.getFemaleButtonColors(1);
-          final List<Color> maleColorsOne = thirdGenerationCubit.getMaleButtonColors(1);
-          return Scaffold(
-            body: Stack(
-              children: <Widget>[
-                SlidingPanelWidget(
-                  controller: _femalePanelController,
-                  panel: const ThirdGenerationFemaleSlidingPanel(listIndex: 0),
-                  onTap: () => _closePanelIfOpen(_femalePanelController),
-                  bodyContent: SizedBox(
-                    width: double.infinity,
+          final List<Color> femaleColorsZero = thirdGenerationCubit.getFemaleButtonColors(widget.listIndex);
+          final List<Color> maleColorsZero = thirdGenerationCubit.getMaleButtonColors(widget.listIndex);
+
+          return Stack(
+            children: <Widget>[
+              SlidingPanelWidget(
+                controller: _femalePanelController,
+                panel: ThirdGenerationFemaleSlidingPanel(listIndex: widget.listIndex),
+                onTap: () => _closePanelIfOpen(_femalePanelController),
+                bodyContent: SizedBox(
+                  width: double.infinity,
+                  child: SingleChildScrollView(
                     child: Center(
                       child: Column(
                         children: <Widget>[
@@ -82,7 +81,7 @@ class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
                           ThirdGenerationMaleButton(
                             leftColor: maleColorsZero[0],
                             middleColor: maleColorsZero[1],
-                            rightColor: maleColorsZero[1],
+                            rightColor: maleColorsZero[2],
                             onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
                           ),
                         ],
@@ -90,25 +89,27 @@ class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
                     ),
                   ),
                 ),
-                SlidingPanelWidget(
-                  controller: _malePanelController,
-                  panel: const SecondGenerationMaleSlidingPanel(),
-                  onTap: () => _closePanelIfOpen(_malePanelController),
-                  bodyContent: SizedBox(
-                    width: double.infinity,
+              ),
+              SlidingPanelWidget(
+                controller: _malePanelController,
+                panel: ThirdGenerationMaleSlidingPanel(listIndex: widget.listIndex),
+                onTap: () => _closePanelIfOpen(_malePanelController),
+                bodyContent: SizedBox(
+                  width: double.infinity,
+                  child: SingleChildScrollView(
                     child: Center(
                       child: Column(
                         children: <Widget>[
                           ThirdGenerationFemaleButton(
-                            leftColor: femaleColorsOne[0],
-                            middleColor: femaleColorsOne[1],
-                            rightColor: femaleColorsOne[2],
+                            leftColor: femaleColorsZero[0],
+                            middleColor: femaleColorsZero[1],
+                            rightColor: femaleColorsZero[2],
                             onPressed: () => _togglePanel(_femalePanelController, _malePanelController),
                           ),
                           ThirdGenerationMaleButton(
-                            leftColor: maleColorsOne[0],
-                            middleColor: femaleColorsOne[1],
-                            rightColor: maleColorsOne[2],
+                            leftColor: maleColorsZero[0],
+                            middleColor: maleColorsZero[1],
+                            rightColor: maleColorsZero[2],
                             onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
                           ),
                         ],
@@ -116,8 +117,8 @@ class _ThirdGenerationWidgetState extends State<ThirdGenerationWidget> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),

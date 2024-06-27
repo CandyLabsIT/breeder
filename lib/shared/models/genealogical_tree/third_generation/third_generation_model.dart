@@ -7,9 +7,11 @@ class ThirdGenerationModel {
     for (int i = 0; i < 3; i++) {
       if (ivList[i] == value) {
         ivList[i] = 0;
+        break;
       }
       if (ivList[i] == 0) {
         ivList[i] = value;
+        break;
       }
     }
   }

@@ -7,18 +7,18 @@ import 'package:breeder/views/widgets/generic/genealogical_tree/close_panel_widg
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ThirdGenerationFemaleSlidingPanel extends StatefulWidget {
+class ThirdGenerationMaleSlidingPanel extends StatefulWidget {
   final int listIndex;
 
-  const ThirdGenerationFemaleSlidingPanel({
+  const ThirdGenerationMaleSlidingPanel({
     required this.listIndex,
     Key? key,}) : super(key: key) ;
 
   @override
-  State<ThirdGenerationFemaleSlidingPanel> createState() => _ThirdGenerationFemaleSlidingPanelState();
+  State<ThirdGenerationMaleSlidingPanel> createState() => _ThirdGenerationMaleSlidingPanelState();
 }
 
-class _ThirdGenerationFemaleSlidingPanelState extends State<ThirdGenerationFemaleSlidingPanel> {
+class _ThirdGenerationMaleSlidingPanelState extends State<ThirdGenerationMaleSlidingPanel> {
   final ThirdGenerationCubit thirdGenerationCubit = globalLocator<ThirdGenerationCubit>();
 
   @override
