@@ -20,13 +20,9 @@ class ThirdGenerationPage extends StatelessWidget {
           bloc: thirdGenerationCubit,
           builder: (BuildContext context, AThirdGenerationState state) {
             return const Scaffold(
-              body: Column(
-                children: <Widget>[
-                  ThirdGenerationPairWidget(listIndex: 0),
-                  ThirdGenerationPairWidget(listIndex: 1),
-                ],
-              ),
-            );
+              body:
+                    ThirdGenerationPairWidget(listIndex: 0)
+              );
           }),
     );
   }
