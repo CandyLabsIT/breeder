@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:breeder/blocks/pages/second_generation/a_second_generation_state.dart';
 import 'package:breeder/blocks/pages/second_generation/second_generation_cubit.dart';
 import 'package:breeder/config/locator.dart';
+import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/female/second_generation_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/male/second_generation_male_button.dart';
 import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
@@ -47,6 +48,16 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
     }
   }
 
+  void _onWillPop(bool didPop) {
+    if (_femalePanelController.isPanelOpen) {
+      _femalePanelController.close();
+    } else if (_malePanelController.isPanelOpen) {
+      _malePanelController.close();
+    } else {
+      AutoRouter.of(context).push(const NewBreedingRoute());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<SecondGenerationCubit>(
@@ -56,17 +67,29 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
         builder: (BuildContext context, ASecondGenerationState state) {
           final List<Color> femaleColors = secondGenerationCubit.getFemaleButtonColors();
           final List<Color> maleColors = secondGenerationCubit.getMaleButtonColors();
-          return Scaffold(
-            body: Stack(
-              children: <Widget>[
-            SlidingPanelWidget(
-                  controller: _femalePanelController,
-                  panel: const SecondGenerationFemaleSlidingPanel(),
-                  onTap: () => _closePanelIfOpen(_femalePanelController),
-                  bodyContent: SizedBox(
-                    width: double.infinity,
-                    child: Center(
+          return PopScope(
+            canPop: false,
+            onPopInvoked: _onWillPop,
+            child: Scaffold(
+              body: Stack(
+                children: <Widget>[
+                  SlidingPanelWidget(
+                    controller: _femalePanelController,
+                    panel: const SecondGenerationFemaleSlidingPanel(),
+                    onTap: () {},
+                    bodyContent: Container(),
+                  ),
+                  SlidingPanelWidget(
+                    controller: _malePanelController,
+                    panel: const SecondGenerationMaleSlidingPanel(),
+                    onTap: () {},
+                    bodyContent: Container(),
+                  ),
+                  SafeArea(
+                    child: Align(
+                      alignment: Alignment.topCenter,
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           SecondGenerationFemaleButton(
                             leftColor: femaleColors[0],
@@ -77,37 +100,13 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                             leftColor: maleColors[0],
                             rightColor: maleColors[1],
                             onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
-                          ),
+                          )
                         ],
                       ),
                     ),
-                  ),
-                ),
-                SlidingPanelWidget(
-                  controller: _malePanelController,
-                  panel: const SecondGenerationMaleSlidingPanel(),
-                  onTap: () => _closePanelIfOpen(_malePanelController),
-                  bodyContent: SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: Column(
-                        children: <Widget>[
-                          SecondGenerationFemaleButton(
-                            leftColor: femaleColors[0],
-                            rightColor: femaleColors[1],
-                            onPressed: () => _togglePanel(_femalePanelController, _malePanelController),
-                          ),
-                          SecondGenerationMaleButton(
-                            leftColor: maleColors[0],
-                            rightColor: maleColors[1],
-                            onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                  )
+                ],
+              ),
             ),
           );
         },

@@ -8,14 +8,6 @@ class ClosePanelWidget extends StatelessWidget {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          'Close',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        SizedBox(width: 8),
         Icon(
           Icons.arrow_drop_down,
           size: 24,
