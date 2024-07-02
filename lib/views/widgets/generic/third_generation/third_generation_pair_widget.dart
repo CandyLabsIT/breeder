@@ -4,6 +4,8 @@ import 'package:breeder/config/locator.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_male_button.dart';
 import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
+import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_female_sliding_panel.dart';
+import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_male_sliding_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -23,15 +25,17 @@ class ThirdGenerationPairWidget extends StatefulWidget {
 class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
   final ThirdGenerationCubit thirdGenerationCubit = globalLocator<ThirdGenerationCubit>();
 
-  late PanelController panelController;
+  late PanelController femalePanelController;
+  late PanelController malePanelController;
+  late int femaleData = 0;
+  late int maleData = 0;
 
-  // late PanelController _malePanelController1;
 
   @override
   void initState() {
     super.initState();
-    panelController = PanelController();
-    // _malePanelController1 = PanelController();
+    femalePanelController = PanelController();
+    malePanelController = PanelController();
   }
 
   void _closePanelIfOpen(PanelController controller) {
@@ -49,6 +53,18 @@ class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
     }
   }
 
+  void _onButtonPressed(int data, int panel) {
+    setState(() {
+      if (panel == 1) {
+        femaleData = data;
+        femalePanelController.open();
+      } else {
+        maleData = data;
+        malePanelController.open();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThirdGenerationCubit, AThirdGenerationState>(
@@ -56,13 +72,9 @@ class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
       builder: (BuildContext context, AThirdGenerationState state) {
         final List<Color> femaleColorsZero = thirdGenerationCubit.getFemaleButtonColors(0);
         final List<Color> maleColorsZero = thirdGenerationCubit.getMaleButtonColors(0);
-        final Widget slidingPanel = thirdGenerationCubit.getWidget();
 
-        return SlidingPanelWidget(
-          controller: panelController,
-          panel: slidingPanel,
-          onTap: () => _closePanelIfOpen(panelController),
-          bodyContent: SizedBox(
+        return Stack(children: <Widget>[
+          SizedBox(
             width: double.infinity,
             child: Center(
               child: SingleChildScrollView(
@@ -73,71 +85,83 @@ class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
                         middleColor: femaleColorsZero[1],
                         rightColor: femaleColorsZero[2],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(0, 0);
-                          _togglePanel(panelController);
+                          _onButtonPressed(0, 1);
+                          _togglePanel(femalePanelController);
                         }),
                     ThirdGenerationMaleButton(
                         leftColor: maleColorsZero[0],
                         middleColor: maleColorsZero[1],
                         rightColor: maleColorsZero[2],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(1, 0);
-                          _togglePanel(panelController);
+                          _onButtonPressed(0, 0);
+                          _togglePanel(malePanelController);
                         }),
                     ThirdGenerationFemaleButton(
-                      leftColor: femaleColorsZero[3],
-                      middleColor: femaleColorsZero[4],
-                      rightColor: femaleColorsZero[5],
-                      onPressed: () {
-                        thirdGenerationCubit.getThirdGenerationWidget(0, 1);
-                      _togglePanel(panelController);}
-                    ),
-                    ThirdGenerationMaleButton(
-                      leftColor: maleColorsZero[3],
-                      middleColor: maleColorsZero[4],
-                      rightColor: maleColorsZero[5],
+                        leftColor: femaleColorsZero[3],
+                        middleColor: femaleColorsZero[4],
+                        rightColor: femaleColorsZero[5],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(1, 1);
-                          _togglePanel(panelController);}
-                    ),
+                          _onButtonPressed(1, 1);
+                          _togglePanel(femalePanelController);
+                        }),
+                    ThirdGenerationMaleButton(
+                        leftColor: maleColorsZero[3],
+                        middleColor: maleColorsZero[4],
+                        rightColor: maleColorsZero[5],
+                        onPressed: () {
+                          _onButtonPressed(1, 0);
+                          _togglePanel(malePanelController);
+                        }),
                     ThirdGenerationFemaleButton(
-                      leftColor: femaleColorsZero[6],
-                      middleColor: femaleColorsZero[7],
-                      rightColor: femaleColorsZero[8],
+                        leftColor: femaleColorsZero[6],
+                        middleColor: femaleColorsZero[7],
+                        rightColor: femaleColorsZero[8],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(0, 2);
-                          _togglePanel(panelController);}
-                    ),
+                          _onButtonPressed(2, 1);
+                          _togglePanel(femalePanelController);
+                        }),
                     ThirdGenerationMaleButton(
-                      leftColor: maleColorsZero[6],
-                      middleColor: maleColorsZero[7],
-                      rightColor: maleColorsZero[8],
+                        leftColor: maleColorsZero[6],
+                        middleColor: maleColorsZero[7],
+                        rightColor: maleColorsZero[8],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(1, 2);
-                          _togglePanel(panelController);}
-                    ),
+                          _onButtonPressed(2, 0);
+                          _togglePanel(malePanelController);
+                        }),
                     ThirdGenerationFemaleButton(
-                      leftColor: femaleColorsZero[9],
-                      middleColor: femaleColorsZero[10],
-                      rightColor: femaleColorsZero[11],
+                        leftColor: femaleColorsZero[9],
+                        middleColor: femaleColorsZero[10],
+                        rightColor: femaleColorsZero[11],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(0, 3);
-                          _togglePanel(panelController);}
-                    ),
+                          _onButtonPressed(3, 1);
+                          _togglePanel(femalePanelController);
+                        }),
                     ThirdGenerationMaleButton(
-                      leftColor: maleColorsZero[9],
-                      middleColor: maleColorsZero[10],
-                      rightColor: maleColorsZero[11],
+                        leftColor: maleColorsZero[9],
+                        middleColor: maleColorsZero[10],
+                        rightColor: maleColorsZero[11],
                         onPressed: () {
-                          thirdGenerationCubit.getThirdGenerationWidget(1, 3);
-                          _togglePanel(panelController);}
-                    ),
+                          _onButtonPressed(3, 0);
+                          _togglePanel(malePanelController);
+                        }),
                   ],
                 ),
               ),
             ),
           ),
-        );
+          SlidingPanelWidget(
+            controller: femalePanelController,
+            panel: ThirdGenerationFemaleSlidingPanel(listIndex: femaleData),
+            onTap: () => _closePanelIfOpen(femalePanelController),
+            bodyContent: Container(),
+          ),
+          SlidingPanelWidget(
+            controller: malePanelController,
+            panel: ThirdGenerationMaleSlidingPanel(listIndex: maleData),
+            onTap: () => _closePanelIfOpen(malePanelController),
+            bodyContent: Container(),
+          ),
+        ]);
       },
     );
   }

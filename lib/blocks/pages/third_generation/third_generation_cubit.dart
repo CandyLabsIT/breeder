@@ -1,5 +1,4 @@
 import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.dart';
-import 'package:breeder/blocks/pages/third_generation/state/displayed_third_generation_widget_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/init_third_generation_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_female_values_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_male_values_state.dart';
@@ -7,9 +6,6 @@ import 'package:breeder/blocks/pages/third_generation/state/third_generation_fem
 import 'package:breeder/blocks/pages/third_generation/state/third_generation_male_color_state.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_generation_model.dart';
-import 'package:breeder/views/widgets/generic/custom_container.dart';
-import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_female_sliding_panel.dart';
-import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_male_sliding_panel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,29 +46,6 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     );
   }
 
-  void getThirdGenerationWidget(int number, int listIndex) {
-    if (number == 0) {
-      emit(
-        DisplayedThirdGenerationWidgetState(thirdGenerationWidget: ThirdGenerationFemaleSlidingPanel(listIndex: listIndex)),
-      );
-    } else {
-      emit(
-        DisplayedThirdGenerationWidgetState(thirdGenerationWidget: ThirdGenerationMaleSlidingPanel(listIndex: listIndex)),
-      );
-    }
-  }
-
-  Widget getWidget() {
-    if (state is DisplayedThirdGenerationWidgetState) {
-      return (state as DisplayedThirdGenerationWidgetState).thirdGenerationWidget;
-    }
-    return const CustomContainer(
-      containerHeight: 10,
-      containerWidth: 10,
-      columnItems: <Widget>[],
-    );
-  }
-
   List<Color> getFemaleButtonColors(int listNumber) {
     if (state is ThirdGenerationFemaleColorsState) {
       return (state as ThirdGenerationFemaleColorsState).valuesList;
@@ -89,6 +62,14 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
       return (state as RestartedThirdGenerationMaleValuesState).valuesList;
     }
     return _getColorsList(1);
+  }
+
+  bool isFemaleRestartButtonEnabled(int listNumber){
+    return thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
+  }
+
+  bool isMaleRestartButtonEnabled(int listNumber){
+    return thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
   }
 
   List<Color> _getColorsList(int index) {

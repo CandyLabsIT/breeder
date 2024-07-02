@@ -56,8 +56,8 @@ class _ThirdGenerationMaleSlidingPanelState extends State<ThirdGenerationMaleSli
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: () {},
-                  isEnabled: false,
+                  onPressed: () => thirdGenerationCubit.resetThirdMaleValues(widget.listIndex),
+                  isEnabled: thirdGenerationCubit.isMaleRestartButtonEnabled(widget.listIndex),
                 ),
               ),
             ],
