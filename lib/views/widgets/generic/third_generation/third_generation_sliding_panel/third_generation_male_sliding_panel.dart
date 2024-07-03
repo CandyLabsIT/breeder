@@ -31,7 +31,7 @@ class _ThirdGenerationMaleSlidingPanelState extends State<ThirdGenerationMaleSli
     return BlocBuilder<ThirdGenerationCubit, AThirdGenerationState>(
       bloc: thirdGenerationCubit,
       builder: (BuildContext context, AThirdGenerationState state) {
-        // List<bool> isEnabledList = thirdGenerationCubit.isFemaleButtonsEnabled();
+        List<bool> isEnabledList = thirdGenerationCubit.isMaleButtonsEnabled(widget.listIndex);
 
         return Center(
           child: Column(
@@ -47,12 +47,12 @@ class _ThirdGenerationMaleSlidingPanelState extends State<ThirdGenerationMaleSli
                 onPressedDef: () => thirdGenerationCubit.getMaleColors(widget.listIndex, 4),
                 onPressedSpDef: () => thirdGenerationCubit.getMaleColors(widget.listIndex, 5),
                 onPressedSpeed: () => thirdGenerationCubit.getMaleColors(widget.listIndex, 6),
-                isEnabledAtk: true,
-                isEnabledHP: true,
-                isEnabledSpAtk: true,
-                isEnabledDef: true,
-                isEnabledSpDef: true,
-                isEnabledSpeed: true,
+                isEnabledAtk: isEnabledList[1],
+                isEnabledHP: isEnabledList[2],
+                isEnabledSpAtk: isEnabledList[3],
+                isEnabledDef: isEnabledList[4],
+                isEnabledSpDef: isEnabledList[5],
+                isEnabledSpeed: isEnabledList[6],
               ),
               Expanded(
                 child: ResetButton(

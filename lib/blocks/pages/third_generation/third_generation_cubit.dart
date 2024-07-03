@@ -64,12 +64,51 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     return _getColorsList(1);
   }
 
-  bool isFemaleRestartButtonEnabled(int listNumber){
+  bool isFemaleRestartButtonEnabled(int listNumber) {
     return thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
   }
 
-  bool isMaleRestartButtonEnabled(int listNumber){
+  bool isMaleRestartButtonEnabled(int listNumber) {
     return thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
+  }
+
+  List<bool> isFemaleButtonsEnabled(int listNumber) {
+    return _getButtonsState(thirdGenerationModel.thirdGenerationIVList[listNumber][0], thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
+  }
+
+  List<bool> isMaleButtonsEnabled(int listNumber) {
+    return _getButtonsState(thirdGenerationModel.thirdGenerationIVList[listNumber][1], thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
+  }
+
+  List<bool> _getButtonsState(List<int> primaryList, List<int> secondaryList) {
+    final List<bool> buttonsList = List<bool>.filled(7, true);
+
+    if (thirdGenerationModel.isSumPositive(primaryList)) {
+      int primaryZeroCount = primaryList.where((int element) => element == 0).length;
+      int secondaryZeroCount = secondaryList.where((int element) => element == 0).length;
+      int commonValues = thirdGenerationModel.hasCommonValue(primaryList, secondaryList);
+
+      if (primaryZeroCount == 0 && secondaryZeroCount == 3) {
+        for (int i = 1; i < 7; i++) {
+          buttonsList[i] = primaryList.contains(i);
+        }
+      } else if (primaryZeroCount == 0) {
+        for (int i = 1; i < 7; i++) {
+          buttonsList[i] = primaryList.contains(i);
+        }
+      } else if (secondaryZeroCount <= 1) {
+        if ((primaryZeroCount == 2 && commonValues == 0) || (primaryZeroCount == 1 && commonValues == 1)) {
+          for (int i = 1; i < 7; i++) {
+            buttonsList[i] = primaryList.contains(i) || secondaryList.contains(i);
+          }
+        } else if (commonValues == 2 && primaryZeroCount == 1) {
+          for (int i = 1; i < 7; i++) {
+            buttonsList[i] = !secondaryList.contains(i) || primaryList.contains(i);
+          }
+        }
+      }
+    }
+    return buttonsList;
   }
 
   List<Color> _getColorsList(int index) {
