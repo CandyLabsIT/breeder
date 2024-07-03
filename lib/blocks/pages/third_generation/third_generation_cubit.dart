@@ -1,3 +1,4 @@
+import 'package:breeder/blocks/pages/second_generation/second_generation_cubit.dart';
 import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/init_third_generation_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_female_values_state.dart';
@@ -10,11 +11,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
+  SecondGenerationCubit secondGenerationCubit = SecondGenerationCubit();
   ThirdGenerationModel thirdGenerationModel = ThirdGenerationModel();
 
   ThirdGenerationCubit() : super(InitSecondGenerationFamilyState());
 
   void getFemaleColors(int listNumber, int value) {
+    int femaleZeros = 0;
+    int maleZeros = 0;
+    Set<int> femaleSet = <int>{};
+    Set<int> maleSet = <int>{};
+    int parentListIndex = 0;
+    if (listNumber != 0) {
+      parentListIndex = listNumber % 2;
+    }
+    femaleZeros = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].where((int element) => element == 0).length;
+    maleZeros = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].where((int element) => element == 0).length;
+    if (femaleZeros == 0 && maleZeros == 0) {
+      femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].toSet();
+      maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].toSet();
+      List<int> childList = femaleSet.union(maleSet).toList();
+      for (int i = 0; i < 3; i++) {
+        thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], childList[i]);
+      }
+      emit(ThirdGenerationFemaleColorsState(valuesList: _getColorsList(0)));
+    }
     thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], value);
     emit(ThirdGenerationFemaleColorsState(valuesList: _getColorsList(0)));
   }
