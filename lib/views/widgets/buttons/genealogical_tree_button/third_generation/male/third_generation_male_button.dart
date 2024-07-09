@@ -1,12 +1,13 @@
+import 'package:breeder/views/widgets/buttons/genealogical_tree_button/male_branch_line_painter.dart';
 import 'package:flutter/material.dart';
 
-class ThirdGenerationFemaleButton extends StatelessWidget {
+class ThirdGenerationMaleButton extends StatelessWidget {
   final Color leftColor;
   final Color middleColor;
   final Color rightColor;
   final VoidCallback onPressed;
 
-  const ThirdGenerationFemaleButton({
+  const ThirdGenerationMaleButton({
     required this.leftColor,
     required this.middleColor,
     required this.rightColor,
@@ -54,36 +55,11 @@ class ThirdGenerationFemaleButton extends StatelessWidget {
   Widget _buildCustomPaint() {
     return SizedBox(
       height: 400,
-      width: 150,
+      width: 100,
       child: CustomPaint(
-        size: const Size(400, 400),
-        painter: FemaleBranchLinePainter(),
+        size: const Size(100, 400),
+        painter: MaleBranchLinePainter(),
       ),
     );
-  }
-}
-
-class FemaleBranchLinePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paintStroke = Paint()
-      ..color = const Color(0xFF0A0807)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.01
-      ..strokeCap = StrokeCap.butt
-      ..strokeJoin = StrokeJoin.miter;
-
-    final Path paintPath = Path()
-      ..moveTo(size.width * 0.02, size.height * 0.5)
-      ..lineTo(size.width * 0.25, size.height * 0.5)
-      ..lineTo(size.width * 0.25, size.height * 0.9)
-      ..lineTo(size.width * 0.50, size.height * 0.9);
-
-    canvas.drawPath(paintPath, paintStroke);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

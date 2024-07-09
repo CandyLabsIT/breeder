@@ -3,8 +3,8 @@ import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.d
 import 'package:breeder/blocks/pages/third_generation/third_generation_cubit.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_female_button.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/third_generation_male_button.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/female/third_generation_female_button.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/male/third_generation_male_button.dart';
 import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
 import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_female_sliding_panel.dart';
 import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_male_sliding_panel.dart';
@@ -80,8 +80,8 @@ class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
     return BlocBuilder<ThirdGenerationCubit, AThirdGenerationState>(
       bloc: thirdGenerationCubit,
       builder: (BuildContext context, AThirdGenerationState state) {
-        final List<Color> femaleColorsZero = thirdGenerationCubit.getFemaleButtonColors(0);
-        final List<Color> maleColorsZero = thirdGenerationCubit.getMaleButtonColors(0);
+        final List<Color> femaleColorsZero = thirdGenerationCubit.getFemaleButtonColors();
+        final List<Color> maleColorsZero = thirdGenerationCubit.getMaleButtonColors();
 
         return PopScope(
           canPop: false,

@@ -41,9 +41,9 @@ class SecondGenMaleButton extends StatelessWidget {
           ),
           SizedBox(
             height: 400,
-            width: 150,
+            width: 100,
             child: CustomPaint(
-              size: const Size(400, 400),
+              size: const Size(100, 400),
               painter: MaleBranchLinePainter(),
             ),
           ),

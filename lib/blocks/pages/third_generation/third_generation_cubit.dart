@@ -17,19 +17,11 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   ThirdGenerationCubit() : super(InitSecondGenerationFamilyState());
 
   void getFemaleColors(int listNumber, int value) {
-    int femaleZeros = 0;
-    int maleZeros = 0;
-    Set<int> femaleSet = <int>{};
-    Set<int> maleSet = <int>{};
-    int parentListIndex = 0;
-    if (listNumber != 0) {
-      parentListIndex = listNumber % 2;
-    }
-    femaleZeros = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].where((int element) => element == 0).length;
-    maleZeros = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].where((int element) => element == 0).length;
-    if (femaleZeros == 0 && maleZeros == 0) {
-      femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].toSet();
-      maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].toSet();
+    int parentListIndex = getParentIndex(listNumber);
+
+    if (secondGenerationCubit.secondGenerationModel.isPairFilled(parentListIndex)) {
+      Set<int> femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].toSet();
+      Set<int> maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].toSet();
       List<int> childList = femaleSet.union(maleSet).toList();
       for (int i = 0; i < 3; i++) {
         thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], childList[i]);
@@ -67,7 +59,9 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     );
   }
 
-  List<Color> getFemaleButtonColors(int listNumber) {
+  List<Color> getFemaleButtonColors() {
+
+
     if (state is ThirdGenerationFemaleColorsState) {
       return (state as ThirdGenerationFemaleColorsState).valuesList;
     } else if (state is RestartedThirdGenerationFemaleValuesState) {
@@ -76,7 +70,7 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     return _getColorsList(0);
   }
 
-  List<Color> getMaleButtonColors(int listNumber) {
+  List<Color> getMaleButtonColors() {
     if (state is ThirdGenerationMaleColorsState) {
       return (state as ThirdGenerationMaleColorsState).valuesList;
     } else if (state is RestartedThirdGenerationMaleValuesState) {
@@ -131,6 +125,35 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     }
     return buttonsList;
   }
+
+  Color getFemaleChildColor(int listNumber, int colorIndex){
+    int parentListIndex = getParentIndex(listNumber);
+    print(parentListIndex);
+
+    if (secondGenerationCubit.secondGenerationModel.isPairFilled(parentListIndex)) {
+      Set<int> femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].toSet();
+      Set<int> maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].toSet();
+      List<int> childList = femaleSet.union(maleSet).toList();
+      print(childList);
+
+      for (int i = 0; i < 3; i++) {
+        thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], childList[i]);
+        print(childList[i]);
+      }
+      return IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][0][colorIndex]).color;
+    }
+    return const Color(0xFFD9D9D9);
+  }
+
+  int getParentIndex(int listNumber){
+    int parentListIndex = 0;
+    if (listNumber != 0) {
+      parentListIndex = listNumber % 2;
+    }
+    return parentListIndex;
+  }
+
+
 
   List<Color> _getColorsList(int index) {
     return <Color>[
