@@ -1,8 +1,11 @@
+import 'dart:ui';
 
 class SecondGenerationModel {
 
   late List<List<List<int>>> secondGenerationIVList =
   List<List<List<int>>>.generate(8, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(2, (_) => 0)));
+
+  late List<List<Color>> childrenColorsList = List<List<Color>>.generate(16, (_) => List<Color>.generate(3, (_) => const Color(0xFFD9D9D9)));
 
   late List<int> secondGenerationFemaleIVList = <int>[0, 0];
   late List<int> secondGenerationMaleIVList = <int>[0, 0];
@@ -36,9 +39,9 @@ class SecondGenerationModel {
 
   bool isPairFilled(int pairIndex){
     bool isFilled = true;
-    int female = secondGenerationIVList[pairIndex][0].where((int element) => element == 0).length;
-    int male = secondGenerationIVList[pairIndex][1].where((int element) => element == 0).length;
-    if (female != 0 && male != 0){
+    bool female = secondGenerationIVList[pairIndex][0].contains(0);
+    bool male = secondGenerationIVList[pairIndex][1].contains(0);
+    if (female || male){
       return false;
     }
     return isFilled;
