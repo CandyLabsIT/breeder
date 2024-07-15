@@ -2,11 +2,11 @@ import 'dart:ui';
 
 import 'package:breeder/blocks/pages/second_generation/a_second_generation_state.dart';
 import 'package:breeder/blocks/pages/second_generation/second_generation_cubit.dart';
-import 'package:breeder/blocks/pages/second_generation/state/female_colors_state.dart';
+import 'package:breeder/blocks/pages/second_generation/state/default_female_colors_restored_state.dart';
+import 'package:breeder/blocks/pages/second_generation/state/default_male_colors_restored_state.dart';
 import 'package:breeder/blocks/pages/second_generation/state/init_second_generation_state.dart';
-import 'package:breeder/blocks/pages/second_generation/state/male_colors_state.dart.dart';
-import 'package:breeder/blocks/pages/second_generation/state/restarted_female_values_state.dart';
-import 'package:breeder/blocks/pages/second_generation/state/restarted_male_values_state.dart';
+import 'package:breeder/blocks/pages/second_generation/state/iv_changed_female_colors_state.dart';
+import 'package:breeder/blocks/pages/second_generation/state/iv_changed_male_colors_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_generation/second_generation_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -44,9 +44,9 @@ Future<void> main() async {
 
       actualSecondGenerationCubit.secondGenerationModel = secondGenerationModel;
 
-      actualSecondGenerationCubit.getFemaleColors(actualFemaleValue);
+      actualSecondGenerationCubit.getIVFemaleColors(actualFemaleValue);
 
-      ASecondGenerationState expectedFemaleColorsState = const FemaleColorsState(valuesList: <Color>[Color(0xFFFFDAD6), Color(0xFFFDFB8E)]);
+      ASecondGenerationState expectedFemaleColorsState = const IVChangedFemaleColorsState(valuesList: <Color>[Color(0xFFFFDAD6), Color(0xFFFDFB8E)]);
 
       expect(actualSecondGenerationCubit.state, expectedFemaleColorsState);
     });
@@ -56,9 +56,9 @@ Future<void> main() async {
 
       actualSecondGenerationCubit.secondGenerationModel = secondGenerationModel;
 
-      actualSecondGenerationCubit.getMaleColors(actualMaleValue);
+      actualSecondGenerationCubit.getIVMaleColors(actualMaleValue);
 
-      ASecondGenerationState expectedFemaleColorsState = const MaleColorsState(valuesList: <Color>[Color(0xFFFDFB8E), Color(0xFFFA4A78)]);
+      ASecondGenerationState expectedFemaleColorsState = const IVChangedMaleColorsState(valuesList: <Color>[Color(0xFFFDFB8E), Color(0xFFFA4A78)]);
 
       expect(actualSecondGenerationCubit.state, expectedFemaleColorsState);
     });
@@ -66,10 +66,10 @@ Future<void> main() async {
     test('Should return [RestartedFemaleValuesState] if [secondGenerationFemaleIVList is not none]', () {
       actualSecondGenerationCubit.secondGenerationModel = secondGenerationModel;
 
-      actualSecondGenerationCubit.resetFemaleValues();
+      actualSecondGenerationCubit.restoreFemaleDefaultColors();
 
       ASecondGenerationState expectedRestartedFemaleValues =
-          const RestartedFemaleValuesState(valuesList: <Color>[Color(0xFFD9D9D9), Color(0xFFD9D9D9)]);
+          const DefaultFemaleColorsRestoredState(valuesList: <Color>[Color(0xFFD9D9D9), Color(0xFFD9D9D9)]);
 
       expect(actualSecondGenerationCubit.state, expectedRestartedFemaleValues);
     });
@@ -77,9 +77,10 @@ Future<void> main() async {
     test('Should return [RestartedMaleValuesState] if [secondGenerationMaleIVList is not none]', () {
       actualSecondGenerationCubit.secondGenerationModel = secondGenerationModel;
 
-      actualSecondGenerationCubit.resetMaleValues();
+      actualSecondGenerationCubit.restoreMaleDefaultColors();
 
-      ASecondGenerationState expectedRestartedMaleValues = const RestartedMaleValuesState(valuesList: <Color>[Color(0xFFD9D9D9), Color(0xFFD9D9D9)]);
+      ASecondGenerationState expectedRestartedMaleValues =
+          const DefaultMaleColorsRestoredState(valuesList: <Color>[Color(0xFFD9D9D9), Color(0xFFD9D9D9)]);
 
       expect(actualSecondGenerationCubit.state, expectedRestartedMaleValues);
     });

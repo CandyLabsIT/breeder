@@ -1,10 +1,11 @@
-import 'package:breeder/blocks/pages/second_generation/a_second_generation_state.dart';
-import 'package:flutter/animation.dart';
+import 'dart:ui';
 
-class FemaleColorsState extends ASecondGenerationState {
+import 'package:breeder/blocks/pages/second_generation/a_second_generation_state.dart';
+
+class DefaultFemaleColorsRestoredState extends ASecondGenerationState {
   final List<Color> valuesList;
 
-  const FemaleColorsState({required this.valuesList});
+  const DefaultFemaleColorsRestoredState({required this.valuesList});
 
   @override
   List<List<Color>> get props => <List<Color>>[valuesList];

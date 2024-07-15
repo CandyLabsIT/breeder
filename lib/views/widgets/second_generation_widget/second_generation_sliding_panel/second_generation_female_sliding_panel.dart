@@ -37,12 +37,12 @@ class _SecondGenerationFemaleSlidingPanelState extends State<SecondGenerationFem
                 child: ClosePanelWidget(),
               ),
               AttributeButtonsWidget(
-                onPressedAtk: () => secondGenerationCubit.getFemaleColors(1),
-                onPressedHP: () => secondGenerationCubit.getFemaleColors(2),
-                onPressedSpAtk: () => secondGenerationCubit.getFemaleColors(3),
-                onPressedDef: () => secondGenerationCubit.getFemaleColors(4),
-                onPressedSpDef: () => secondGenerationCubit.getFemaleColors(5),
-                onPressedSpeed: () => secondGenerationCubit.getFemaleColors(6),
+                onPressedAtk: () => secondGenerationCubit.getIVFemaleColors(1),
+                onPressedHP: () => secondGenerationCubit.getIVFemaleColors(2),
+                onPressedSpAtk: () => secondGenerationCubit.getIVFemaleColors(3),
+                onPressedDef: () => secondGenerationCubit.getIVFemaleColors(4),
+                onPressedSpDef: () => secondGenerationCubit.getIVFemaleColors(5),
+                onPressedSpeed: () => secondGenerationCubit.getIVFemaleColors(6),
                 isEnabledAtk: isEnabledList[1],
                 isEnabledHP: isEnabledList[2],
                 isEnabledSpAtk: isEnabledList[3],
@@ -52,7 +52,7 @@ class _SecondGenerationFemaleSlidingPanelState extends State<SecondGenerationFem
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: secondGenerationCubit.resetFemaleValues,
+                  onPressed: secondGenerationCubit.restoreFemaleDefaultColors,
                   isEnabled: secondGenerationCubit.isFemaleRestartButtonEnabled(),
                 ),
               ),

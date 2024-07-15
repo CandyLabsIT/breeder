@@ -14,7 +14,7 @@ class NewBreedingCubit extends Cubit<ANewBreedingState> {
   void resetData() {
     newBreedingModel.clearData();
     secondGenerationCubit
-      ..resetMaleValues()
-      ..resetFemaleValues();
+      ..restoreMaleDefaultColors()
+      ..restoreFemaleDefaultColors();
   }
 }
