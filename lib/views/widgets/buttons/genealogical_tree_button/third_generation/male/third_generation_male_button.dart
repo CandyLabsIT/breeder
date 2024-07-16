@@ -19,7 +19,7 @@ class ThirdGenerationMaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120,
-      width: 250,
+      // width: 250,
       child: Row(
         children: <Widget>[
           _buildButton(),
@@ -55,9 +55,9 @@ class ThirdGenerationMaleButton extends StatelessWidget {
   Widget _buildCustomPaint() {
     return SizedBox(
       height: 400,
-      width: 100,
+      // width: 100,
       child: CustomPaint(
-        size: const Size(100, 400),
+        size: const Size(75, 400),
         painter: MaleBranchLinePainter(),
       ),
     );

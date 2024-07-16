@@ -17,15 +17,17 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
 
   void getFemaleColors(int listNumber, int femaleValue) {
     secondGenerationModel.updateValues(secondGenerationModel.secondGenerationIVList[listNumber][0], femaleValue);
-    getChildren(listNumber);
+    getChildrenIVColors(listNumber);
     emit(
-      IVChangedFemaleColorsState(valuesList: _getColorsList(0),),
+      IVChangedFemaleColorsState(
+        valuesList: _getColorsList(0),
+      ),
     );
   }
 
   void getMaleColors(int listNumber, int maleValue) {
     secondGenerationModel.updateValues(secondGenerationModel.secondGenerationIVList[listNumber][1], maleValue);
-    getChildren(listNumber);
+    getChildrenIVColors(listNumber);
     emit(
       IVChangedMaleColorsState(valuesList: _getColorsList(1)),
     );
@@ -34,25 +36,27 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
   void resetFemaleValues(int listNumber) {
     if (secondGenerationModel.isSumPositive(secondGenerationModel.secondGenerationIVList[listNumber][0])) {
       secondGenerationModel.restartListValues(secondGenerationModel.secondGenerationIVList[listNumber][0]);
-      getChildren(listNumber);
+      getChildrenIVColors(listNumber);
     }
     emit(
-      DefaultFemaleColorsRestoredState(
-        valuesList: _getColorsList(0)
-      ),
+      DefaultFemaleColorsRestoredState(valuesList: _getColorsList(0)),
     );
   }
 
   void resetMaleValues(int listNumber) {
     if (secondGenerationModel.isSumPositive(secondGenerationModel.secondGenerationIVList[listNumber][1])) {
       secondGenerationModel.restartListValues(secondGenerationModel.secondGenerationIVList[listNumber][1]);
-      getChildren(listNumber);
+      getChildrenIVColors(listNumber);
     }
     emit(
-      DefaultMaleColorsRestoredState(
-        valuesList:  _getColorsList(1)
-      ),
+      DefaultMaleColorsRestoredState(valuesList: _getColorsList(1)),
     );
+  }
+
+  void resetValues() {
+    secondGenerationModel.restartAll();
+    _getColorsList(0);
+    _getColorsList(1);
   }
 
   List<Color> getFemaleButtonColors() {
@@ -73,16 +77,20 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
     return _getColorsList(1);
   }
 
-  void getChildren(int parentIndex) {
+  void getChildrenIVColors(int parentIndex) {
     int listIndex = getParentIndex(parentIndex);
 
-    if (secondGenerationModel.isPairFilled(listIndex)) {
+    if (secondGenerationModel.isPairFilled(parentIndex)) {
       Set<int> femaleSet = secondGenerationModel.secondGenerationIVList[listIndex][0].toSet();
       Set<int> maleSet = secondGenerationModel.secondGenerationIVList[listIndex][1].toSet();
       List<int> childList = femaleSet.union(maleSet).toList();
 
       for (int i = 0; i < 3; i++) {
         secondGenerationModel.childrenColorsList[parentIndex][i] = IVColorExtension.fromInt(childList[i]).color;
+      }
+    } else {
+      for (int i = 0; i < 3; i++) {
+        secondGenerationModel.childrenColorsList[parentIndex][i] = IVColorExtension.fromInt(0).color;
       }
     }
   }

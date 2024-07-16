@@ -71,7 +71,7 @@ class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
     } else if (malePanelController.isPanelOpen) {
       malePanelController.close();
     } else {
-      AutoRouter.of(context).push(const NewBreedingRoute());
+      AutoRouter.of(context).push(const SecondGenerationWidget());
     }
   }
 

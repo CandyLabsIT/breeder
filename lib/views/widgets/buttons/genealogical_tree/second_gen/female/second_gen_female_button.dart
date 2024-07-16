@@ -17,7 +17,7 @@ class SecondGenFemaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120,
-      width: 250,
+      // width: 175,
       child: Row(
         children: <Widget>[
           SizedBox(
@@ -41,7 +41,6 @@ class SecondGenFemaleButton extends StatelessWidget {
           ),
           SizedBox(
             height: 400,
-            width: 100,
             child: CustomPaint(
               size: const Size(100, 400),
               painter: FemaleBranchLinePainter(),

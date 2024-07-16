@@ -5,29 +5,19 @@ import 'package:breeder/blocks/pages/third_generation/state/restarted_third_gene
 import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_male_values_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/third_generation_female_color_state.dart';
 import 'package:breeder/blocks/pages/third_generation/state/third_generation_male_color_state.dart';
+import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_generation_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
-  SecondGenerationCubit secondGenerationCubit = SecondGenerationCubit();
+  SecondGenerationCubit secondGenerationCubit = globalLocator<SecondGenerationCubit>();
   ThirdGenerationModel thirdGenerationModel = ThirdGenerationModel();
 
   ThirdGenerationCubit() : super(InitSecondGenerationFamilyState());
 
   void getFemaleColors(int listNumber, int value) {
-    int parentListIndex = getParentIndex(listNumber);
-
-    if (secondGenerationCubit.secondGenerationModel.isPairFilled(parentListIndex)) {
-      Set<int> femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].toSet();
-      Set<int> maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].toSet();
-      List<int> childList = femaleSet.union(maleSet).toList();
-      for (int i = 0; i < 3; i++) {
-        thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], childList[i]);
-      }
-      emit(ThirdGenerationFemaleColorsState(valuesList: _getColorsList(0)));
-    }
     thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], value);
     emit(ThirdGenerationFemaleColorsState(valuesList: _getColorsList(0)));
   }
@@ -60,6 +50,12 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   }
 
   List<Color> getFemaleButtonColors() {
+    int index = 0;
+    for (int i = 0; i < 8; i += 2) {
+      getFemaleChildColor(i, index, 0);
+      index = index + 1;
+    }
+
     if (state is ThirdGenerationFemaleColorsState) {
       return (state as ThirdGenerationFemaleColorsState).valuesList;
     } else if (state is RestartedThirdGenerationFemaleValuesState) {
@@ -69,6 +65,13 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   }
 
   List<Color> getMaleButtonColors() {
+    int index = 0;
+    for (int i = 1; i < 8; i += 2) {
+      getFemaleChildColor(i, index, 1);
+      index = index + 1;
+    }
+
+
     if (state is ThirdGenerationMaleColorsState) {
       return (state as ThirdGenerationMaleColorsState).valuesList;
     } else if (state is RestartedThirdGenerationMaleValuesState) {
@@ -124,31 +127,26 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     return buttonsList;
   }
 
-  Color getFemaleChildColor(int listNumber, int colorIndex){
-    int parentListIndex = getParentIndex(listNumber);
+  void getFemaleChildColor(int listNumber, int index, int gender) {
 
-    if (secondGenerationCubit.secondGenerationModel.isPairFilled(parentListIndex)) {
-      Set<int> femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][0].toSet();
-      Set<int> maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[parentListIndex][1].toSet();
+    if (secondGenerationCubit.secondGenerationModel.isPairFilled(listNumber)) {
+      Set<int> femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[listNumber][0].toSet();
+      Set<int> maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[listNumber][1].toSet();
       List<int> childList = femaleSet.union(maleSet).toList();
 
       for (int i = 0; i < 3; i++) {
-        thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0], childList[i]);
+        thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[index][gender], childList[i]);
       }
-      return IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[listNumber][0][colorIndex]).color;
     }
-    return const Color(0xFFD9D9D9);
   }
 
-  int getParentIndex(int listNumber){
+  int getParentIndex(int listNumber) {
     int parentListIndex = 0;
     if (listNumber != 0) {
       parentListIndex = listNumber % 2;
     }
     return parentListIndex;
   }
-
-
 
   List<Color> _getColorsList(int index) {
     return <Color>[
