@@ -1,6 +1,6 @@
-class SecondGenerationModel {
-  late List<int> secondGenerationFemaleIVList = <int>[0, 0];
-  late List<int> secondGenerationMaleIVList = <int>[0, 0];
+class SecondGenModel {
+  late List<int> secondGenFemaleIVList = <int>[0, 0];
+  late List<int> secondGenMaleIVList = <int>[0, 0];
 
   void updateValues(List<int> list, int value) {
     if (list[0] == value) {

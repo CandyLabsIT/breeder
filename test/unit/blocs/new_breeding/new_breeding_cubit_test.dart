@@ -1,9 +1,9 @@
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/blocks/pages/new_breeding/a_new_breeding_state.dart';
 import 'package:breeder/blocks/pages/new_breeding/new_breeding_cubit.dart';
-import 'package:breeder/blocks/pages/new_breeding/state/init_new_breeding_state.dart';
-import 'package:breeder/blocks/pages/second_generation/second_generation_cubit.dart';
+import 'package:breeder/blocks/pages/new_breeding/state/new_breeding_init_state.dart';
 import 'package:breeder/config/locator.dart';
-import 'package:breeder/shared/models/genealogical_tree/second_generation/second_generation_model.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:breeder/shared/models/new_breeding/new_breeding_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,31 +12,31 @@ Future<void> main() async {
 
   group('Tests of NewBreedingCubit process', () {
     NewBreedingCubit actualNewBreedingCubit = globalLocator<NewBreedingCubit>();
-    SecondGenerationCubit secondGenerationCubit = globalLocator<SecondGenerationCubit>();
+    SecondGenCubit secondGenCubit = globalLocator<SecondGenCubit>();
 
     NewBreedingModel newBreedingModel = NewBreedingModel()..newBreedingTextEditingController.text = 'Test123';
-    SecondGenerationModel secondGenerationModel = SecondGenerationModel()
-      ..secondGenerationFemaleIVList[0] = 4
-      ..secondGenerationFemaleIVList[1] = 0
-      ..secondGenerationMaleIVList[0] = 3
-      ..secondGenerationMaleIVList[1] = 0;
+    SecondGenModel secondGenerationModel = SecondGenModel()
+      ..secondGenFemaleIVList[0] = 4
+      ..secondGenFemaleIVList[1] = 0
+      ..secondGenMaleIVList[0] = 3
+      ..secondGenMaleIVList[1] = 0;
 
-    test('Should emit [InitNewBreedingState] state', () {
-      ANewBreedingState expectedNewBreedingState = InitNewBreedingState();
+    test('Should emit [NewBreedingInitState] state', () {
+      ANewBreedingState expectedNewBreedingState = NewBreedingInitState();
 
       expect(actualNewBreedingCubit.state, expectedNewBreedingState);
     });
 
-    test('Should emit [InitNewBreedingState] state when when [NewBreedingModel] data is initialized', () {
+    test('Should emit [NewBreedingInitState] state when when [NewBreedingModel] data is initialized', () {
       actualNewBreedingCubit.newBreedingModel = newBreedingModel;
 
-      ANewBreedingState expectedNewBreedingState = InitNewBreedingState();
+      ANewBreedingState expectedNewBreedingState = NewBreedingInitState();
 
       expect(actualNewBreedingCubit.state, expectedNewBreedingState);
     });
 
     test('Should return list of zeros, and ' '', () {
-      secondGenerationCubit.secondGenerationModel = secondGenerationModel;
+      secondGenCubit.secondGenerationModel = secondGenerationModel;
       actualNewBreedingCubit
         ..newBreedingModel = newBreedingModel
         ..resetData();
@@ -46,8 +46,8 @@ Future<void> main() async {
       List<int> expectedSecondGenerationMaleIVList = <int>[0, 0];
 
       expect(actualNewBreedingCubit.newBreedingModel.newBreedingTextEditingController.text, expectedNewBreedingState);
-      expect(secondGenerationCubit.secondGenerationModel.secondGenerationFemaleIVList, expectedSecondGenerationFemaleIVList);
-      expect(secondGenerationCubit.secondGenerationModel.secondGenerationMaleIVList, expectedSecondGenerationMaleIVList);
+      expect(secondGenCubit.secondGenerationModel.secondGenFemaleIVList, expectedSecondGenerationFemaleIVList);
+      expect(secondGenCubit.secondGenerationModel.secondGenMaleIVList, expectedSecondGenerationMaleIVList);
     });
   });
 }
