@@ -5,11 +5,13 @@ class SecondGenFemaleButton extends StatelessWidget {
   final Color leftColor;
   final Color rightColor;
   final VoidCallback onPressed;
+  final bool isTranslucent;
 
   const SecondGenFemaleButton({
     required this.leftColor,
     required this.rightColor,
     required this.onPressed,
+    required this.isTranslucent,
     Key? key,
   }) : super(key: key);
 
@@ -31,8 +33,16 @@ class SecondGenFemaleButton extends StatelessWidget {
                   onTap: onPressed,
                   child: Row(
                     children: <Widget>[
-                      Expanded(child: Container(color: leftColor)),
-                      Expanded(child: Container(color: rightColor)),
+                      Expanded(
+                        child: Container(
+                          color: isTranslucent ? leftColor.withOpacity(0.35) : leftColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: isTranslucent ? rightColor.withOpacity(0.35) : rightColor,
+                        ),
+                      )
                     ],
                   ),
                 ),

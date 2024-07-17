@@ -17,7 +17,6 @@ class SecondGenMaleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 120,
-      // width: 175,
       child: Row(
         children: <Widget>[
           SizedBox(

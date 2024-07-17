@@ -28,6 +28,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
 
   late PanelController _femalePanelController;
   late PanelController _malePanelController;
+  final List<List<bool>> _femaleButtonTranslucentList = List<List<bool>>.generate(7, (_) => List<bool>.generate(2, (_) => true));
   late int femaleData = 0;
   late int maleData = 0;
 
@@ -81,366 +82,411 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
       child: BlocBuilder<SecondGenerationCubit, ASecondGenerationState>(
         bloc: secondGenerationCubit,
         builder: (BuildContext context, ASecondGenerationState state) {
-              final List<Color> femaleColors = secondGenerationCubit.getFemaleButtonColors();
-              final List<Color> maleColors = secondGenerationCubit.getMaleButtonColors();
-              return PopScope(
-                canPop: false,
-                onPopInvoked: _onWillPop,
-                child: Scaffold(
-                  body: Scrollbar(
-                    thickness: 5,
-                    thumbVisibility: true,
-                    child: Stack(children: <Widget>[
-                      SizedBox(
-                        width: double.infinity,
-                        child: Center(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: <Widget>[
-                                SafeArea(
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+          final List<Color> femaleColors = secondGenerationCubit.getFemaleButtonColors();
+          final List<Color> maleColors = secondGenerationCubit.getMaleButtonColors();
+          return PopScope(
+            canPop: false,
+            onPopInvoked: _onWillPop,
+            child: Scaffold(
+              body: Scrollbar(
+                thickness: 5,
+                thumbVisibility: true,
+                child: Stack(children: <Widget>[
+                  SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            SafeArea(
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
+                                        Row(
                                           children: <Widget>[
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[0],
-                                                      rightColor: femaleColors[1],
-                                                      onPressed: () {
-                                                        _onButtonPressed(0, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[0],
-                                                      rightColor: maleColors[1],
-                                                      onPressed: () {
-                                                        _onButtonPressed(0, 0);
-                                                        _togglePanel(_malePanelController);}
-                                                      },
-                                                    ),
-                                                  ]),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[0],
+                                                  rightColor: femaleColors[1],
+                                                  onPressed: () {
+                                                    _onButtonPressed(0, 1);
+                                                    _togglePanel(_femalePanelController);
+                                                    if (secondGenerationCubit.isNeighborFilled(0)) {
+                                                      _femaleButtonTranslucentList[0][0] = false;
+                                                      _femaleButtonTranslucentList[0][1] = false;
+                                                    }
+                                                  },
+                                                  isTranslucent: false,
                                                 ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationFemaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[0][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[0][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[0][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[0],
+                                                  rightColor: maleColors[1],
+                                                  onPressed: () {
+                                                    _onButtonPressed(0, 0);
+                                                    _togglePanel(_malePanelController);
+                                                  },
                                                 ),
-                                              ],
+                                              ]),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[2],
-                                                      rightColor: femaleColors[3],
-                                                      onPressed: () {
-                                                        _onButtonPressed(1, 1);
-                                                        if (secondGenerationCubit.isNeighborFilled(0)){
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[2],
-                                                      rightColor: maleColors[3],
-                                                      onPressed: () {
-                                                        _onButtonPressed(1, 0);
-                                                        if (secondGenerationCubit.isNeighborFilled(0)){
-                                                        _togglePanel(_malePanelController);}
-                                                      },
-                                                    ),
-                                                  ]),
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationMaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[1][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[1][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[1][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationFemaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[0][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[0][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[0][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[4],
-                                                      rightColor: femaleColors[5],
-                                                      onPressed: () {
-                                                        _onButtonPressed(2, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[4],
-                                                      rightColor: maleColors[5],
-                                                      onPressed: () {
-                                                        _onButtonPressed(2, 0);
-                                                        _togglePanel(_malePanelController);
-                                                      },
-                                                    ),
-                                                  ]),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[2],
+                                                  rightColor: femaleColors[3],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(0)) {
+                                                      _femaleButtonTranslucentList[0] = false;
+                                                      _onButtonPressed(1, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    }
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[0],
                                                 ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationFemaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[2][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[2][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[2][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[2],
+                                                  rightColor: maleColors[3],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(0)) {
+                                                      _onButtonPressed(1, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
                                                 ),
-                                              ],
+                                              ]),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[6],
-                                                      rightColor: femaleColors[7],
-                                                      onPressed: () {
-                                                        _onButtonPressed(3, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[6],
-                                                      rightColor: maleColors[7],
-                                                      onPressed: () {
-                                                        _onButtonPressed(3, 0);
-                                                        _togglePanel(_malePanelController);
-                                                      },
-                                                    ),
-                                                  ]),
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationMaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[3][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[3][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[3][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationMaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[1][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[1][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[1][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[8],
-                                                      rightColor: femaleColors[9],
-                                                      onPressed: () {
-                                                        _onButtonPressed(4, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[8],
-                                                      rightColor: maleColors[9],
-                                                      onPressed: () {
-                                                        _onButtonPressed(4, 0);
-                                                        _togglePanel(_malePanelController);
-                                                      },
-                                                    ),
-                                                  ]),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[4],
+                                                  rightColor: femaleColors[5],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(1)) {
+                                                      _femaleButtonTranslucentList[1] = false;
+                                                      _onButtonPressed(2, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    }
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[1],
                                                 ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationFemaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[4][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[4][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[4][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[4],
+                                                  rightColor: maleColors[5],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(1)) {
+                                                      _onButtonPressed(2, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
                                                 ),
-                                              ],
+                                              ]),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[10],
-                                                      rightColor: femaleColors[11],
-                                                      onPressed: () {
-                                                        _onButtonPressed(5, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[10],
-                                                      rightColor: maleColors[11],
-                                                      onPressed: () {
-                                                        _onButtonPressed(5, 0);
-                                                        _togglePanel(_malePanelController);
-                                                      },
-                                                    ),
-                                                  ]),
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationMaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[5][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[5][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[5][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationFemaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[2][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[2][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[2][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[12],
-                                                      rightColor: femaleColors[13],
-                                                      onPressed: () {
-                                                        _onButtonPressed(6, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[12],
-                                                      rightColor: maleColors[13],
-                                                      onPressed: () {
-                                                        _onButtonPressed(6, 0);
-                                                        _togglePanel(_malePanelController);
-                                                      },
-                                                    ),
-                                                  ]),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[6],
+                                                  rightColor: femaleColors[7],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(2)) {
+                                                      _femaleButtonTranslucentList[2] = false;
+                                                      _onButtonPressed(3, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    }
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[2],
                                                 ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationFemaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[6][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[6][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[6][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[6],
+                                                  rightColor: maleColors[7],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(2)) {
+                                                      _onButtonPressed(3, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
                                                 ),
-                                              ],
+                                              ]),
                                             ),
-                                            Row(
-                                              children: <Widget>[
-                                                Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Column(children: <Widget>[
-                                                    SecondGenerationFemaleButton(
-                                                      leftColor: femaleColors[14],
-                                                      rightColor: femaleColors[15],
-                                                      onPressed: () {
-                                                        _onButtonPressed(7, 1);
-                                                        _togglePanel(_femalePanelController);
-                                                      },
-                                                    ),
-                                                    SecondGenerationMaleButton(
-                                                      leftColor: maleColors[14],
-                                                      rightColor: maleColors[15],
-                                                      onPressed: () {
-                                                        _onButtonPressed(7, 0);
-                                                        _togglePanel(_malePanelController);
-                                                      },
-                                                    ),
-                                                  ]),
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ThirdGenerationMaleButton(
-                                                        leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[7][0],
-                                                        middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[7][1],
-                                                        rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[7][2],
-                                                        onPressed:  () => AutoRouter.of(context).push(ThirdGenerationRoute()),
-                                                      ),
-                                                    ],
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationMaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[3][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[3][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[3][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
                                                   ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[8],
+                                                  rightColor: femaleColors[9],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(3)) {
+                                                      _femaleButtonTranslucentList[3] = false;
+                                                      _onButtonPressed(4, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    }
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[3],
                                                 ),
-                                              ],
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[8],
+                                                  rightColor: maleColors[9],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(3)) {
+                                                      _onButtonPressed(4, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
+                                                ),
+                                              ]),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationFemaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[4][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[4][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[4][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[10],
+                                                  rightColor: femaleColors[11],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(4)) {
+                                                      _femaleButtonTranslucentList[4] = false;
+                                                      _onButtonPressed(5, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    }
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[4],
+                                                ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[10],
+                                                  rightColor: maleColors[11],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(4)) {
+                                                      _onButtonPressed(5, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
+                                                ),
+                                              ]),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationMaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[5][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[5][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[5][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[12],
+                                                  rightColor: femaleColors[13],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(5)) {
+                                                      _femaleButtonTranslucentList[6] = false;
+                                                      _onButtonPressed(6, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    } else {}
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[5],
+                                                ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[12],
+                                                  rightColor: maleColors[13],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(5)) {
+                                                      _onButtonPressed(6, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
+                                                ),
+                                              ]),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationFemaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[6][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[6][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[6][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Column(children: <Widget>[
+                                                SecondGenerationFemaleButton(
+                                                  leftColor: femaleColors[14],
+                                                  rightColor: femaleColors[15],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(6)) {
+                                                      _femaleButtonTranslucentList[6] = false;
+                                                      _onButtonPressed(7, 1);
+                                                      _togglePanel(_femalePanelController);
+                                                    }
+                                                  },
+                                                  isTranslucent: _femaleButtonTranslucentList[6],
+                                                ),
+                                                SecondGenerationMaleButton(
+                                                  leftColor: maleColors[14],
+                                                  rightColor: maleColors[15],
+                                                  onPressed: () {
+                                                    if (secondGenerationCubit.isNeighborFilled(6)) {
+                                                      _onButtonPressed(7, 0);
+                                                      _togglePanel(_malePanelController);
+                                                    }
+                                                  },
+                                                ),
+                                              ]),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ThirdGenerationMaleButton(
+                                                    leftColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[7][0],
+                                                    middleColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[7][1],
+                                                    rightColor: secondGenerationCubit.secondGenerationModel.childrenColorsList[7][2],
+                                                    onPressed: () => AutoRouter.of(context).push(ThirdGenerationRoute()),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                      SlidingPanelWidget(
-                        controller: _femalePanelController,
-                        panel: SecondGenerationFemaleSlidingPanel(listIndex: femaleData),
-                        onTap: () => _closePanelIfOpen(_femalePanelController),
-                        bodyContent: Container(),
-                      ),
-                      SlidingPanelWidget(
-                        controller: _malePanelController,
-                        panel: SecondGenerationMaleSlidingPanel(listIndex: maleData),
-                        onTap: () => _closePanelIfOpen(_malePanelController),
-                        bodyContent: Container(),
-                      ),
-                    ]),
+                    ),
                   ),
-                ),
-              );
-            },
+                  SlidingPanelWidget(
+                    controller: _femalePanelController,
+                    panel: SecondGenerationFemaleSlidingPanel(listIndex: femaleData),
+                    onTap: () => _closePanelIfOpen(_femalePanelController),
+                    bodyContent: Container(),
+                  ),
+                  SlidingPanelWidget(
+                    controller: _malePanelController,
+                    panel: SecondGenerationMaleSlidingPanel(listIndex: maleData),
+                    onTap: () => _closePanelIfOpen(_malePanelController),
+                    bodyContent: Container(),
+                  ),
+                ]),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
