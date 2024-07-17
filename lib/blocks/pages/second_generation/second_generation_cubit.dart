@@ -55,8 +55,12 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
 
   void resetValues() {
     secondGenerationModel.restartAll();
-    _getColorsList(0);
-    _getColorsList(1);
+    emit(
+      DefaultFemaleColorsRestoredState(valuesList: _getColorsList(0)),
+    );
+    emit(
+      DefaultMaleColorsRestoredState(valuesList: _getColorsList(1)),
+    );
   }
 
   List<Color> getFemaleButtonColors() {

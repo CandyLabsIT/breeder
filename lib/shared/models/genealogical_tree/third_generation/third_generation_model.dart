@@ -26,6 +26,8 @@ class ThirdGenerationModel {
     list.fillRange(0, list.length, 0);
   }
 
+
+
   bool isSumPositive(List<int> list) {
     return list.fold(0, (int previousValue, int element) => previousValue + element) > 0;
   }
