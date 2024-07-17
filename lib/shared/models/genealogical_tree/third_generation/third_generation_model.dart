@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 class ThirdGenerationModel {
   late List<List<List<int>>> thirdGenerationIVList =
       List<List<List<int>>>.generate(4, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(3, (_) => 0)));
+
+  late List<List<Color>> childrenColorsList = List<List<Color>>.generate(8, (_) => List<Color>.generate(4, (_) => const Color(0xFFD9D9D9)));
 
   List<int> updateValues(List<int> ivList, int value) {
     if (ivList.contains(value)) {
@@ -26,7 +30,9 @@ class ThirdGenerationModel {
     list.fillRange(0, list.length, 0);
   }
 
-
+  void restartAll() {
+    thirdGenerationIVList = List<List<List<int>>>.generate(4, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(3, (_) => 0)));
+  }
 
   bool isSumPositive(List<int> list) {
     return list.fold(0, (int previousValue, int element) => previousValue + element) > 0;

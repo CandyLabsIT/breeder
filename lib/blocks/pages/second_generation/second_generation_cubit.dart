@@ -82,11 +82,9 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
   }
 
   void getChildrenIVColors(int parentIndex) {
-    int listIndex = getParentIndex(parentIndex);
-
     if (secondGenerationModel.isPairFilled(parentIndex)) {
-      Set<int> femaleSet = secondGenerationModel.secondGenerationIVList[listIndex][0].toSet();
-      Set<int> maleSet = secondGenerationModel.secondGenerationIVList[listIndex][1].toSet();
+      Set<int> femaleSet = secondGenerationModel.secondGenerationIVList[parentIndex][0].toSet();
+      Set<int> maleSet = secondGenerationModel.secondGenerationIVList[parentIndex][1].toSet();
       List<int> childList = femaleSet.union(maleSet).toList();
 
       for (int i = 0; i < 3; i++) {
@@ -99,12 +97,8 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
     }
   }
 
-  int getParentIndex(int listNumber) {
-    int parentListIndex = 0;
-    if (listNumber != 0) {
-      parentListIndex = listNumber % 2;
-    }
-    return parentListIndex;
+  bool isNeighborFilled(int neighborIndex){
+    return secondGenerationModel.isPairFilled(neighborIndex);
   }
 
   List<bool> isFemaleButtonsEnabled(int listNumber) {

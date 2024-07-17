@@ -125,7 +125,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       rightColor: maleColors[1],
                                                       onPressed: () {
                                                         _onButtonPressed(0, 0);
-                                                        _togglePanel(_malePanelController);
+                                                        _togglePanel(_malePanelController);}
                                                       },
                                                     ),
                                                   ]),
@@ -155,6 +155,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       rightColor: femaleColors[3],
                                                       onPressed: () {
                                                         _onButtonPressed(1, 1);
+                                                        if (secondGenerationCubit.isNeighborFilled(0)){
                                                         _togglePanel(_femalePanelController);
                                                       },
                                                     ),
@@ -163,7 +164,8 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       rightColor: maleColors[3],
                                                       onPressed: () {
                                                         _onButtonPressed(1, 0);
-                                                        _togglePanel(_malePanelController);
+                                                        if (secondGenerationCubit.isNeighborFilled(0)){
+                                                        _togglePanel(_malePanelController);}
                                                       },
                                                     ),
                                                   ]),
@@ -268,7 +270,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: femaleColors[8],
                                                       rightColor: femaleColors[9],
                                                       onPressed: () {
-                                                        _onButtonPressed(2, 1);
+                                                        _onButtonPressed(4, 1);
                                                         _togglePanel(_femalePanelController);
                                                       },
                                                     ),
@@ -276,7 +278,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: maleColors[8],
                                                       rightColor: maleColors[9],
                                                       onPressed: () {
-                                                        _onButtonPressed(2, 0);
+                                                        _onButtonPressed(4, 0);
                                                         _togglePanel(_malePanelController);
                                                       },
                                                     ),
@@ -306,7 +308,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: femaleColors[10],
                                                       rightColor: femaleColors[11],
                                                       onPressed: () {
-                                                        _onButtonPressed(3, 1);
+                                                        _onButtonPressed(5, 1);
                                                         _togglePanel(_femalePanelController);
                                                       },
                                                     ),
@@ -314,7 +316,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: maleColors[10],
                                                       rightColor: maleColors[11],
                                                       onPressed: () {
-                                                        _onButtonPressed(3, 0);
+                                                        _onButtonPressed(5, 0);
                                                         _togglePanel(_malePanelController);
                                                       },
                                                     ),
@@ -344,7 +346,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: femaleColors[12],
                                                       rightColor: femaleColors[13],
                                                       onPressed: () {
-                                                        _onButtonPressed(2, 1);
+                                                        _onButtonPressed(6, 1);
                                                         _togglePanel(_femalePanelController);
                                                       },
                                                     ),
@@ -352,7 +354,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: maleColors[12],
                                                       rightColor: maleColors[13],
                                                       onPressed: () {
-                                                        _onButtonPressed(2, 0);
+                                                        _onButtonPressed(6, 0);
                                                         _togglePanel(_malePanelController);
                                                       },
                                                     ),
@@ -382,7 +384,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: femaleColors[14],
                                                       rightColor: femaleColors[15],
                                                       onPressed: () {
-                                                        _onButtonPressed(3, 1);
+                                                        _onButtonPressed(7, 1);
                                                         _togglePanel(_femalePanelController);
                                                       },
                                                     ),
@@ -390,7 +392,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                       leftColor: maleColors[14],
                                                       rightColor: maleColors[15],
                                                       onPressed: () {
-                                                        _onButtonPressed(3, 0);
+                                                        _onButtonPressed(7, 0);
                                                         _togglePanel(_malePanelController);
                                                       },
                                                     ),
