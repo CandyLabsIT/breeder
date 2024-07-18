@@ -1,7 +1,6 @@
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
-import 'package:breeder/blocks/pages/new_breeding/a_new_breeding_state.dart';
 import 'package:breeder/blocks/pages/new_breeding/new_breeding_cubit.dart';
-import 'package:breeder/blocks/pages/new_breeding/state/new_breeding_init_state.dart';
+import 'package:breeder/blocks/pages/new_breeding/states/new_breeding_init_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:breeder/shared/models/new_breeding/new_breeding_model.dart';
@@ -22,7 +21,7 @@ Future<void> main() async {
       ..secondGenMaleIVList[1] = 0;
 
     test('Should emit [NewBreedingInitState] state', () {
-      ANewBreedingState expectedNewBreedingState = NewBreedingInitState();
+      NewBreedingInitState expectedNewBreedingState = const NewBreedingInitState();
 
       expect(actualNewBreedingCubit.state, expectedNewBreedingState);
     });
@@ -30,7 +29,7 @@ Future<void> main() async {
     test('Should emit [NewBreedingInitState] state when when [NewBreedingModel] data is initialized', () {
       actualNewBreedingCubit.newBreedingModel = newBreedingModel;
 
-      ANewBreedingState expectedNewBreedingState = NewBreedingInitState();
+      NewBreedingInitState expectedNewBreedingState = const NewBreedingInitState();
 
       expect(actualNewBreedingCubit.state, expectedNewBreedingState);
     });

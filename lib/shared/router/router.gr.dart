@@ -11,7 +11,7 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:breeder/views/pages/main_menu_page.dart' as _i1;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i2;
-import 'package:breeder/views/widgets/second_gen_widget/second_gen_widget.dart'
+import 'package:breeder/views/widgets/genealogical_tree/second_gen_widget/second_gen_widget.dart'
     as _i3;
 
 abstract class $AppRouter extends _i4.RootStackRouter {

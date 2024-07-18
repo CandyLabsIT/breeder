@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:breeder/blocks/pages/new_breeding/a_new_breeding_state.dart';
 import 'package:breeder/blocks/pages/new_breeding/new_breeding_cubit.dart';
+import 'package:breeder/blocks/pages/new_breeding/states/new_breeding_init_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/buttons/custom_text_button.dart';
@@ -31,9 +31,9 @@ class _NewBreedingState extends State<NewBreedingPage> {
 
     return BlocProvider<NewBreedingCubit>(
       create: (BuildContext context) => NewBreedingCubit(),
-      child: BlocBuilder<NewBreedingCubit, ANewBreedingState>(
+      child: BlocBuilder<NewBreedingCubit, NewBreedingInitState>(
         bloc: newBreedingCubit,
-        builder: (BuildContext context, ANewBreedingState state) {
+        builder: (BuildContext context, NewBreedingInitState state) {
           return PopScope(
             canPop: false,
             onPopInvoked: (bool didPop) {

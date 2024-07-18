@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/state/second_gen_female_colors_changed_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/state/second_gen_female_colors_default_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/state/second_gen_init_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/state/second_gen_male_colors_changed_state.dart.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/state/second_gen_male_colors_default_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_female_colors_changed_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_female_colors_default_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_init_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_changed_state.dart.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_default_state.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

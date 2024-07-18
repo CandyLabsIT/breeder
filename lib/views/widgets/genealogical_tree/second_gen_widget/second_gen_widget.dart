@@ -3,8 +3,8 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_s
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/female/second_generation_female_button.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/male/second_generation_male_button.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_gen/female/second_gen_female_button.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_gen/male/second_gen_male_button.dart';
 import 'package:breeder/views/widgets/genealogical_tree/second_gen_widget/second_gen_sliding_panel/second_gen_female_sliding_panel.dart';
 import 'package:breeder/views/widgets/genealogical_tree/second_gen_widget/second_gen_sliding_panel/second_gen_male_sliding_panel.dart';
 import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
@@ -91,12 +91,12 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          SecondGenerationFemaleButton(
+                          SecondGenFemaleButton(
                             leftColor: femaleColors[0],
                             rightColor: femaleColors[1],
                             onPressed: () => _togglePanel(_femalePanelController, _malePanelController),
                           ),
-                          SecondGenerationMaleButton(
+                          SecondGenMaleButton(
                             leftColor: maleColors[0],
                             rightColor: maleColors[1],
                             onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
