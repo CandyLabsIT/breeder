@@ -3,11 +3,11 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_s
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_gen/female/second_gen_female_button.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_gen/male/second_gen_male_button.dart';
-import 'package:breeder/views/widgets/genealogical_tree/second_gen_widget/second_gen_sliding_panel/second_gen_female_sliding_panel.dart';
-import 'package:breeder/views/widgets/genealogical_tree/second_gen_widget/second_gen_sliding_panel/second_gen_male_sliding_panel.dart';
-import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/female/second_gen_female_button.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/male/second_gen_male_button.dart';
+import 'package:breeder/views/widgets/genealogical_tree/generic/sliding_panel_widget.dart';
+import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_sliding_panel/second_gen_female_sliding_panel.dart';
+import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_sliding_panel/second_gen_male_sliding_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -25,6 +25,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
 
   late PanelController _femalePanelController;
   late PanelController _malePanelController;
+  bool _isPanelActionInProgress = false;
 
   @override
   void initState() {
@@ -33,19 +34,30 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
     _malePanelController = PanelController();
   }
 
-  void _closePanelIfOpen(PanelController controller) {
+  Future<void> _closePanelIfOpen(PanelController controller) async {
     if (controller.isPanelOpen) {
-      controller.close();
+      await controller.close();
     }
   }
 
-  void _togglePanel(PanelController primaryController, PanelController secondaryController) {
-    if (primaryController.isPanelOpen) {
-      primaryController.close();
-    } else {
-      _closePanelIfOpen(secondaryController);
-      primaryController.open();
+  Future<void> _togglePanel(PanelController primaryController, PanelController secondaryController) async {
+    if (_isPanelActionInProgress) {
+      return;
     }
+    setState(() {
+      _isPanelActionInProgress = true;
+    });
+
+    if (primaryController.isPanelOpen) {
+      await primaryController.close();
+    } else {
+      await _closePanelIfOpen(secondaryController);
+      await primaryController.open();
+    }
+
+    setState(() {
+      _isPanelActionInProgress = false;
+    });
   }
 
   void _onWillPop(bool didPop) {

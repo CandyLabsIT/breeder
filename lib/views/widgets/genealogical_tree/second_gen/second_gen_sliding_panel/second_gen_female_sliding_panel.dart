@@ -1,9 +1,9 @@
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/config/locator.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_gen/reset_button.dart';
-import 'package:breeder/views/widgets/generic/genealogical_tree/attribute_buttons_widget.dart';
-import 'package:breeder/views/widgets/generic/genealogical_tree/close_panel_widget.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree/generic/reset_button.dart';
+import 'package:breeder/views/widgets/genealogical_tree/generic/attribute_buttons_widget.dart';
+import 'package:breeder/views/widgets/genealogical_tree/generic/close_panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +27,7 @@ class _SecondGenFemaleSlidingPanelState extends State<SecondGenFemaleSlidingPane
     return BlocBuilder<SecondGenCubit, ASecondGenState>(
       bloc: secondGenCubit,
       builder: (BuildContext context, ASecondGenState state) {
-        List<bool> isEnabledList = secondGenCubit.isFemaleButtonsEnabled();
+        List<bool> isEnabledList = secondGenCubit.getFemaleButtonsState();
 
         return Center(
           child: Column(
@@ -37,12 +37,12 @@ class _SecondGenFemaleSlidingPanelState extends State<SecondGenFemaleSlidingPane
                 child: ClosePanelWidget(),
               ),
               AttributeButtonsWidget(
-                onPressedAtk: () => secondGenCubit.getIVFemaleColors(1),
-                onPressedHP: () => secondGenCubit.getIVFemaleColors(2),
-                onPressedSpAtk: () => secondGenCubit.getIVFemaleColors(3),
-                onPressedDef: () => secondGenCubit.getIVFemaleColors(4),
-                onPressedSpDef: () => secondGenCubit.getIVFemaleColors(5),
-                onPressedSpeed: () => secondGenCubit.getIVFemaleColors(6),
+                onPressedAtk: () => secondGenCubit.getFemaleColors(1),
+                onPressedHP: () => secondGenCubit.getFemaleColors(2),
+                onPressedSpAtk: () => secondGenCubit.getFemaleColors(3),
+                onPressedDef: () => secondGenCubit.getFemaleColors(4),
+                onPressedSpDef: () => secondGenCubit.getFemaleColors(5),
+                onPressedSpeed: () => secondGenCubit.getFemaleColors(6),
                 isEnabledAtk: isEnabledList[1],
                 isEnabledHP: isEnabledList[2],
                 isEnabledSpAtk: isEnabledList[3],
@@ -52,7 +52,7 @@ class _SecondGenFemaleSlidingPanelState extends State<SecondGenFemaleSlidingPane
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: secondGenCubit.restoreFemaleDefaultColors,
+                  onPressed: secondGenCubit.getFemaleDefaultColors,
                   isEnabled: secondGenCubit.isFemaleRestartButtonEnabled(),
                 ),
               ),

@@ -15,7 +15,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   SecondGenCubit() : super(InitSecondGenState());
 
-  void getIVFemaleColors(int femaleValue) {
+  void getFemaleColors(int femaleValue) {
     secondGenerationModel.updateValues(secondGenerationModel.secondGenFemaleIVList, femaleValue);
     emit(
       SecondGenFemaleColorsChangedState(colorsList: <Color>[
@@ -25,7 +25,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     );
   }
 
-  void getIVMaleColors(int maleValue) {
+  void getMaleColors(int maleValue) {
     secondGenerationModel.updateValues(secondGenerationModel.secondGenMaleIVList, maleValue);
     emit(
       SecondGenMaleColorsChangedState(colorsList: <Color>[
@@ -35,7 +35,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     );
   }
 
-  void restoreFemaleDefaultColors() {
+  void getFemaleDefaultColors() {
     if (secondGenerationModel.isSumPositive(secondGenerationModel.secondGenFemaleIVList)) {
       secondGenerationModel.restartListValues(secondGenerationModel.secondGenFemaleIVList);
     }
@@ -49,7 +49,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     );
   }
 
-  void restoreMaleDefaultColors() {
+  void getMaleDefaultColors() {
     if (secondGenerationModel.isSumPositive(secondGenerationModel.secondGenMaleIVList)) {
       secondGenerationModel.restartListValues(secondGenerationModel.secondGenMaleIVList);
     }
@@ -87,7 +87,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     ];
   }
 
-  List<bool> isFemaleButtonsEnabled() {
+  List<bool> getFemaleButtonsState() {
     return _getButtonsState(secondGenerationModel.secondGenFemaleIVList, secondGenerationModel.secondGenMaleIVList);
   }
 
