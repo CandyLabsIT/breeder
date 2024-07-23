@@ -119,10 +119,6 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   onPressed: () {
                                                     _onButtonPressed(0, 1);
                                                     _togglePanel(_femalePanelController);
-                                                    if (secondGenerationCubit.isNeighborFilled(0)) {
-                                                      _femaleButtonTranslucentList[0][0] = false;
-                                                      _femaleButtonTranslucentList[0][1] = false;
-                                                    }
                                                   },
                                                   isTranslucent: false,
                                                 ),
@@ -161,12 +157,11 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[3],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(0)) {
-                                                      _femaleButtonTranslucentList[0] = false;
                                                       _onButtonPressed(1, 1);
                                                       _togglePanel(_femalePanelController);
                                                     }
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[0],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(0),
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[2],
@@ -205,12 +200,11 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[5],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(1)) {
-                                                      _femaleButtonTranslucentList[1] = false;
                                                       _onButtonPressed(2, 1);
                                                       _togglePanel(_femalePanelController);
                                                     }
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[1],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(1),
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[4],
@@ -249,12 +243,12 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[7],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(2)) {
-                                                      _femaleButtonTranslucentList[2] = false;
                                                       _onButtonPressed(3, 1);
                                                       _togglePanel(_femalePanelController);
                                                     }
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[2],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(2),
+
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[6],
@@ -293,12 +287,11 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[9],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(3)) {
-                                                      _femaleButtonTranslucentList[3] = false;
                                                       _onButtonPressed(4, 1);
                                                       _togglePanel(_femalePanelController);
                                                     }
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[3],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(3),
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[8],
@@ -337,12 +330,12 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[11],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(4)) {
-                                                      _femaleButtonTranslucentList[4] = false;
                                                       _onButtonPressed(5, 1);
                                                       _togglePanel(_femalePanelController);
                                                     }
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[4],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(4),
+
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[10],
@@ -381,12 +374,12 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[13],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(5)) {
-                                                      _femaleButtonTranslucentList[6] = false;
                                                       _onButtonPressed(6, 1);
                                                       _togglePanel(_femalePanelController);
                                                     } else {}
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[5],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(5),
+
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[12],
@@ -425,12 +418,11 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                                                   rightColor: femaleColors[15],
                                                   onPressed: () {
                                                     if (secondGenerationCubit.isNeighborFilled(6)) {
-                                                      _femaleButtonTranslucentList[6] = false;
                                                       _onButtonPressed(7, 1);
                                                       _togglePanel(_femalePanelController);
                                                     }
                                                   },
-                                                  isTranslucent: _femaleButtonTranslucentList[6],
+                                                  isTranslucent: secondGenerationCubit.isNeighborFilled(6),
                                                 ),
                                                 SecondGenerationMaleButton(
                                                   leftColor: maleColors[14],

@@ -101,6 +101,20 @@ class SecondGenerationCubit extends Cubit<ASecondGenerationState> {
     return secondGenerationModel.isPairFilled(neighborIndex);
   }
 
+  List<bool> getSecondGenState(int currentIndex){
+    final List<bool> secondGenList = List<bool>.filled(8, false);
+
+    secondGenList[0] = true;
+
+    if (secondGenerationModel.isPairFilled(currentIndex-1)){
+      for (int i = 1; i<= currentIndex; i++){
+        secondGenList[i] = true;
+      }
+    }
+
+    return secondGenList;
+  }
+
   List<bool> isFemaleButtonsEnabled(int listNumber) {
     return _getButtonsState(secondGenerationModel.secondGenerationIVList[listNumber][0], secondGenerationModel.secondGenerationIVList[listNumber][1]);
   }
