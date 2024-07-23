@@ -60,13 +60,13 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
     });
   }
 
-  void _onWillPop(bool didPop) {
+ void _onPopInvoked(bool didPop) {
     if (_femalePanelController.isPanelOpen) {
-      _femalePanelController.close();
+       _femalePanelController.close();
     } else if (_malePanelController.isPanelOpen) {
-      _malePanelController.close();
-    } else {
-      AutoRouter.of(context).push(const NewBreedingRoute());
+       _malePanelController.close();
+    } else if (_femalePanelController.isPanelClosed && _malePanelController.isPanelClosed) {
+       AutoRouter.of(context).push(const NewBreedingRoute());
     }
   }
 
@@ -81,7 +81,7 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
           final List<Color> maleColors = secondGenCubit.getMaleButtonColors();
           return PopScope(
             canPop: false,
-            onPopInvoked: _onWillPop,
+            onPopInvoked: _onPopInvoked,
             child: Scaffold(
               body: Stack(
                 children: <Widget>[
