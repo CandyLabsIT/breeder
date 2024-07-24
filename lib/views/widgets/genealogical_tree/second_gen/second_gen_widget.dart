@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/config/locator.dart';
+import 'package:breeder/shared/models/genealogical_tree/pairs_value.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/female/second_gen_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/male/second_gen_male_button.dart';
@@ -13,18 +14,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 @RoutePage()
-class SecondGenerationWidget extends StatefulWidget {
-  const SecondGenerationWidget({super.key});
+class SecondGenWidget extends StatefulWidget {
+  const SecondGenWidget({super.key});
 
   @override
-  _SecondGenerationWidgetState createState() => _SecondGenerationWidgetState();
+  _SecondGenWidgetState createState() => _SecondGenWidgetState();
 }
 
-class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
+class _SecondGenWidgetState extends State<SecondGenWidget> {
   final SecondGenCubit secondGenCubit = globalLocator<SecondGenCubit>();
 
   late PanelController _femalePanelController;
   late PanelController _malePanelController;
+  late PairsValues femaleData = PairsValues.pairZero;
+  late PairsValues maleData = PairsValues.pairZero;
   bool _isPanelActionInProgress = false;
 
   @override
@@ -60,13 +63,23 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
     });
   }
 
- void _onPopInvoked(bool didPop) {
+  void _onButtonPressed(PairsValues data, int panel) {
+    setState(() {
+      if (panel == 0) {
+        femaleData = data;
+      } else if (panel == 1) {
+        maleData = data;
+      }
+    });
+  }
+
+  void _onPopInvoked(bool didPop) {
     if (_femalePanelController.isPanelOpen) {
-       _femalePanelController.close();
+      _femalePanelController.close();
     } else if (_malePanelController.isPanelOpen) {
-       _malePanelController.close();
+      _malePanelController.close();
     } else if (_femalePanelController.isPanelClosed && _malePanelController.isPanelClosed) {
-       AutoRouter.of(context).push(const NewBreedingRoute());
+      AutoRouter.of(context).push(const NewBreedingRoute());
     }
   }
 
@@ -87,13 +100,13 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                 children: <Widget>[
                   SlidingPanelWidget(
                     controller: _femalePanelController,
-                    panel: const SecondGenFemaleSlidingPanel(),
+                    panel: SecondGenFemaleSlidingPanel(pairValue: femaleData),
                     onTap: () {},
                     bodyContent: Container(),
                   ),
                   SlidingPanelWidget(
                     controller: _malePanelController,
-                    panel: const SecondGenMaleSlidingPanel(),
+                    panel: SecondGenMaleSlidingPanel(pairValue: maleData),
                     onTap: () {},
                     bodyContent: Container(),
                   ),
@@ -106,12 +119,18 @@ class _SecondGenerationWidgetState extends State<SecondGenerationWidget> {
                           SecondGenFemaleButton(
                             leftColor: femaleColors[0],
                             rightColor: femaleColors[1],
-                            onPressed: () => _togglePanel(_femalePanelController, _malePanelController),
+                            onPressed: () {
+                              _onButtonPressed(PairsValues.pairZero, 0);
+                              _togglePanel(_femalePanelController, _malePanelController);
+                            },
                           ),
                           SecondGenMaleButton(
                             leftColor: maleColors[0],
                             rightColor: maleColors[1],
-                            onPressed: () => _togglePanel(_malePanelController, _femalePanelController),
+                            onPressed: () {
+                              _togglePanel(_malePanelController, _femalePanelController);
+                              _onButtonPressed(PairsValues.pairZero, 1);
+                            },
                           )
                         ],
                       ),

@@ -1,31 +1,33 @@
 class SecondGenModel {
-  late List<int> secondGenFemaleIVList = <int>[0, 0];
-  late List<int> secondGenMaleIVList = <int>[0, 0];
 
-  void updateValues(List<int> list, int value) {
-    if (list[0] == value) {
-      list[0] = 0;
-    } else if (list[1] == value) {
-      list[1] = 0;
-    } else if (list[0] == 0) {
-      list[0] = value;
-    } else if (list[1] == 0) {
-      list[1] = value;
+  late List<List<List<int>>> secondGenIVList =
+  List<List<List<int>>>.generate(8, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(2, (_) => 0)));
+
+  void updateListValues(int indexList, int gender, int ivValue) {
+    if (secondGenIVList[indexList][gender][0] == ivValue) {
+      secondGenIVList[indexList][gender][0] = 0;
+    } else if (secondGenIVList[indexList][gender][1] == ivValue) {
+      secondGenIVList[indexList][gender][1] = 0;
+    } else if (secondGenIVList[indexList][gender][0] == 0) {
+      secondGenIVList[indexList][gender][0] = ivValue;
+    } else if (secondGenIVList[indexList][gender][1] == 0) {
+      secondGenIVList[indexList][gender][1] = ivValue;
     }
   }
 
-  List<int> restartListValues(List<int> valueList) {
-    valueList[0] = 0;
-    valueList[1] = 0;
-
-    return valueList;
+  void restartListValues(int indexList, int gender) {
+    secondGenIVList[indexList][gender].fillRange(0, 2, 0);
   }
 
-  bool isSumPositive(List<int> list) {
-    return list.fold(0, (int previousValue, int element) => previousValue + element) > 0;
+  void restartAll() {
+    secondGenIVList = List<List<List<int>>>.generate(8, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(2, (_) => 0)));
   }
 
-  bool hasCommonValue(List<int> primaryList, List<int> secondaryList) {
-    return primaryList.toSet().intersection(secondaryList.toSet()).isNotEmpty;
+  bool isSumPositive(int indexList, int gender) {
+    return secondGenIVList[indexList][gender].fold(0, (int previousValue, int element) => previousValue + element) > 0;
+  }
+
+  bool hasCommonValue(int indexList) {
+    return secondGenIVList[indexList][0].toSet().intersection(secondGenIVList[indexList][1].toSet()).isNotEmpty;
   }
 }

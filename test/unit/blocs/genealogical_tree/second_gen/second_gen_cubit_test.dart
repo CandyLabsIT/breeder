@@ -8,6 +8,8 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_changed_state.dart.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_default_state.dart';
 import 'package:breeder/config/locator.dart';
+import 'package:breeder/shared/models/genealogical_tree/iv_values.dart';
+import 'package:breeder/shared/models/genealogical_tree/pairs_value.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,10 +22,10 @@ Future<void> main() async {
     SecondGenCubit actualSecondGenCubit = globalLocator<SecondGenCubit>();
 
     SecondGenModel secondGenerationModel = SecondGenModel()
-      ..secondGenFemaleIVList[0] = 4
-      ..secondGenFemaleIVList[1] = 0
-      ..secondGenMaleIVList[0] = 3
-      ..secondGenMaleIVList[1] = 0;
+      ..secondGenIVList[0][0][0] = 4
+      ..secondGenIVList[0][0][1] = 0
+      ..secondGenIVList[0][1][0] = 3
+      ..secondGenIVList[0][1][1] = 0;
 
     test('Should return [SecondGenerationInitState] state', () {
       ASecondGenState expectedSecondGenInitState = InitSecondGenState();
@@ -32,7 +34,7 @@ Future<void> main() async {
     });
 
     test('Should return [SecondGenerationInitState] when [SecondGenModel] data is initialized', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
       ASecondGenState expectedSecondGenInitState = InitSecondGenState();
 
@@ -40,57 +42,113 @@ Future<void> main() async {
     });
 
     test('Should return [FemaleColorsState] if [femaleValue is not none]', () {
-      int actualFemaleValue = 3;
+      IVValues actualFemaleValue = IVValues.spAtkValue;
 
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.getFemaleColors(actualFemaleValue);
+      actualSecondGenCubit.setFemaleColors(PairsValues.pairZero, actualFemaleValue);
 
-      ASecondGenState expectedSecondGenFemaleColorsChangedState =
-          const SecondGenFemaleColorsChangedState(colorsList: <Color>[Color(0xFFFFDAD6), Color(0xFFFDFB8E)]);
+      ASecondGenState expectedSecondGenFemaleColorsChangedState = const SecondGenFemaleColorsChangedState(colorsList: <Color>[
+        Color(0xFFFFDAD6),
+        Color(0xFFFDFB8E),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9)
+      ]);
 
       expect(actualSecondGenCubit.state, expectedSecondGenFemaleColorsChangedState);
     });
 
     test('Should return [MaleColorsState] if [maleValue is not none]', () {
-      int actualMaleValue = 1;
+      IVValues actualMaleValue = IVValues.atkValue;
 
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.getMaleColors(actualMaleValue);
+      actualSecondGenCubit.setMaleColors(PairsValues.pairZero, actualMaleValue);
 
-      ASecondGenState expectedSecondGenFemaleColorsChangedState =
-          const SecondGenMaleColorsChangedState(colorsList: <Color>[Color(0xFFFDFB8E), Color(0xFFFA4A78)]);
+      ASecondGenState expectedSecondGenFemaleColorsChangedState = const SecondGenMaleColorsChangedState(colorsList: <Color>[
+        Color(0xFFFDFB8E),
+        Color(0xFFFA4A78),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9)
+      ]);
 
       expect(actualSecondGenCubit.state, expectedSecondGenFemaleColorsChangedState);
     });
 
     test('Should return [SecondGenFemaleColorsDefaultState] if [secondGenFemaleIVList is not none]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.getFemaleDefaultColors();
+      actualSecondGenCubit.setFemaleDefaultColors(PairsValues.pairZero);
 
-      ASecondGenState expectedSecondGenFemaleColorsDefaultState =
-          const SecondGenFemaleColorsDefaultState(colorsList: <Color>[Color(0xFFD9D9D9), Color(0xFFD9D9D9)]);
+      ASecondGenState expectedSecondGenFemaleColorsDefaultState = const SecondGenFemaleColorsDefaultState(colorsList: <Color>[
+        Color(0xFFD9D9D9),
+        Color(0xFFD9D9D9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9)
+      ]);
 
       expect(actualSecondGenCubit.state, expectedSecondGenFemaleColorsDefaultState);
     });
 
     test('Should return [SecondGenMaleColorsDefaultState] if [secondGenMaleIVList is not none]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.getMaleDefaultColors();
+      actualSecondGenCubit.setMaleDefaultColors(PairsValues.pairZero);
 
-      ASecondGenState expectedSecondGenMaleColorsDefaultState =
-          const SecondGenMaleColorsDefaultState(colorsList: <Color>[Color(0xFFD9D9D9), Color(0xFFD9D9D9)]);
+      ASecondGenState expectedSecondGenMaleColorsDefaultState = const SecondGenMaleColorsDefaultState(colorsList: <Color>[
+        Color(0xFFD9D9D9),
+        Color(0xFFD9D9D9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9),
+        Color(0xffd9d9d9)
+      ]);
 
       expect(actualSecondGenCubit.state, expectedSecondGenMaleColorsDefaultState);
     });
 
     test('Should return [all true values] if [both values in secondGenFemaleIVList == 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState();
+      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -98,11 +156,11 @@ Future<void> main() async {
     });
 
     test('Should return [all true values] if [only value secondGenFemaleIVList[0] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 4
-        ..secondGenFemaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 4
+        ..secondGenIVList[0][0][1] = 0;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState();
+      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -110,11 +168,11 @@ Future<void> main() async {
     });
 
     test('Should return [all true values] if [only value secondGenFemaleIVList[1] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 0
-        ..secondGenFemaleIVList[1] = 6;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 0
+        ..secondGenIVList[0][0][1] = 6;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState();
+      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -122,11 +180,11 @@ Future<void> main() async {
     });
 
     test('Should return [two true values] if [both values in secondGenerationFemaleIVList > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 4
-        ..secondGenFemaleIVList[1] = 3;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 4
+        ..secondGenIVList[0][0][1] = 3;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState();
+      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, false, true, true, false, false];
 
@@ -136,13 +194,13 @@ Future<void> main() async {
     test(
         'Should return [three false values] if [only secondGenFemaleIVList[0]> 0, both values in secondGenMaleIVList > 0 and secondGenFemaleIVList[0] != each values in secondGenMaleIVList]',
         () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 4
-        ..secondGenFemaleIVList[1] = 0
-        ..secondGenMaleIVList[0] = 3
-        ..secondGenMaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 4
+        ..secondGenIVList[0][0][1] = 0
+        ..secondGenIVList[0][1][0] = 3
+        ..secondGenIVList[0][1][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState();
+      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, true, true, true, false, false];
 
@@ -152,13 +210,13 @@ Future<void> main() async {
     test(
         'Should return [only one false value] if [only secondGenFemaleIVList[0]> 0, both values in secondGenMaleIVList > 0 and secondGenFemaleIVList[0] == one of values in secondGenFemaleIVList]',
         () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 3
-        ..secondGenFemaleIVList[1] = 0
-        ..secondGenMaleIVList[0] = 3
-        ..secondGenMaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 3
+        ..secondGenIVList[0][0][1] = 0
+        ..secondGenIVList[0][1][0] = 3
+        ..secondGenIVList[0][1][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState();
+      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, true, false, true, true, true, true];
 
@@ -166,11 +224,11 @@ Future<void> main() async {
     });
 
     test('Should return [all true values] if [both values in secondGenMaleIVList == 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 0
-        ..secondGenMaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 0
+        ..secondGenIVList[0][1][1] = 0;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.isMaleButtonsEnabled();
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -178,11 +236,11 @@ Future<void> main() async {
     });
 
     test('Should return [all true values] if [if only secondGenMaleIVList[0] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 3
-        ..secondGenMaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 3
+        ..secondGenIVList[0][1][1] = 0;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.isMaleButtonsEnabled();
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -190,13 +248,13 @@ Future<void> main() async {
     });
 
     test('Should return [two true values] if [both values in secondGenMaleIVList > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 4
-        ..secondGenMaleIVList[1] = 3;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 4
+        ..secondGenIVList[0][1][1] = 3;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.isMaleButtonsEnabled();
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
 
-      List<bool> expectedButtonsState = <bool>[false, false, false, true, true, false, false];
+      List<bool> expectedButtonsState = <bool>[true, false, false, true, true, false, false];
 
       expect(actualButtonsState, expectedButtonsState);
     });
@@ -204,13 +262,13 @@ Future<void> main() async {
     test(
         'Should return [three false values] if [only secondGenMaleIVList[0]> 0 and both values in secondGenFemaleIVList > 0 and secondGenMaleIVList[0] != of both values in secondGenFemaleIVList]',
         () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 4
-        ..secondGenMaleIVList[1] = 0
-        ..secondGenFemaleIVList[0] = 3
-        ..secondGenFemaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 4
+        ..secondGenIVList[0][1][1] = 0
+        ..secondGenIVList[0][0][0] = 3
+        ..secondGenIVList[0][0][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.isMaleButtonsEnabled();
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, true, true, true, false, false];
 
@@ -220,13 +278,13 @@ Future<void> main() async {
     test(
         'Should return [only one false value] if [only secondGenMaleIVList[0]> 0 and both values in secondGenFemaleIVList > 0 and secondGenMaleIVList[0] == one of values in secondGenFemaleIVList]',
         () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 3
-        ..secondGenMaleIVList[1] = 0
-        ..secondGenFemaleIVList[0] = 3
-        ..secondGenFemaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 3
+        ..secondGenIVList[0][1][1] = 0
+        ..secondGenIVList[0][0][0] = 3
+        ..secondGenIVList[0][0][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.isMaleButtonsEnabled();
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, true, false, true, true, true, true];
 
@@ -234,11 +292,11 @@ Future<void> main() async {
     });
 
     test('Should return [true] if [both values in secondGenFemaleIVList > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 3
-        ..secondGenFemaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 3
+        ..secondGenIVList[0][0][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = true;
 
@@ -246,77 +304,77 @@ Future<void> main() async {
     });
 
     test('Should return [true] if [only secondGenFemaleIVList[0] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 1
-        ..secondGenFemaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 1
+        ..secondGenIVList[0][0][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
     });
 
     test('Should return [true] if [only secondGenFemaleIVList[1] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 0
-        ..secondGenFemaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 0
+        ..secondGenIVList[0][0][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
     });
 
     test('Should return [false] if [both values in secondGenFemaleIVList[0] == 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenFemaleIVList[0] = 0
-        ..secondGenFemaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][0][0] = 0
+        ..secondGenIVList[0][0][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = false;
       expect(actualButtonState, expectedButtonsState);
     });
 
     test('Should return [true] if [both values in secondGenMaleIVList > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 1
-        ..secondGenMaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 1
+        ..secondGenIVList[0][1][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
     });
 
     test('Should return [true] if [only secondGenMaleIVList[1] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 0
-        ..secondGenMaleIVList[1] = 2;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 0
+        ..secondGenIVList[0][1][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
     });
 
     test('Should return [true] if [only secondGenMaleIVList[0] > 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 1
-        ..secondGenMaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 1
+        ..secondGenIVList[0][1][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
     });
 
     test('Should return [false] if [both values in secondGenMaleIVList == 0]', () {
-      actualSecondGenCubit.secondGenerationModel = secondGenerationModel
-        ..secondGenMaleIVList[0] = 0
-        ..secondGenMaleIVList[1] = 0;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel
+        ..secondGenIVList[0][1][0] = 0
+        ..secondGenIVList[0][1][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled();
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
 
       bool expectedButtonsState = false;
       expect(actualButtonState, expectedButtonsState);

@@ -15,10 +15,10 @@ Future<void> main() async {
 
     NewBreedingModel newBreedingModel = NewBreedingModel()..newBreedingTextEditingController.text = 'Test123';
     SecondGenModel secondGenerationModel = SecondGenModel()
-      ..secondGenFemaleIVList[0] = 4
-      ..secondGenFemaleIVList[1] = 0
-      ..secondGenMaleIVList[0] = 3
-      ..secondGenMaleIVList[1] = 0;
+      ..secondGenIVList[0][0][0] = 4
+      ..secondGenIVList[0][0][1] = 0
+      ..secondGenIVList[0][1][0] = 3
+      ..secondGenIVList[0][1][1] = 0;
 
     test('Should emit [NewBreedingInitState] state', () {
       NewBreedingInitState expectedNewBreedingState = const NewBreedingInitState();
@@ -35,7 +35,7 @@ Future<void> main() async {
     });
 
     test('Should return list of zeros, and ' '', () {
-      secondGenCubit.secondGenerationModel = secondGenerationModel;
+      secondGenCubit.secondGenModel = secondGenerationModel;
       actualNewBreedingCubit
         ..newBreedingModel = newBreedingModel
         ..resetData();
@@ -45,8 +45,8 @@ Future<void> main() async {
       List<int> expectedSecondGenerationMaleIVList = <int>[0, 0];
 
       expect(actualNewBreedingCubit.newBreedingModel.newBreedingTextEditingController.text, expectedNewBreedingState);
-      expect(secondGenCubit.secondGenerationModel.secondGenFemaleIVList, expectedSecondGenerationFemaleIVList);
-      expect(secondGenCubit.secondGenerationModel.secondGenMaleIVList, expectedSecondGenerationMaleIVList);
+      expect(secondGenCubit.secondGenModel.secondGenIVList[0][0], expectedSecondGenerationFemaleIVList);
+      expect(secondGenCubit.secondGenModel.secondGenIVList[0][1], expectedSecondGenerationMaleIVList);
     });
   });
 }
