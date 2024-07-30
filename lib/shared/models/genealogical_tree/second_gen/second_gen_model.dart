@@ -55,6 +55,22 @@ class SecondGenModel {
       return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
     }
 
+  bool hasCommonValue(int indexList) {
+    return secondGenIVList[indexList][0].toSet().intersection(secondGenIVList[indexList][1].toSet()).isNotEmpty;
+  }
+
+
+  bool isPairFilled(int pairIndex) {
+    bool isFilled = true;
+    bool female = secondGenIVList[pairIndex][0].contains(0);
+    bool male = secondGenIVList[pairIndex][1].contains(0);
+
+    if (female || male) {
+      return false;
+    }
+    return isFilled;
+  }
+}
     SecondGenIndex getMaleIndex(SecondGenIndex secondGenIndex) {
       if (secondGenIndex.value.isEven) {
         return secondGenIndex;

@@ -1,9 +1,9 @@
-import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.dart';
-import 'package:breeder/blocks/pages/third_generation/third_generation_cubit.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/a_third_generation_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/third_generation_cubit.dart';
 import 'package:breeder/config/locator.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/second_generation/reset_button.dart';
-import 'package:breeder/views/widgets/generic/genealogical_tree/attribute_buttons_widget.dart';
-import 'package:breeder/views/widgets/generic/genealogical_tree/close_panel_widget.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree/generic/reset_button.dart';
+import 'package:breeder/views/widgets/genealogical_tree/generic/attribute_buttons_widget.dart';
+import 'package:breeder/views/widgets/genealogical_tree/generic/close_panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

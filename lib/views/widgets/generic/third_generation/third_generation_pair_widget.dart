@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.dart';
-import 'package:breeder/blocks/pages/third_generation/third_generation_cubit.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/a_third_generation_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/third_generation_cubit.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/female/third_generation_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/male/third_generation_male_button.dart';
-import 'package:breeder/views/widgets/generic/genealogical_tree/sliding_panel_widget.dart';
+import 'package:breeder/views/widgets/genealogical_tree/generic/sliding_panel_widget.dart';
 import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_female_sliding_panel.dart';
 import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_generation_male_sliding_panel.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,7 @@ class _ThirdGenerationPairWidgetState extends State<ThirdGenerationPairWidget> {
     } else if (malePanelController.isPanelOpen) {
       malePanelController.close();
     } else {
-      AutoRouter.of(context).push(const SecondGenerationWidget());
+      AutoRouter.of(context).push(const SecondGenWidget());
     }
   }
 

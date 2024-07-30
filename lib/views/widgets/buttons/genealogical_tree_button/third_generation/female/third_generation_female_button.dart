@@ -1,4 +1,4 @@
-import 'package:breeder/views/widgets/buttons/genealogical_tree_button/female_branch_line_painter.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/female/female_branch_line_painter.dart';
 import 'package:flutter/material.dart';
 
 class ThirdGenerationFemaleButton extends StatelessWidget {

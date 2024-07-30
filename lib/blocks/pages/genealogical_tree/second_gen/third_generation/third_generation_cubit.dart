@@ -1,10 +1,10 @@
-import 'package:breeder/blocks/pages/second_generation/second_generation_cubit.dart';
-import 'package:breeder/blocks/pages/third_generation/a_third_generation_state.dart';
-import 'package:breeder/blocks/pages/third_generation/state/init_third_generation_state.dart';
-import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_female_values_state.dart';
-import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_male_values_state.dart';
-import 'package:breeder/blocks/pages/third_generation/state/third_generation_female_color_state.dart';
-import 'package:breeder/blocks/pages/third_generation/state/third_generation_male_color_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/a_third_generation_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/init_third_generation_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/restarted_third_generation_female_values_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/restarted_third_generation_male_values_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/third_generation_female_color_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/third_generation_male_color_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_generation_model.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
-  SecondGenerationCubit secondGenerationCubit = globalLocator<SecondGenerationCubit>();
+  SecondGenCubit secondGenCubit = globalLocator<SecondGenCubit>();
   ThirdGenerationModel thirdGenerationModel = ThirdGenerationModel();
 
   ThirdGenerationCubit() : super(InitSecondGenerationFamilyState());
@@ -133,9 +133,9 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   }
 
   void getFemaleChildColor(int listNumber, int index, int gender) {
-    if (secondGenerationCubit.secondGenerationModel.isPairFilled(listNumber)) {
-      Set<int> femaleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[listNumber][0].toSet();
-      Set<int> maleSet = secondGenerationCubit.secondGenerationModel.secondGenerationIVList[listNumber][1].toSet();
+    if (secondGenCubit.secondGenModel.isPairFilled(listNumber)) {
+      Set<int> femaleSet = secondGenCubit.secondGenModel.secondGenIVList[listNumber][0].toSet();
+      Set<int> maleSet = secondGenCubit.secondGenModel.secondGenIVList[listNumber][1].toSet();
       List<int> childList = femaleSet.union(maleSet).toList();
 
       for (int i = 0; i < 3; i++) {
