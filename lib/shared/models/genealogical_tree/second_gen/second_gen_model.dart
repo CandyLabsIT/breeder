@@ -62,24 +62,16 @@ class SecondGenModel {
     int previous = index.value - 1;
     return SecondGenIndex.values.firstWhere((SecondGenIndex element) => element.value == previous);
   }
+  //
+  // Map<SecondGenIndex, List<IVColor>> getFemaleColors() {
+  //   return getColorsMap();
+  // }
 
-  Map<SecondGenIndex, List<IVColor>> getFemaleColors() {
-    return _getColors(SecondGenIndex.zero);
-  }
-
-  Map<SecondGenIndex, List<IVColor>> getMaleColors() {
-    return _getColors(SecondGenIndex.one);
-  }
-
-  Map<SecondGenIndex, List<IVColor>> _getColors(SecondGenIndex index) {
+  Map<SecondGenIndex, List<IVColor>> getColorsMap() {
     Map<SecondGenIndex, List<IVColor>> map = <SecondGenIndex, List<IVColor>>{};
     SecondGenIndex max = SecondGenIndex.fifteen;
 
-    if (isFemale(index)) {
-      max = SecondGenIndex.fourteen;
-    }
-
-    for (int i = index.value; i <= max.value; i += 2) {
+    for (int i = SecondGenIndex.zero.value; i <= max.value; i++) {
       SecondGenIndex key = SecondGenIndex.values.firstWhere((SecondGenIndex element) => element.value == i);
       map[key] = List<IVColor>.from(colorMap[key]!);
     }

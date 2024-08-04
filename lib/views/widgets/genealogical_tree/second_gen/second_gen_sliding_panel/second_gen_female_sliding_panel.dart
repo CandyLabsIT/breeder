@@ -42,12 +42,12 @@ class _SecondGenFemaleSlidingPanelState extends State<SecondGenFemaleSlidingPane
                 child: ClosePanelWidget(),
               ),
               AttributeButtonsWidget(
-                onPressedAtk: () => secondGenCubit.setFemaleColors(widget.index, IVColor.atkColor),
-                onPressedHP: () => secondGenCubit.setFemaleColors(widget.index, IVColor.hpColor),
-                onPressedSpAtk: () => secondGenCubit.setFemaleColors(widget.index, IVColor.spAtkColor),
-                onPressedDef: () => secondGenCubit.setFemaleColors(widget.index, IVColor.defColor),
-                onPressedSpDef: () => secondGenCubit.setFemaleColors(widget.index, IVColor.spDefColor),
-                onPressedSpeed: () => secondGenCubit.setFemaleColors(widget.index, IVColor.speedColor),
+                onPressedAtk: () => secondGenCubit.setColors(widget.index, IVColor.atkColor),
+                onPressedHP: () => secondGenCubit.setColors(widget.index, IVColor.hpColor),
+                onPressedSpAtk: () => secondGenCubit.setColors(widget.index, IVColor.spAtkColor),
+                onPressedDef: () => secondGenCubit.setColors(widget.index, IVColor.defColor),
+                onPressedSpDef: () => secondGenCubit.setColors(widget.index, IVColor.spDefColor),
+                onPressedSpeed: () => secondGenCubit.setColors(widget.index, IVColor.speedColor),
                 isEnabledAtk: isEnabledList[IVColor.atkColor]!,
                 isEnabledHP: isEnabledList[IVColor.hpColor]!,
                 isEnabledSpAtk: isEnabledList[IVColor.spAtkColor]!,
@@ -57,7 +57,7 @@ class _SecondGenFemaleSlidingPanelState extends State<SecondGenFemaleSlidingPane
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: () => secondGenCubit.setFemaleListDefaultColors(widget.index),
+                  onPressed: () => secondGenCubit.setListDefaultColors(widget.index),
                   isEnabled: secondGenCubit.isRestartButtonEnabled(widget.index),
                 ),
               ),

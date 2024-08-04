@@ -10,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondGenMaleSlidingPanel extends StatefulWidget {
-  final SecondGenIndex pairValue;
+  final SecondGenIndex index;
 
   const SecondGenMaleSlidingPanel({
-    required this.pairValue,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class _SecondGenMaleSlidingPanelState extends State<SecondGenMaleSlidingPanel> {
     return BlocBuilder<SecondGenCubit, ASecondGenState>(
       bloc: secondGenCubit,
       builder: (BuildContext context, ASecondGenState state) {
-        Map<IVColor, bool> isEnabledList = secondGenCubit.getButtonsState(widget.pairValue,);
+        Map<IVColor, bool> isEnabledList = secondGenCubit.getButtonsState(widget.index,);
         return Center(
           child: Column(
             children: <Widget>[
@@ -43,12 +43,12 @@ class _SecondGenMaleSlidingPanelState extends State<SecondGenMaleSlidingPanel> {
                 child: ClosePanelWidget(),
               ),
               AttributeButtonsWidget(
-                onPressedAtk: () => secondGenCubit.setMaleColors(widget.pairValue, IVColor.atkColor),
-                onPressedHP: () => secondGenCubit.setMaleColors(widget.pairValue, IVColor.hpColor),
-                onPressedSpAtk: () => secondGenCubit.setMaleColors(widget.pairValue, IVColor.spAtkColor),
-                onPressedDef: () => secondGenCubit.setMaleColors(widget.pairValue, IVColor.defColor),
-                onPressedSpDef: () => secondGenCubit.setMaleColors(widget.pairValue, IVColor.spDefColor),
-                onPressedSpeed: () => secondGenCubit.setMaleColors(widget.pairValue, IVColor.speedColor),
+                onPressedAtk: () => secondGenCubit.setColors(widget.index, IVColor.atkColor),
+                onPressedHP: () => secondGenCubit.setColors(widget.index, IVColor.hpColor),
+                onPressedSpAtk: () => secondGenCubit.setColors(widget.index, IVColor.spAtkColor),
+                onPressedDef: () => secondGenCubit.setColors(widget.index, IVColor.defColor),
+                onPressedSpDef: () => secondGenCubit.setColors(widget.index, IVColor.spDefColor),
+                onPressedSpeed: () => secondGenCubit.setColors(widget.index, IVColor.speedColor),
                 isEnabledAtk: isEnabledList[IVColor.atkColor]!,
                 isEnabledHP: isEnabledList[IVColor.hpColor]!,
                 isEnabledSpAtk: isEnabledList[IVColor.spAtkColor]!,
@@ -58,8 +58,8 @@ class _SecondGenMaleSlidingPanelState extends State<SecondGenMaleSlidingPanel> {
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: () => secondGenCubit.setFemaleListDefaultColors(widget.pairValue),
-                  isEnabled: secondGenCubit.isRestartButtonEnabled(widget.pairValue),
+                  onPressed: () => secondGenCubit.setListDefaultColors(widget.index),
+                  isEnabled: secondGenCubit.isRestartButtonEnabled(widget.index),
                 ),
               ),
             ],

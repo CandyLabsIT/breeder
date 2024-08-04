@@ -46,7 +46,7 @@ Future<void> main() async {
 
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.setFemaleColors(SecondGenIndex.pairZero, actualFemaleValue);
+      actualSecondGenCubit.setColors(SecondGenIndex.pairZero, actualFemaleValue);
 
       ASecondGenState expectedSecondGenFemaleColorsChangedState = const SecondGenFemaleColorsChangedState(colorsList: <Color>[
         Color(0xFFFFDAD6),
@@ -98,7 +98,7 @@ Future<void> main() async {
     test('Should return [SecondGenFemaleColorsDefaultState] if [secondGenFemaleIVList is not none]', () {
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.setFemaleListDefaultColors(SecondGenIndex.pairZero);
+      actualSecondGenCubit.setListDefaultColors(SecondGenIndex.pairZero);
 
       ASecondGenState expectedSecondGenFemaleColorsDefaultState = const SecondGenFemaleListColorsDefaultState(colorsList: <Color>[
         Color(0xFFD9D9D9),

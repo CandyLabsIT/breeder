@@ -2,8 +2,6 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_s
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_female_colors_changed_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_female_colors_default_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_init_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_changed_state.dart.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_default_state.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen_index.dart';
@@ -14,14 +12,9 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   SecondGenCubit() : super(InitSecondGenState());
 
-  void setFemaleColors(SecondGenIndex index, IVColor ivColor) {
+  void setColors(SecondGenIndex index, IVColor ivColor) {
     secondGenModel.updateMapValues(index, ivColor);
-    emit(SecondGenFemaleColorsChangedState(colorsMap: secondGenModel.getFemaleColors()));
-  }
-
-  void setMaleColors(SecondGenIndex index, IVColor ivColor) {
-    secondGenModel.updateMapValues(index, ivColor);
-    emit(SecondGenMaleColorsChangedState(colorsMap: secondGenModel.getMaleColors()));
+    emit(SecondGenFemaleColorsChangedState(colorsMap: secondGenModel.getColorsMap()));
   }
 
   void setAllDefaultValues() {
@@ -29,32 +22,18 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     emit(SecondGenFemaleColorsChangedState(colorsMap: secondGenModel.colorMap));
   }
 
-  void setFemaleListDefaultColors(SecondGenIndex index) {
+  void setListDefaultColors(SecondGenIndex index) {
     secondGenModel.restartMapValues(index);
-    emit(SecondGenFemaleListColorsDefaultState(colorsMap: secondGenModel.getFemaleColors()));
+    emit(SecondGenFemaleListColorsDefaultState(colorsMap: secondGenModel.getColorsMap()));
   }
 
-  void setMaleListDefaultColors(SecondGenIndex index) {
-    secondGenModel.restartMapValues(index);
-    emit(SecondGenMaleColorsDefaultState(colorsMap: secondGenModel.getFemaleColors()));
-  }
-
-  Map<SecondGenIndex, List<IVColor>> getFemaleButtonsColors() {
+  Map<SecondGenIndex, List<IVColor>> getButtonsColors() {
     if (state is SecondGenFemaleColorsChangedState) {
       return (state as SecondGenFemaleColorsChangedState).colorsMap;
     } else if (state is SecondGenFemaleListColorsDefaultState) {
       return (state as SecondGenFemaleListColorsDefaultState).colorsMap;
     }
-    return secondGenModel.getFemaleColors();
-  }
-
-  Map<SecondGenIndex, List<IVColor>> getMaleButtonsColors() {
-    if (state is SecondGenMaleColorsChangedState) {
-      return (state as SecondGenMaleColorsChangedState).colorsMap;
-    } else if (state is SecondGenMaleColorsDefaultState) {
-      return (state as SecondGenMaleColorsDefaultState).colorsMap;
-    }
-    return secondGenModel.getMaleColors();
+    return secondGenModel.getColorsMap();
   }
 
   Map<IVColor, bool> getButtonsState(SecondGenIndex index) {

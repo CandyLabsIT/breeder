@@ -92,8 +92,8 @@ class _SecondGenWidgetState extends State<SecondGenWidget> {
       child: BlocBuilder<SecondGenCubit, ASecondGenState>(
         bloc: secondGenCubit,
         builder: (BuildContext context, ASecondGenState state) {
-          final Map<SecondGenIndex, List<IVColor>> femaleColors = secondGenCubit.getFemaleButtonsColors();
-          final Map<SecondGenIndex, List<IVColor>> maleColors = secondGenCubit.getMaleButtonsColors();
+          final Map<SecondGenIndex, List<IVColor>> femaleColors = secondGenCubit.getButtonsColors();
+          // final Map<SecondGenIndex, List<IVColor>> maleColors = secondGenCubit.getMaleButtonsColors();
           return PopScope(
             canPop: false,
             onPopInvoked: _onPopInvoked,
@@ -108,7 +108,7 @@ class _SecondGenWidgetState extends State<SecondGenWidget> {
                   ),
                   SlidingPanelWidget(
                     controller: _malePanelController,
-                    panel: SecondGenMaleSlidingPanel(pairValue: maleData),
+                    panel: SecondGenMaleSlidingPanel(index: maleData),
                     onTap: () {},
                     bodyContent: Container(),
                   ),
@@ -127,8 +127,8 @@ class _SecondGenWidgetState extends State<SecondGenWidget> {
                             },
                           ),
                           SecondGenMaleButton(
-                            leftColor: maleColors[SecondGenIndex.one]![0].color,
-                            rightColor:maleColors[SecondGenIndex.one]![1].color,
+                            leftColor: femaleColors[SecondGenIndex.one]![0].color,
+                            rightColor:femaleColors[SecondGenIndex.one]![1].color,
                             onPressed: () {
                               _togglePanel(_malePanelController, _femalePanelController);
                               _onButtonPressed(SecondGenIndex.one, 1);
