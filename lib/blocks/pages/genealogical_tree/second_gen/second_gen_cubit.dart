@@ -16,12 +16,12 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   void setFemaleColors(SecondGenIndex index, IVColor ivColor) {
     secondGenModel.updateMapValues(index, ivColor);
-    emit(SecondGenFemaleColorsChangedState(colorsMap: getFemaleColors()));
+    emit(SecondGenFemaleColorsChangedState(colorsMap: secondGenModel.getFemaleColors()));
   }
 
   void setMaleColors(SecondGenIndex index, IVColor ivColor) {
     secondGenModel.updateMapValues(index, ivColor);
-    emit(SecondGenMaleColorsChangedState(colorsMap: getMaleColors()));
+    emit(SecondGenMaleColorsChangedState(colorsMap: secondGenModel.getMaleColors()));
   }
 
   void setAllDefaultValues() {
@@ -31,12 +31,12 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   void setFemaleListDefaultColors(SecondGenIndex index) {
     secondGenModel.restartMapValues(index);
-    emit(SecondGenFemaleListColorsDefaultState(colorsMap: getFemaleColors()));
+    emit(SecondGenFemaleListColorsDefaultState(colorsMap: secondGenModel.getFemaleColors()));
   }
 
   void setMaleListDefaultColors(SecondGenIndex index) {
     secondGenModel.restartMapValues(index);
-    emit(SecondGenMaleColorsDefaultState(colorsMap: getFemaleColors()));
+    emit(SecondGenMaleColorsDefaultState(colorsMap: secondGenModel.getFemaleColors()));
   }
 
   Map<SecondGenIndex, List<IVColor>> getFemaleButtonsColors() {
@@ -45,7 +45,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     } else if (state is SecondGenFemaleListColorsDefaultState) {
       return (state as SecondGenFemaleListColorsDefaultState).colorsMap;
     }
-    return getFemaleColors();
+    return secondGenModel.getFemaleColors();
   }
 
   Map<SecondGenIndex, List<IVColor>> getMaleButtonsColors() {
@@ -54,7 +54,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     } else if (state is SecondGenMaleColorsDefaultState) {
       return (state as SecondGenMaleColorsDefaultState).colorsMap;
     }
-    return getMaleColors();
+    return secondGenModel.getMaleColors();
   }
 
   Map<IVColor, bool> getButtonsState(SecondGenIndex index) {
@@ -74,8 +74,12 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     List<IVColor> secondaryList = secondGenModel.colorMap[secondGenModel.getIndex(index)]!;
 
     if (secondGenModel.isListFilled(index)) {
-      int primaryListZeroCount = primaryList.where((IVColor element) => element == IVColor.defaultColor).length;
-      int secondaryListZeroCount = secondaryList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int primaryListZeroCount = primaryList
+          .where((IVColor element) => element == IVColor.defaultColor)
+          .length;
+      int secondaryListZeroCount = secondaryList
+          .where((IVColor element) => element == IVColor.defaultColor)
+          .length;
 
       if (primaryListZeroCount == 0) {
         for (IVColor key in ivColorMap.keys) {
@@ -97,30 +101,5 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
       }
     }
     return ivColorMap;
-  }
-
-  Map<SecondGenIndex, List<IVColor>> getFemaleColors() {
-    return _getColors(SecondGenIndex.zero);
-  }
-
-  Map<SecondGenIndex, List<IVColor>> getMaleColors() {
-    return _getColors(SecondGenIndex.one);
-  }
-
-  Map<SecondGenIndex, List<IVColor>> _getColors(SecondGenIndex index) {
-    Map<SecondGenIndex, List<IVColor>> map = <SecondGenIndex, List<IVColor>>{};
-    SecondGenIndex max = SecondGenIndex.fifteen;
-
-    if (secondGenModel.isFemale(index)) {
-      max = SecondGenIndex.fourteen;
-    }
-
-    for (int i = index.value; i <= max.value; i += 2) {
-      SecondGenIndex key = SecondGenIndex.values.firstWhere(
-              (SecondGenIndex element) => element.value == i
-      );
-      map[key] = List<IVColor>.from(secondGenModel.colorMap[key]!);
-    }
-    return map;
   }
 }
