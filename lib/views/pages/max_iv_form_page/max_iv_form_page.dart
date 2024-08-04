@@ -55,7 +55,7 @@ class MaxIVFormPage extends StatelessWidget {
                           buttonText: 'Next',
                           icon: Icons.navigate_next,
                           leftMargin: 25,
-                          onPressed: () => AutoRouter.of(context).push(const SecondGenWidget()),
+                          onPressed: () => AutoRouter.of(context).push(const SecondGenRoute()),
                         ),
                       ],
                     ),

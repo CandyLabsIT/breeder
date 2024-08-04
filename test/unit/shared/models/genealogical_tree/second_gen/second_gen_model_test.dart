@@ -1,450 +1,265 @@
-import 'package:breeder/shared/models/genealogical_tree/gender_values.dart';
+import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   final SecondGenModel secondGenModel = SecondGenModel();
 
-  group('Tests of SecondGenModel.updateValues()', () {
-    test('Should return [0, 0] if [both values in secondGenFemaleIVList == 0 and value is equal 0]', () {
-      int actualValue = 0;
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 0
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+  Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
+    for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+  };
+  Map<SecondGenIndex, List<IVColor>> actualSecondGenMap = secondGenModel.secondGenMap;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][0];
-
-      List<int> expectedList = <int>[0, 0];
-
-      expect(actualColorsList, expectedList);
+  group('Tests of SecondGenModel.updateMapValues()', () {
+    test('Should return [all default values]', () {
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [0, value] if [both values in secondGenFemaleIVList == 0 and value is > 0]', () {
-      int actualValue = 3;
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 0
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [defaultColor and non defaultColor] if [both values == defaultColor in primary list and value ]', () {
+      IVColor actualIVColor = IVColor.atkColor;
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][0];
+      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.atkColor;
 
-      List<int> expectedList = <int>[3, 0];
-
-      expect(actualColorsList, expectedList);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test(
-        'Should return [secondGenFemaleIVList[0], value] if [secondGenerationFemaleIVList[0] > 0 and secondGenerationFemaleIVList[1] == 0 and value is > 0]',
-        () {
-      int actualValue = 5;
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 3
-        ..secondGenIVList[0][0][1] = 0
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [non defaultColors] if [first value is non defaultColor and second defaultColor]', () {
+      IVColor actualIVColor = IVColor.defColor;
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][0];
+      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
 
-      List<int> expectedList = <int>[3, 5];
+      expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.atkColor;
+      expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defColor;
 
-      expect(actualColorsList, expectedList);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [secondGenFemaleIVList[0], 0] if [both values in secondGenFemaleIVList > 0 and value == secondGenFemaleIVList[1]]', () {
-      int actualValue = 5;
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 3
-        ..secondGenIVList[0][0][1] = 5
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [no changed map] if [list if filled] and if [list in map not contain IVColor]', () {
+      IVColor actualIVColor = IVColor.spAtkColor;
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][0];
+      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.atkColor;
+      expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defColor;
 
-      List<int> expectedList = <int>[3, 0];
-
-      expect(actualColorsList, expectedList);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [0, secondGenFemaleIVList[1]] if [both values in secondGenFemaleIVList > 0 and value is == secondGenFemaleIVList[0]', () {
-      int actualValue = 3;
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 3
-        ..secondGenIVList[0][0][1] = 4
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [default IVColor and non default IVColor] if [list if filled] and if [list in map contain IVColor]', () {
+      IVColor actualIVColor = IVColor.atkColor;
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][0];
+      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.defaultColor;
+      expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defColor;
 
-      List<int> expectedList = <int>[0, 4];
-
-      expect(actualColorsList, expectedList);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [0, 0] if [secondGenFemaleIVList[0] == 0 and and value > 0 and value == secondGenFemaleIVList[1]]', () {
-      int actualValue = 3;
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 3
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [default IVColor] if [list if filled with one IVColor] and if [list in map contain IVColor]', () {
+      IVColor actualIVColor = IVColor.defColor;
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][0];
+      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.defaultColor;
+      expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defaultColor;
 
-      List<int> expectedList = <int>[0, 0];
+      expect(actualSecondGenMap, expectedSecondGenMap);
+    });
+  });
+  group('Tests of SecondGenModel.resetIVListValues()', () {
+    test('Should return [all default values] if [list contains only non defaultColors]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      expect(actualColorsList, expectedList);
+      actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
+      actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.spAtkColor;
+      secondGenModel.resetIVListValues(actualSecondGenIndex);
+
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [0, 0] if [both values in secondGenMaleIVList == 0 and value is equal 0]', () {
-      int actualValue = 0;
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 0
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [all default values] if [only first element of list is non defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][1];
+      actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
+      secondGenModel.resetIVListValues(actualSecondGenIndex);
 
-      List<int> expectedList = <int>[0, 0];
-
-      expect(actualColorsList, expectedList);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [0, value] if [both values in secondGenMaleIVList == 0 and value is > 0]', () {
-      int actualValue = 3;
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 0
-        ..updateListValues(0, GenderValues.male.value, actualValue);
+    test('Should return [all default values] if [only second element of list is non defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][1];
+      actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.defColor;
+      secondGenModel.resetIVListValues(actualSecondGenIndex);
 
-      List<int> expectedList = <int>[3, 0];
-
-      expect(actualColorsList, expectedList);
-    });
-
-    test('Should return [secondGenMaleIVList[0], value] if [secondGenMaleIVList[0] > 0 and secondGenMaleIVList[1] == 0 and value is > 0]', () {
-      int actualValue = 5;
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 3
-        ..secondGenIVList[0][1][1] = 0
-        ..updateListValues(0, GenderValues.male.value, actualValue);
-
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][1];
-
-      List<int> expectedList = <int>[3, 5];
-
-      expect(actualColorsList, expectedList);
-    });
-
-    test('Should return [secondGenMaleIVList[0], 0] if [both values in secondGenMaleIVList > 0 and value == secondGenMaleIVList[1]', () {
-      int actualValue = 5;
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 3
-        ..secondGenIVList[0][1][1] = 5
-        ..updateListValues(0, GenderValues.male.value, actualValue);
-
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][1];
-
-      List<int> expectedList = <int>[3, 0];
-
-      expect(actualColorsList, expectedList);
-    });
-
-    test('Should return [0, secondGenMaleIVList[1]] if [both values in secondGenMaleIVList > 0 and 0 and value is equal to secondGenMaleIVList[0]',
-        () {
-      int actualValue = 3;
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 3
-        ..secondGenIVList[0][1][1] = 4
-        ..updateListValues(0, GenderValues.male.value, actualValue);
-
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][1];
-
-      List<int> expectedList = <int>[0, 4];
-
-      expect(actualColorsList, expectedList);
-    });
-
-    test('Should return [0, 0] if [secondGenMaleIVList == 0 and and value > 0 and value == and value is == secondGenMaleIVList[1]', () {
-      int actualValue = 3;
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 3
-        ..updateListValues(0, GenderValues.male.value, actualValue);
-
-      List<int> actualColorsList = secondGenModel.secondGenIVList[0][1];
-
-      List<int> expectedList = <int>[0, 0];
-
-      expect(actualColorsList, expectedList);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
   });
 
-  group('Tests of SecondGenModel.isSumPositive()', () {
-    test('Should return [false] if [both values in secondGenFemaleIVList == 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 0;
+  group('Tests of SecondGenModel.resetAll()', () {
+    test('Should return [all default values] if [list contains only non defaultColors]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
-      bool expectedValue = false;
+      actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
+      actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.spAtkColor;
+      secondGenModel.resetAll();
 
-      expect(actualValue, expectedValue);
+      actualSecondGenMap = secondGenModel.secondGenMap;
+
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [true] if [secondGenFemaleIVList[0] > 0 and secondGenFemaleIVList[1] == 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 3
-        ..secondGenIVList[0][0][1] = 0;
+    test('Should return [all default values] if [only first element of list is non defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
-      bool expectedValue = true;
+      actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
+      secondGenModel.resetAll();
 
-      expect(actualValue, expectedValue);
+      actualSecondGenMap = secondGenModel.secondGenMap;
+
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [true] if [secondGenFemaleIVList[0] == 0 and secondGenFemaleIVList[1] > 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 4;
+    test('Should return [all default values] if [only second element of list is non defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
-      bool expectedValue = true;
+      actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.defColor;
+      secondGenModel.resetAll();
 
-      expect(actualValue, expectedValue);
-    });
+      actualSecondGenMap = secondGenModel.secondGenMap;
 
-    test('Should return [true] if [both values in secondGenFemaleIVList > 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 5
-        ..secondGenIVList[0][0][1] = 4;
-
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
-      bool expectedValue = true;
-
-      expect(actualValue, expectedValue);
-    });
-
-    test('Should return [false] if [both values in secondGenMaleIVList == 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 0;
-
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
-      bool expectedValue = false;
-
-      expect(actualValue, expectedValue);
-    });
-
-    test('Should return [true] if [secondGenMaleIVList[0] > 0 and secondGenMaleIVList[0] == 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 3
-        ..secondGenIVList[0][1][1] = 0;
-
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
-      bool expectedValue = true;
-
-      expect(actualValue, expectedValue);
-    });
-
-    test('Should return [true] if [secondGenMaleIVList[0] == 0 and secondGenMaleIVList[0] > 0', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 4;
-
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
-      bool expectedValue = true;
-
-      expect(actualValue, expectedValue);
-    });
-
-    test('Should return [true] if [both values in secondGenMaleIVList > 0', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 5
-        ..secondGenIVList[0][1][1] = 4;
-
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
-      bool expectedValue = true;
-
-      expect(actualValue, expectedValue);
+      expect(actualSecondGenMap, expectedSecondGenMap);
     });
   });
 
-  group('Tests of SecondGenModel.restartListValues()', () {
-    test('Should return [0, 0] if [both values in secondGenFemaleIVList > 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 3
-        ..secondGenIVList[0][0][1] = 2
-        ..restartListValues(0, 0);
+  group('Tests of SecondGenModel.isIVListFilled()', () {
+    test('Should return [false] if [list contains only defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      List<int> actualList = secondGenModel.secondGenIVList[0][0];
-      List<int> expectedList = <int>[0, 0];
+      bool actualBool = secondGenModel.isIVListFilled(actualSecondGenIndex);
+      bool expectedBool = false;
 
-      expect(actualList, expectedList);
+      expect(actualBool, expectedBool);
     });
 
-    test('Should return [0, 0] if [secondGenFemaleIVList[0] > 0 and secondGenFemaleIVList[1] == 0', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 1
-        ..secondGenIVList[0][0][1] = 0
-        ..restartListValues(0, 0);
+    test('Should return [true] if [list contains one defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
 
-      List<int> actualList = secondGenModel.secondGenIVList[0][0];
-      List<int> expectedList = <int>[0, 0];
+      bool actualBool = secondGenModel.isIVListFilled(actualSecondGenIndex);
+      bool expectedBool = true;
 
-      expect(actualList, expectedList);
+      expect(actualBool, expectedBool);
     });
 
-    test('Should return [0, 0] if [secondGenFemaleIVList[0] == 0 and secondGenFemaleIVList[1] > 0', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 4
-        ..restartListValues(0, 0);
+    test('Should return [true] if [list not contains defaultColor]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.atkColor;
 
-      List<int> actualList = secondGenModel.secondGenIVList[0][0];
-      List<int> expectedList = <int>[0, 0];
+      bool actualBool = secondGenModel.isIVListFilled(actualSecondGenIndex);
+      bool expectedBool = true;
 
-      expect(actualList, expectedList);
-    });
-
-    test('Should return [0, 0] if [both values in secondGenMaleIVList > 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 3
-        ..secondGenIVList[0][1][1] = 2
-        ..restartListValues(0, 1);
-
-      List<int> actualList = secondGenModel.secondGenIVList[0][1];
-      List<int> expectedList = <int>[0, 0];
-
-      expect(actualList, expectedList);
-    });
-
-    test('Should return [0, 0] if [secondGenMaleIVList[0] > 0 and secondGenMaleIVList[1] == 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 1
-        ..secondGenIVList[0][1][1] = 0
-        ..restartListValues(0, 1);
-
-      List<int> actualList = secondGenModel.secondGenIVList[0][1];
-      List<int> expectedList = <int>[0, 0];
-
-      expect(actualList, expectedList);
-    });
-
-    test('Should return [0, 0] if [secondGenMaleIVList[0] == 0 and secondGenMaleIVList[1] > 0]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 4
-        ..restartListValues(0, 1);
-
-      List<int> actualList = secondGenModel.secondGenIVList[0][1];
-      List<int> expectedList = <int>[0, 0];
-
-      expect(actualList, expectedList);
+      expect(actualBool, expectedBool);
     });
   });
 
   group('Tests of SecondGenModel.hasCommonValue()', () {
-    test('Should return [false] if [both values in secondGenFemaleIVList are different from both values in secondGenMaleIVList]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 1
-        ..secondGenIVList[0][0][1] = 2
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 4;
+    test('Should return [false] if [first list not contain value from second list, second list is default]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = false;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.atkColor;
 
-      expect(actualValue, expectedValue);
+      bool actualBool = secondGenModel.hasCommonValue(actualSecondGenIndex);
+      bool expectedBool = false;
+
+      expect(actualBool, expectedBool);
     });
 
-    test('Should return [true] if [secondGenFemaleIVList[1] == secondGenMaleIVList[1]]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 2
-        ..secondGenIVList[0][0][1] = 4
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 4;
+    test('Should return [true] if [first list contain value from second list, second list is not default]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = true;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.atkColor;
 
-      expect(actualValue, expectedValue);
+      secondGenModel.secondGenMap[SecondGenIndex.two]![0] = IVColor.spAtkColor;
+
+      bool actualBool = secondGenModel.hasCommonValue(actualSecondGenIndex);
+      bool expectedBool = true;
+
+      expect(actualBool, expectedBool);
     });
 
-    test('Should return [true] if [secondGenFemaleIVList[0] == secondGenMaleIVList[1]]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 4
-        ..secondGenIVList[0][0][1] = 7
-        ..secondGenIVList[0][1][0] = 0
-        ..secondGenIVList[0][1][1] = 4;
+    test('Should return [true] if [first list contains only one non default value and value is in second list, second list is not default]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = true;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.defaultColor;
 
-      expect(actualValue, expectedValue);
+      secondGenModel.secondGenMap[SecondGenIndex.two]![0] = IVColor.spAtkColor;
+
+      bool actualBool = secondGenModel.hasCommonValue(actualSecondGenIndex);
+      bool expectedBool = true;
+
+      expect(actualBool, expectedBool);
     });
 
-    test('Should return [true] if [secondGenFemaleIVList[1] == secondGenMaleIVList[0]]', () {
-      secondGenModel
-        ..secondGenIVList[0][0][0] = 3
-        ..secondGenIVList[0][0][1] = 4
-        ..secondGenIVList[0][1][0] = 4
-        ..secondGenIVList[0][1][1] = 2;
+    test('Should return [false] if [first list contains only one non default value and value is in second list, second list is not default]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = true;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
+      secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.defaultColor;
 
-      expect(actualValue, expectedValue);
+      secondGenModel.secondGenMap[SecondGenIndex.two]![0] = IVColor.spAtkColor;
+
+      bool actualBool = secondGenModel.hasCommonValue(actualSecondGenIndex);
+      bool expectedBool = true;
+
+      expect(actualBool, expectedBool);
+    });
+  });
+  group('Tests of SecondGenModel.getFemaleIndex()', () {
+    test('Should return [secondGenIndex] if [secondGenIndex is female index]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
+
+      SecondGenIndex actualFemaleIndex = secondGenModel.getFemaleIndex(actualSecondGenIndex);
+      SecondGenIndex expectedFemaleIndex = SecondGenIndex.one;
+
+      expect(actualFemaleIndex, expectedFemaleIndex);
     });
 
-    test('Should return [false] if [both values in secondGenMaleIVList are different from both values in secondGenFemaleIVList]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 1
-        ..secondGenIVList[0][1][1] = 2
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 4;
+    test('Should return [secondGenIndex - 1] if [secondGenIndex is male index]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.two;
 
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = false;
+      SecondGenIndex actualFemaleIndex = secondGenModel.getFemaleIndex(actualSecondGenIndex);
+      SecondGenIndex expectedFemaleIndex = SecondGenIndex.one;
 
-      expect(actualValue, expectedValue);
+      expect(actualFemaleIndex, expectedFemaleIndex);
+    });
+  });
+  group('Tests of SecondGenModel.getMaleIndex()', () {
+    test('Should return [secondGenIndex] if [secondGenIndex is male index]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.two;
+
+      SecondGenIndex actualMaleIndex = secondGenModel.getMaleIndex(actualSecondGenIndex);
+      SecondGenIndex expectedMaleIndex = SecondGenIndex.two;
+
+      expect(actualMaleIndex, expectedMaleIndex);
     });
 
-    test('Should return [true] if [secondGenMaleIVList[1] == secondGenFemaleIVList[1]]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 2
-        ..secondGenIVList[0][1][1] = 4
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 4;
+    test('Should return [secondGenIndex - 1] if [secondGenIndex is female index]', () {
+      SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = true;
+      SecondGenIndex actualMaleIndex = secondGenModel.getMaleIndex(actualSecondGenIndex);
+      SecondGenIndex expectedMaleIndex = SecondGenIndex.two;
 
-      expect(actualValue, expectedValue);
-    });
-
-    test('Should return [true] if [secondGenMaleIVList[0] == secondGenFemaleIVList[1]]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 4
-        ..secondGenIVList[0][1][1] = 7
-        ..secondGenIVList[0][0][0] = 0
-        ..secondGenIVList[0][0][1] = 4;
-
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = true;
-
-      expect(actualValue, expectedValue);
-    });
-
-    test('Should return [true] if [secondGenMaleIVList[1] == secondGenFemaleIVList[0]]', () {
-      secondGenModel
-        ..secondGenIVList[0][1][0] = 3
-        ..secondGenIVList[0][1][1] = 4
-        ..secondGenIVList[0][0][0] = 4
-        ..secondGenIVList[0][0][1] = 2;
-
-      bool actualValue = secondGenModel.hasCommonValue(0);
-      bool expectedValue = true;
-
-      expect(actualValue, expectedValue);
+      expect(actualMaleIndex, expectedMaleIndex);
     });
   });
 }

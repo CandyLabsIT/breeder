@@ -1,33 +1,72 @@
+import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
+
 class SecondGenModel {
+  late Map<SecondGenIndex, List<IVColor>> secondGenMap = <SecondGenIndex, List<IVColor>>{
+    for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+  };
 
-  late List<List<List<int>>> secondGenIVList =
-  List<List<List<int>>>.generate(8, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(2, (_) => 0)));
+  void updateMapValues(SecondGenIndex secondGenIndex, IVColor ivColor) {
+    List<IVColor> ivColorList = List<IVColor>.from(secondGenMap[secondGenIndex]!);
 
-  void updateListValues(int indexList, int gender, int ivValue) {
-    if (secondGenIVList[indexList][gender][0] == ivValue) {
-      secondGenIVList[indexList][gender][0] = 0;
-    } else if (secondGenIVList[indexList][gender][1] == ivValue) {
-      secondGenIVList[indexList][gender][1] = 0;
-    } else if (secondGenIVList[indexList][gender][0] == 0) {
-      secondGenIVList[indexList][gender][0] = ivValue;
-    } else if (secondGenIVList[indexList][gender][1] == 0) {
-      secondGenIVList[indexList][gender][1] = ivValue;
+    // find if ivColorList contains ivColor, if yes set this color to replace, if not set defaultColor as IVColor to replace
+    IVColor ivColorToReplace = ivColorList.contains(ivColor) ? ivColor : IVColor.defaultColor;
+
+    for (int i = 0; i <= 1; i++) {
+      if (ivColorList[i] == ivColorToReplace) {
+        // replace list element with ivColorToReplace, if element is ivColor -> defaultColor else defaultColor -> ivColor
+        ivColorList[i] = (ivColorToReplace == ivColor) ? IVColor.defaultColor : ivColor;
+        break;
+      }
     }
+
+    secondGenMap[secondGenIndex] = ivColorList;
   }
 
-  void restartListValues(int indexList, int gender) {
-    secondGenIVList[indexList][gender].fillRange(0, 2, 0);
+  void resetIVListValues(SecondGenIndex secondGenIndex) {
+    secondGenMap[secondGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
   }
 
-  void restartAll() {
-    secondGenIVList = List<List<List<int>>>.generate(8, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(2, (_) => 0)));
+  void resetAll() {
+    secondGenMap = <SecondGenIndex, List<IVColor>>{
+      for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+    };
   }
 
-  bool isSumPositive(int indexList, int gender) {
-    return secondGenIVList[indexList][gender].fold(0, (int previousValue, int element) => previousValue + element) > 0;
+  bool isIVListFilled(SecondGenIndex secondGenIndex) {
+    bool isIVListFilled = secondGenMap[secondGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
+
+    return isIVListFilled;
   }
 
-  bool hasCommonValue(int indexList) {
-    return secondGenIVList[indexList][0].toSet().intersection(secondGenIVList[indexList][1].toSet()).isNotEmpty;
+  bool hasCommonValue(SecondGenIndex secondGenIndex) {
+    List<IVColor> femaleIVColorList = secondGenMap[getFemaleIndex(secondGenIndex)]!;
+    List<IVColor> maleIVColorList = secondGenMap[getMaleIndex(secondGenIndex)]!;
+
+    bool hasCommonValue = femaleIVColorList.toSet().intersection(maleIVColorList.toSet()).isNotEmpty;
+
+    return hasCommonValue;
+  }
+
+  SecondGenIndex getFemaleIndex(SecondGenIndex secondGenIndex) {
+    if (secondGenIndex.value.isOdd) {
+      return secondGenIndex;
+    }
+
+    int femaleIndexValue = secondGenIndex.value - 1;
+    SecondGenIndex femaleIndex = SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
+
+    return femaleIndex;
+  }
+
+  SecondGenIndex getMaleIndex(SecondGenIndex secondGenIndex) {
+    if (secondGenIndex.value.isEven) {
+      return secondGenIndex;
+    }
+
+    int maleIndexValue = secondGenIndex.value + 1;
+    SecondGenIndex maleIndex = SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
+
+    return maleIndex;
   }
 }

@@ -100,7 +100,7 @@ class _NewBreedingState extends State<NewBreedingPage> {
                             buttonText: 'Next',
                             icon: Icons.navigate_next,
                             leftMargin: 55,
-                            onPressed: () => AutoRouter.of(context).push(const SecondGenWidget()),
+                            onPressed: () => AutoRouter.of(context).push(const SecondGenRoute()),
                           ),
                         ],
                       ),

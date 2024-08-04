@@ -2,6 +2,8 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cub
 import 'package:breeder/blocks/pages/new_breeding/new_breeding_cubit.dart';
 import 'package:breeder/blocks/pages/new_breeding/states/new_breeding_init_state.dart';
 import 'package:breeder/config/locator.dart';
+import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:breeder/shared/models/new_breeding/new_breeding_model.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,14 +13,11 @@ Future<void> main() async {
 
   group('Tests of NewBreedingCubit process', () {
     NewBreedingCubit actualNewBreedingCubit = globalLocator<NewBreedingCubit>();
-    SecondGenCubit secondGenCubit = globalLocator<SecondGenCubit>();
+    SecondGenCubit actualSecondGenCubit = globalLocator<SecondGenCubit>();
 
     NewBreedingModel newBreedingModel = NewBreedingModel()..newBreedingTextEditingController.text = 'Test123';
-    SecondGenModel secondGenerationModel = SecondGenModel()
-      ..secondGenIVList[0][0][0] = 4
-      ..secondGenIVList[0][0][1] = 0
-      ..secondGenIVList[0][1][0] = 3
-      ..secondGenIVList[0][1][1] = 0;
+    SecondGenModel secondGenerationModel = SecondGenModel();
+
 
     test('Should emit [NewBreedingInitState] state', () {
       NewBreedingInitState expectedNewBreedingState = const NewBreedingInitState();
@@ -35,18 +34,27 @@ Future<void> main() async {
     });
 
     test('Should return list of zeros, and ' '', () {
-      secondGenCubit.secondGenModel = secondGenerationModel;
+      actualSecondGenCubit.secondGenModel = secondGenerationModel;
+
+      List<IVColor> primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
+      List<IVColor> secondaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
+
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.two] = secondaryIVColorList;
+
       actualNewBreedingCubit
         ..newBreedingModel = newBreedingModel
         ..resetData();
 
       String expectedNewBreedingState = '';
-      List<int> expectedSecondGenerationFemaleIVList = <int>[0, 0];
-      List<int> expectedSecondGenerationMaleIVList = <int>[0, 0];
+
+      Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
+        for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+      };
+
 
       expect(actualNewBreedingCubit.newBreedingModel.newBreedingTextEditingController.text, expectedNewBreedingState);
-      expect(secondGenCubit.secondGenModel.secondGenIVList[0][0], expectedSecondGenerationFemaleIVList);
-      expect(secondGenCubit.secondGenModel.secondGenIVList[0][1], expectedSecondGenerationMaleIVList);
+      expect(actualSecondGenCubit.secondGenModel.secondGenMap, expectedSecondGenMap);
     });
   });
 }
