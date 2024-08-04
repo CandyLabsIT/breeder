@@ -9,7 +9,7 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_default_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_values.dart';
-import 'package:breeder/shared/models/genealogical_tree/pairs_value.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -46,7 +46,7 @@ Future<void> main() async {
 
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.setFemaleColors(PairsValues.pairZero, actualFemaleValue);
+      actualSecondGenCubit.setFemaleColors(SecondGenIndex.pairZero, actualFemaleValue);
 
       ASecondGenState expectedSecondGenFemaleColorsChangedState = const SecondGenFemaleColorsChangedState(colorsList: <Color>[
         Color(0xFFFFDAD6),
@@ -73,7 +73,7 @@ Future<void> main() async {
 
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.setMaleColors(PairsValues.pairZero, actualMaleValue);
+      actualSecondGenCubit.setMaleColors(SecondGenIndex.pairZero, actualMaleValue);
 
       ASecondGenState expectedSecondGenFemaleColorsChangedState = const SecondGenMaleColorsChangedState(colorsList: <Color>[
         Color(0xFFFDFB8E),
@@ -98,9 +98,9 @@ Future<void> main() async {
     test('Should return [SecondGenFemaleColorsDefaultState] if [secondGenFemaleIVList is not none]', () {
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.setFemaleDefaultColors(PairsValues.pairZero);
+      actualSecondGenCubit.setFemaleListDefaultColors(SecondGenIndex.pairZero);
 
-      ASecondGenState expectedSecondGenFemaleColorsDefaultState = const SecondGenFemaleColorsDefaultState(colorsList: <Color>[
+      ASecondGenState expectedSecondGenFemaleColorsDefaultState = const SecondGenFemaleListColorsDefaultState(colorsList: <Color>[
         Color(0xFFD9D9D9),
         Color(0xFFD9D9D9),
         Color(0xffd9d9d9),
@@ -123,7 +123,7 @@ Future<void> main() async {
     test('Should return [SecondGenMaleColorsDefaultState] if [secondGenMaleIVList is not none]', () {
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      actualSecondGenCubit.setMaleDefaultColors(PairsValues.pairZero);
+      actualSecondGenCubit.setMaleDefaultColors(SecondGenIndex.pairZero);
 
       ASecondGenState expectedSecondGenMaleColorsDefaultState = const SecondGenMaleColorsDefaultState(colorsList: <Color>[
         Color(0xFFD9D9D9),
@@ -148,7 +148,7 @@ Future<void> main() async {
     test('Should return [all true values] if [both values in secondGenFemaleIVList == 0]', () {
       actualSecondGenCubit.secondGenModel = secondGenerationModel;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -160,7 +160,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 4
         ..secondGenIVList[0][0][1] = 0;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -172,7 +172,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 0
         ..secondGenIVList[0][0][1] = 6;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -184,7 +184,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 4
         ..secondGenIVList[0][0][1] = 3;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, false, true, true, false, false];
 
@@ -200,7 +200,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 3
         ..secondGenIVList[0][1][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, true, true, true, false, false];
 
@@ -216,7 +216,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 3
         ..secondGenIVList[0][1][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getFemaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, true, false, true, true, true, true];
 
@@ -228,7 +228,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 0
         ..secondGenIVList[0][1][1] = 0;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -240,7 +240,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 3
         ..secondGenIVList[0][1][1] = 0;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = List<bool>.filled(7, true);
 
@@ -252,7 +252,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 4
         ..secondGenIVList[0][1][1] = 3;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, false, true, true, false, false];
 
@@ -268,7 +268,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 3
         ..secondGenIVList[0][0][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, false, true, true, true, false, false];
 
@@ -284,7 +284,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 3
         ..secondGenIVList[0][0][1] = 2;
 
-      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(PairsValues.pairZero);
+      List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
 
       List<bool> expectedButtonsState = <bool>[true, true, false, true, true, true, true];
 
@@ -296,7 +296,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 3
         ..secondGenIVList[0][0][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = true;
 
@@ -308,7 +308,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 1
         ..secondGenIVList[0][0][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
@@ -319,7 +319,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 0
         ..secondGenIVList[0][0][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
@@ -330,7 +330,7 @@ Future<void> main() async {
         ..secondGenIVList[0][0][0] = 0
         ..secondGenIVList[0][0][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isFemaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = false;
       expect(actualButtonState, expectedButtonsState);
@@ -341,7 +341,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 1
         ..secondGenIVList[0][1][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
@@ -352,7 +352,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 0
         ..secondGenIVList[0][1][1] = 2;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
@@ -363,7 +363,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 1
         ..secondGenIVList[0][1][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = true;
       expect(actualButtonState, expectedButtonsState);
@@ -374,7 +374,7 @@ Future<void> main() async {
         ..secondGenIVList[0][1][0] = 0
         ..secondGenIVList[0][1][1] = 0;
 
-      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(PairsValues.pairZero);
+      bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
 
       bool expectedButtonsState = false;
       expect(actualButtonState, expectedButtonsState);

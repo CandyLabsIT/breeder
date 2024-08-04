@@ -4,12 +4,9 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_init_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_changed_state.dart.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_male_colors_default_state.dart';
-import 'package:breeder/shared/models/genealogical_tree/gender_values.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
-import 'package:breeder/shared/models/genealogical_tree/iv_values.dart';
-import 'package:breeder/shared/models/genealogical_tree/pairs_value.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
-import 'package:flutter/material.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen_index.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondGenCubit extends Cubit<ASecondGenState> {
@@ -17,108 +14,113 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   SecondGenCubit() : super(InitSecondGenState());
 
-  void setFemaleColors(PairsValues pairValue, IVValues femaleIVValue) {
-    secondGenModel.updateListValues(pairValue.value, GenderValues.female.value, femaleIVValue.value);
-    emit(SecondGenFemaleColorsChangedState(colorsList: _getColorsList(GenderValues.female.value)));
+  void setFemaleColors(SecondGenIndex index, IVColor ivColor) {
+    secondGenModel.updateMapValues(index, ivColor);
+    emit(SecondGenFemaleColorsChangedState(colorsMap: getFemaleColors()));
   }
 
-  void setMaleColors(PairsValues pairValue, IVValues maleIVValue) {
-    secondGenModel.updateListValues(pairValue.value, GenderValues.male.value, maleIVValue.value);
-    emit(SecondGenMaleColorsChangedState(colorsList: _getColorsList(GenderValues.male.value)));
+  void setMaleColors(SecondGenIndex index, IVColor ivColor) {
+    secondGenModel.updateMapValues(index, ivColor);
+    emit(SecondGenMaleColorsChangedState(colorsMap: getMaleColors()));
   }
 
-  void setDefaultValues() {
+  void setAllDefaultValues() {
     secondGenModel.restartAll();
-    emit(SecondGenFemaleColorsChangedState(colorsList: _getColorsList(GenderValues.female.value)));
-    emit(SecondGenMaleColorsChangedState(colorsList: _getColorsList(GenderValues.male.value)));
+    emit(SecondGenFemaleColorsChangedState(colorsMap: secondGenModel.colorMap));
   }
 
-  void setFemaleDefaultColors(PairsValues pairValue) {
-    if (secondGenModel.isSumPositive(pairValue.value, GenderValues.female.value)) {
-      secondGenModel.restartListValues(pairValue.value, GenderValues.female.value);
-    }
-    emit(SecondGenFemaleColorsDefaultState(colorsList: _getColorsList(GenderValues.female.value)));
+  void setFemaleListDefaultColors(SecondGenIndex index) {
+    secondGenModel.restartMapValues(index);
+    emit(SecondGenFemaleListColorsDefaultState(colorsMap: getFemaleColors()));
   }
 
-  void setMaleDefaultColors(PairsValues pairValue) {
-    if (secondGenModel.isSumPositive(pairValue.value, GenderValues.male.value)) {
-      secondGenModel.restartListValues(pairValue.value, GenderValues.male.value);
-    }
-    emit(SecondGenMaleColorsDefaultState(colorsList: _getColorsList(GenderValues.male.value)));
+  void setMaleListDefaultColors(SecondGenIndex index) {
+    secondGenModel.restartMapValues(index);
+    emit(SecondGenMaleColorsDefaultState(colorsMap: getFemaleColors()));
   }
 
-  List<Color> getFemaleButtonColors() {
+  Map<SecondGenIndex, List<IVColor>> getFemaleButtonsColors() {
     if (state is SecondGenFemaleColorsChangedState) {
-      return (state as SecondGenFemaleColorsChangedState).colorsList;
-    } else if (state is SecondGenFemaleColorsDefaultState) {
-      return (state as SecondGenFemaleColorsDefaultState).colorsList;
+      return (state as SecondGenFemaleColorsChangedState).colorsMap;
+    } else if (state is SecondGenFemaleListColorsDefaultState) {
+      return (state as SecondGenFemaleListColorsDefaultState).colorsMap;
     }
-    return _getColorsList(GenderValues.female.value);
+    return getFemaleColors();
   }
 
-  List<Color> getMaleButtonColors() {
+  Map<SecondGenIndex, List<IVColor>> getMaleButtonsColors() {
     if (state is SecondGenMaleColorsChangedState) {
-      return (state as SecondGenMaleColorsChangedState).colorsList;
+      return (state as SecondGenMaleColorsChangedState).colorsMap;
     } else if (state is SecondGenMaleColorsDefaultState) {
-      return (state as SecondGenMaleColorsDefaultState).colorsList;
+      return (state as SecondGenMaleColorsDefaultState).colorsMap;
     }
-    return _getColorsList(GenderValues.male.value);
+    return getMaleColors();
   }
 
-  List<bool> getFemaleButtonsState(PairsValues pairValue) {
-    return _getButtonsState(pairValue, GenderValues.female.value, GenderValues.male.value);
+  Map<IVColor, bool> getButtonsState(SecondGenIndex index) {
+    return _getButtonsState(index);
   }
 
-  List<bool> getMaleButtonsState(PairsValues pairValue) {
-    return _getButtonsState(pairValue, GenderValues.male.value, GenderValues.female.value);
+  bool isRestartButtonEnabled(SecondGenIndex pairValue) {
+    return secondGenModel.isListFilled(pairValue);
   }
 
-  bool isFemaleRestartButtonEnabled(PairsValues pairValue) {
-    return secondGenModel.isSumPositive(pairValue.value, GenderValues.female.value);
-  }
+  Map<IVColor, bool> _getButtonsState(SecondGenIndex index) {
+    Map<IVColor, bool> ivColorMap = <IVColor, bool>{
+      for (IVColor ivColor in IVColor.values) ivColor: true,
+    };
 
-  bool isMaleRestartButtonEnabled(PairsValues pairValue) {
-    return secondGenModel.isSumPositive(pairValue.value, GenderValues.male.value);
-  }
+    List<IVColor> primaryList = secondGenModel.colorMap[index]!;
+    List<IVColor> secondaryList = secondGenModel.colorMap[secondGenModel.getIndex(index)]!;
 
-  List<bool> _getButtonsState(PairsValues pairValue, int primaryGenderValue, int secondaryGenderValue) {
-    final List<bool> buttonsList = List<bool>.filled(7, true);
-
-    List<int> primaryList = secondGenModel.secondGenIVList[pairValue.value][primaryGenderValue];
-    List<int> secondaryList = secondGenModel.secondGenIVList[pairValue.value][secondaryGenderValue];
-
-    if (secondGenModel.isSumPositive(pairValue.value, primaryGenderValue)) {
-      int primaryListZeroCount = primaryList.where((int element) => element == 0).length;
-      int secondaryListZeroCount = secondaryList.where((int element) => element == 0).length;
+    if (secondGenModel.isListFilled(index)) {
+      int primaryListZeroCount = primaryList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int secondaryListZeroCount = secondaryList.where((IVColor element) => element == IVColor.defaultColor).length;
 
       if (primaryListZeroCount == 0) {
-        for (int i = 1; i < 7; i++) {
-          buttonsList[i] = primaryList.contains(i);
+        for (IVColor key in ivColorMap.keys) {
+          ivColorMap[key] = primaryList.contains(key);
         }
-        return buttonsList;
+        return ivColorMap;
       } else if (secondaryListZeroCount == 0) {
-        if (secondGenModel.hasCommonValue(pairValue.value)) {
-          for (int i = 1; i < 7; i++) {
-            buttonsList[i] = primaryList.contains(i) || !secondaryList.contains(i) ;
+        if (secondGenModel.hasCommonValue(index)) {
+          for (IVColor key in ivColorMap.keys) {
+            ivColorMap[key] = primaryList.contains(key) || !secondaryList.contains(key);
           }
+          return ivColorMap;
         } else {
-          for (int i = 1; i < 7; i++) {
-            buttonsList[i] = primaryList.contains(i) || secondaryList.contains(i);
+          for (IVColor key in ivColorMap.keys) {
+            ivColorMap[key] = primaryList.contains(key) || secondaryList.contains(key);
           }
+          return ivColorMap;
         }
-        return buttonsList;
       }
     }
-    return buttonsList;
+    return ivColorMap;
   }
 
-  List<Color> _getColorsList(int genderValue) {
-    return List<List<Color>>.generate(7, (int pairValue) => List<Color>.generate(2, (int ivIndex) => _getColor(pairValue, genderValue, ivIndex)))
-        .expand((List<Color> list) => list)
-        .toList();
+  Map<SecondGenIndex, List<IVColor>> getFemaleColors() {
+    return _getColors(SecondGenIndex.zero);
   }
 
-  Color _getColor(int pairValue, int genderValue, int ivIndex) {
-    return IVColorExtension.fromInt(secondGenModel.secondGenIVList[pairValue][genderValue][ivIndex]).color;
+  Map<SecondGenIndex, List<IVColor>> getMaleColors() {
+    return _getColors(SecondGenIndex.one);
+  }
+
+  Map<SecondGenIndex, List<IVColor>> _getColors(SecondGenIndex index) {
+    Map<SecondGenIndex, List<IVColor>> map = <SecondGenIndex, List<IVColor>>{};
+    SecondGenIndex max = SecondGenIndex.fifteen;
+
+    if (secondGenModel.isFemale(index)) {
+      max = SecondGenIndex.fourteen;
+    }
+
+    for (int i = index.value; i <= max.value; i += 2) {
+      SecondGenIndex key = SecondGenIndex.values.firstWhere(
+              (SecondGenIndex element) => element.value == i
+      );
+      map[key] = List<IVColor>.from(secondGenModel.colorMap[key]!);
+    }
+    return map;
   }
 }

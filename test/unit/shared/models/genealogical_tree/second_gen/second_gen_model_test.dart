@@ -184,7 +184,7 @@ void main() {
         ..secondGenIVList[0][0][0] = 0
         ..secondGenIVList[0][0][1] = 0;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
+      bool actualValue = secondGenModel.isListFilled(0, 0);
       bool expectedValue = false;
 
       expect(actualValue, expectedValue);
@@ -195,7 +195,7 @@ void main() {
         ..secondGenIVList[0][0][0] = 3
         ..secondGenIVList[0][0][1] = 0;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
+      bool actualValue = secondGenModel.isListFilled(0, 0);
       bool expectedValue = true;
 
       expect(actualValue, expectedValue);
@@ -206,7 +206,7 @@ void main() {
         ..secondGenIVList[0][0][0] = 0
         ..secondGenIVList[0][0][1] = 4;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
+      bool actualValue = secondGenModel.isListFilled(0, 0);
       bool expectedValue = true;
 
       expect(actualValue, expectedValue);
@@ -217,7 +217,7 @@ void main() {
         ..secondGenIVList[0][0][0] = 5
         ..secondGenIVList[0][0][1] = 4;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 0);
+      bool actualValue = secondGenModel.isListFilled(0, 0);
       bool expectedValue = true;
 
       expect(actualValue, expectedValue);
@@ -228,7 +228,7 @@ void main() {
         ..secondGenIVList[0][1][0] = 0
         ..secondGenIVList[0][1][1] = 0;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
+      bool actualValue = secondGenModel.isListFilled(0, 1);
       bool expectedValue = false;
 
       expect(actualValue, expectedValue);
@@ -239,7 +239,7 @@ void main() {
         ..secondGenIVList[0][1][0] = 3
         ..secondGenIVList[0][1][1] = 0;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
+      bool actualValue = secondGenModel.isListFilled(0, 1);
       bool expectedValue = true;
 
       expect(actualValue, expectedValue);
@@ -250,7 +250,7 @@ void main() {
         ..secondGenIVList[0][1][0] = 0
         ..secondGenIVList[0][1][1] = 4;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
+      bool actualValue = secondGenModel.isListFilled(0, 1);
       bool expectedValue = true;
 
       expect(actualValue, expectedValue);
@@ -261,7 +261,7 @@ void main() {
         ..secondGenIVList[0][1][0] = 5
         ..secondGenIVList[0][1][1] = 4;
 
-      bool actualValue = secondGenModel.isSumPositive(0, 1);
+      bool actualValue = secondGenModel.isListFilled(0, 1);
       bool expectedValue = true;
 
       expect(actualValue, expectedValue);
