@@ -24,7 +24,7 @@ class MainMenuPage extends StatelessWidget {
               children: <Widget>[
                 MainButton(
                   buttonText: 'NEW BREEDING',
-                  onPressed: () => AutoRouter.of(context).push(const SecondGenWidget()),
+                  onPressed: () => AutoRouter.of(context).push(const NewBreedingRoute()),
                 ),
                 const MainButton(buttonText: 'LOAD BREEDING'),
                 const MainButton(buttonText: 'SETTINGS'),

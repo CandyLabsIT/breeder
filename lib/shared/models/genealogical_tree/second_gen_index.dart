@@ -1,5 +1,4 @@
 enum SecondGenIndex {
-  zero(0),
   one(1),
   two(2),
   three(3),
@@ -14,7 +13,8 @@ enum SecondGenIndex {
   twelve(12),
   thirteen(13),
   fourteen(14),
-  fifteen(15);
+  fifteen(15),
+  sixteen(16);
 
   final int value;
   const SecondGenIndex(this.value);

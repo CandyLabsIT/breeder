@@ -11,7 +11,7 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:breeder/views/pages/main_menu_page.dart' as _i1;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i2;
-import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_widget.dart'
+import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_page.dart'
     as _i3;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
@@ -31,10 +31,10 @@ abstract class $AppRouter extends _i4.RootStackRouter {
         child: const _i2.NewBreedingPage(),
       );
     },
-    SecondGenWidget.name: (routeData) {
+    SecondGenRoute.name: (routeData) {
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.SecondGenWidget(),
+        child: const _i3.SecondGenPage(),
       );
     },
   };
@@ -69,15 +69,15 @@ class NewBreedingRoute extends _i4.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.SecondGenWidget]
-class SecondGenWidget extends _i4.PageRouteInfo<void> {
-  const SecondGenWidget({List<_i4.PageRouteInfo>? children})
+/// [_i3.SecondGenPage]
+class SecondGenRoute extends _i4.PageRouteInfo<void> {
+  const SecondGenRoute({List<_i4.PageRouteInfo>? children})
       : super(
-          SecondGenWidget.name,
+          SecondGenRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SecondGenWidget';
+  static const String name = 'SecondGenRoute';
 
   static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
 }
