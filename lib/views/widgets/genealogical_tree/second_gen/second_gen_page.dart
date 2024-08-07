@@ -68,7 +68,7 @@ class _SecondGenPageState extends State<SecondGenPage> {
       child: BlocBuilder<SecondGenCubit, ASecondGenState>(
         bloc: secondGenCubit,
         builder: (BuildContext context, ASecondGenState state) {
-          final Map<SecondGenIndex, List<IVColor>> colors = secondGenCubit.getButtonsColors();
+          final Map<SecondGenIndex, List<IVColor>> colors = secondGenCubit.getColors();
           return PopScope(
             canPop: false,
             onPopInvoked: _onPopInvoked,

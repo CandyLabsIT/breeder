@@ -17,8 +17,8 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     emit(SecondGenColorsChangedState(colorsMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
-  void setAllDefaultValues() {
-    secondGenModel.restartAll();
+  void setAllDefaultColors() {
+    secondGenModel.resetAll();
     emit(SecondGenColorsChangedState(colorsMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
@@ -27,7 +27,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     emit(SecondGenListColorsDefaultState(colorsMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
-  Map<SecondGenIndex, List<IVColor>> getButtonsColors() {
+  Map<SecondGenIndex, List<IVColor>> getColors() {
     if (state is SecondGenColorsChangedState) {
       return (state as SecondGenColorsChangedState).colorsMap;
     } else if (state is SecondGenListColorsDefaultState) {
@@ -36,16 +36,12 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     return Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
   }
 
-  Map<IVColor, bool> getButtonsState(SecondGenIndex secondGenIndex) {
-    return _getButtonsState(secondGenIndex);
-  }
-
   bool isRestartButtonEnabled(SecondGenIndex secondGenIndex) {
     return secondGenModel.isListFilled(secondGenIndex);
   }
 
-  Map<IVColor, bool> _getButtonsState(SecondGenIndex secondGenIndex) {
-    Map<IVColor, bool> ivColorMap = <IVColor, bool>{
+  Map<IVColor, bool> getButtonsState(SecondGenIndex secondGenIndex) {
+    Map<IVColor, bool> ivButtonsMap = <IVColor, bool>{
       for (IVColor ivColor in IVColor.values) ivColor: true,
     };
 
@@ -53,32 +49,28 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     List<IVColor> secondaryList = secondGenModel.secondGenMap[secondGenModel.getIndex(secondGenIndex)]!;
 
     if (secondGenModel.isListFilled(secondGenIndex)) {
-      int primaryListZeroCount = primaryList
-          .where((IVColor element) => element == IVColor.defaultColor)
-          .length;
-      int secondaryListZeroCount = secondaryList
-          .where((IVColor element) => element == IVColor.defaultColor)
-          .length;
+      int primaryListZeroCount = primaryList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int secondaryListZeroCount = secondaryList.where((IVColor element) => element == IVColor.defaultColor).length;
 
       if (primaryListZeroCount == 0) {
-        for (IVColor key in ivColorMap.keys) {
-          ivColorMap[key] = primaryList.contains(key);
+        for (IVColor key in ivButtonsMap.keys) {
+          ivButtonsMap[key] = primaryList.contains(key);
         }
-        return ivColorMap;
+        return ivButtonsMap;
       } else if (secondaryListZeroCount == 0) {
         if (secondGenModel.hasCommonValue(secondGenIndex)) {
-          for (IVColor key in ivColorMap.keys) {
-            ivColorMap[key] = primaryList.contains(key) || !secondaryList.contains(key);
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = primaryList.contains(key) || !secondaryList.contains(key);
           }
-          return ivColorMap;
+          return ivButtonsMap;
         } else {
-          for (IVColor key in ivColorMap.keys) {
-            ivColorMap[key] = primaryList.contains(key) || secondaryList.contains(key);
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = primaryList.contains(key) || secondaryList.contains(key);
           }
-          return ivColorMap;
+          return ivButtonsMap;
         }
       }
     }
-    return ivColorMap;
+    return ivButtonsMap;
   }
 }

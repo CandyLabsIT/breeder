@@ -17,13 +17,10 @@ Future<void> main() async {
   group('Tests of SecondGenerationCubit process', () {
     SecondGenCubit actualSecondGenCubit = globalLocator<SecondGenCubit>();
 
-    List<IVColor> ivColorList = <IVColor>[];
+    List<IVColor> primaryIVColorList = <IVColor>[];
+    List<IVColor> secondaryIVColorList = <IVColor>[];
 
-    SecondGenModel secondGenModel = SecondGenModel()
-      ..secondGenMap[SecondGenIndex.one]![0] = IVColor.hpColor
-      ..secondGenMap[SecondGenIndex.one]![1] = IVColor.defColor
-      ..secondGenMap[SecondGenIndex.two]![0] = IVColor.defColor
-      ..secondGenMap[SecondGenIndex.two]![1] = IVColor.atkColor;
+    SecondGenModel secondGenModel = SecondGenModel();
 
     test('Should return [SecondGenerationInitState] state', () {
       ASecondGenState expectedSecondGenInitState = InitSecondGenState();
@@ -44,11 +41,11 @@ Future<void> main() async {
 
       for (SecondGenIndex index in SecondGenIndex.values) {
         if (index == SecondGenIndex.one) {
-          ivColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
+          primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
         } else {
-          ivColorList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
+          primaryIVColorList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
         }
-        expectedSecondGenMap[index] = ivColorList;
+        expectedSecondGenMap[index] = primaryIVColorList;
       }
 
       ASecondGenState expectedSecondGenState = SecondGenColorsChangedState(colorsMap: expectedSecondGenMap);
@@ -58,14 +55,14 @@ Future<void> main() async {
       expect(actualSecondGenCubit.state, expectedSecondGenState);
     });
 
-    test('Should return [SecondGenColorsChangedState] if [all values are restart]', () {
+    test('Should return [SecondGenColorsChangedState] if [all values are reset]', () {
       Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
         for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
       };
 
       ASecondGenState expectedSecondGenState = SecondGenColorsChangedState(colorsMap: expectedSecondGenMap);
 
-      actualSecondGenCubit.setAllDefaultValues();
+      actualSecondGenCubit.setAllDefaultColors();
 
       expect(actualSecondGenCubit.state, expectedSecondGenState);
     });
@@ -77,272 +74,198 @@ Future<void> main() async {
 
       ASecondGenState expectedSecondGenState = SecondGenListColorsDefaultState(colorsMap: expectedSecondGenMap);
 
-      ivColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
-      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = ivColorList;
+      primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = primaryIVColorList;
 
       actualSecondGenCubit.setListDefaultColors(SecondGenIndex.six);
 
       expect(actualSecondGenCubit.state, expectedSecondGenState);
     });
-    //
-    // test('Should return [SecondGenMaleColorsDefaultState] if [secondGenMaleIVList is not none]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel;
-    //
-    //   actualSecondGenCubit.setMaleDefaultColors(SecondGenIndex.pairZero);
-    //
-    //   ASecondGenState expectedSecondGenMaleColorsDefaultState = const SecondGenMaleColorsDefaultState(colorsList: <Color>[
-    //     Color(0xFFD9D9D9),
-    //     Color(0xFFD9D9D9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9),
-    //     Color(0xffd9d9d9)
-    //   ]);
-    //
-    //   expect(actualSecondGenCubit.state, expectedSecondGenMaleColorsDefaultState);
-    // });
-    //
-    // test('Should return [all true values] if [both values in secondGenFemaleIVList == 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = List<bool>.filled(7, true);
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [all true values] if [only value secondGenFemaleIVList[0] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 4
-    //     ..secondGenIVList[0][0][1] = 0;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = List<bool>.filled(7, true);
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [all true values] if [only value secondGenFemaleIVList[1] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 0
-    //     ..secondGenIVList[0][0][1] = 6;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = List<bool>.filled(7, true);
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [two true values] if [both values in secondGenerationFemaleIVList > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 4
-    //     ..secondGenIVList[0][0][1] = 3;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = <bool>[true, false, false, true, true, false, false];
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test(
-    //     'Should return [three false values] if [only secondGenFemaleIVList[0]> 0, both values in secondGenMaleIVList > 0 and secondGenFemaleIVList[0] != each values in secondGenMaleIVList]',
-    //     () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 4
-    //     ..secondGenIVList[0][0][1] = 0
-    //     ..secondGenIVList[0][1][0] = 3
-    //     ..secondGenIVList[0][1][1] = 2;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = <bool>[true, false, true, true, true, false, false];
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test(
-    //     'Should return [only one false value] if [only secondGenFemaleIVList[0]> 0, both values in secondGenMaleIVList > 0 and secondGenFemaleIVList[0] == one of values in secondGenFemaleIVList]',
-    //     () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 3
-    //     ..secondGenIVList[0][0][1] = 0
-    //     ..secondGenIVList[0][1][0] = 3
-    //     ..secondGenIVList[0][1][1] = 2;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = <bool>[true, true, false, true, true, true, true];
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [all true values] if [both values in secondGenMaleIVList == 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 0
-    //     ..secondGenIVList[0][1][1] = 0;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = List<bool>.filled(7, true);
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [all true values] if [if only secondGenMaleIVList[0] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 3
-    //     ..secondGenIVList[0][1][1] = 0;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = List<bool>.filled(7, true);
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [two true values] if [both values in secondGenMaleIVList > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 4
-    //     ..secondGenIVList[0][1][1] = 3;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = <bool>[true, false, false, true, true, false, false];
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test(
-    //     'Should return [three false values] if [only secondGenMaleIVList[0]> 0 and both values in secondGenFemaleIVList > 0 and secondGenMaleIVList[0] != of both values in secondGenFemaleIVList]',
-    //     () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 4
-    //     ..secondGenIVList[0][1][1] = 0
-    //     ..secondGenIVList[0][0][0] = 3
-    //     ..secondGenIVList[0][0][1] = 2;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = <bool>[true, false, true, true, true, false, false];
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test(
-    //     'Should return [only one false value] if [only secondGenMaleIVList[0]> 0 and both values in secondGenFemaleIVList > 0 and secondGenMaleIVList[0] == one of values in secondGenFemaleIVList]',
-    //     () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 3
-    //     ..secondGenIVList[0][1][1] = 0
-    //     ..secondGenIVList[0][0][0] = 3
-    //     ..secondGenIVList[0][0][1] = 2;
-    //
-    //   List<bool> actualButtonsState = actualSecondGenCubit.getMaleButtonsState(SecondGenIndex.pairZero);
-    //
-    //   List<bool> expectedButtonsState = <bool>[true, true, false, true, true, true, true];
-    //
-    //   expect(actualButtonsState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [true] if [both values in secondGenFemaleIVList > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 3
-    //     ..secondGenIVList[0][0][1] = 2;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = true;
-    //
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [true] if [only secondGenFemaleIVList[0] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 1
-    //     ..secondGenIVList[0][0][1] = 0;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = true;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [true] if [only secondGenFemaleIVList[1] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 0
-    //     ..secondGenIVList[0][0][1] = 2;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = true;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [false] if [both values in secondGenFemaleIVList[0] == 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][0][0] = 0
-    //     ..secondGenIVList[0][0][1] = 0;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = false;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [true] if [both values in secondGenMaleIVList > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 1
-    //     ..secondGenIVList[0][1][1] = 2;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = true;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [true] if [only secondGenMaleIVList[1] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 0
-    //     ..secondGenIVList[0][1][1] = 2;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = true;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [true] if [only secondGenMaleIVList[0] > 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 1
-    //     ..secondGenIVList[0][1][1] = 0;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = true;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
-    //
-    // test('Should return [false] if [both values in secondGenMaleIVList == 0]', () {
-    //   actualSecondGenCubit.secondGenModel = secondGenModel
-    //     ..secondGenIVList[0][1][0] = 0
-    //     ..secondGenIVList[0][1][1] = 0;
-    //
-    //   bool actualButtonState = actualSecondGenCubit.isMaleRestartButtonEnabled(SecondGenIndex.pairZero);
-    //
-    //   bool expectedButtonsState = false;
-    //   expect(actualButtonState, expectedButtonsState);
-    // });
+
+    test('Should return [SecondGenMap] if [SecondGenColorsChangedState is emitted and ivColor changed]', () {
+      actualSecondGenCubit.secondGenModel = secondGenModel;
+      actualSecondGenCubit.setAllDefaultColors();
+
+      actualSecondGenCubit.setColors(SecondGenIndex.one, IVColor.atkColor);
+
+      Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{};
+
+      for (SecondGenIndex index in SecondGenIndex.values) {
+        if (index == SecondGenIndex.one) {
+          primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.defaultColor];
+        } else {
+          primaryIVColorList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
+        }
+        expectedSecondGenMap[index] = primaryIVColorList;
+      }
+
+      expect(actualSecondGenCubit.getColors(), expectedSecondGenMap);
+    });
+
+    test('Should return [SecondGenMap] if [SecondGenColorsChangedState is emitted and all values are reset]', () {
+      actualSecondGenCubit.secondGenModel = secondGenModel;
+
+      actualSecondGenCubit.secondGenModel = secondGenModel;
+      actualSecondGenCubit.setAllDefaultColors();
+
+      Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
+        for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+      };
+
+      expect(actualSecondGenCubit.getColors(), expectedSecondGenMap);
+    });
+
+    test('Should return [SecondGenMap] if [SecondGenListColorsDefaultState is emitted]', () {
+      Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
+        for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+      };
+
+      primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = primaryIVColorList;
+
+      actualSecondGenCubit.setListDefaultColors(SecondGenIndex.six);
+
+      expect(actualSecondGenCubit.getColors(), expectedSecondGenMap);
+    });
+
+    test('Should return [SecondGenMap] if [buttons are checked]', () {
+      Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
+        for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+      };
+
+      actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.one);
+
+      expect(actualSecondGenCubit.getColors(), expectedSecondGenMap);
+    });
+
+    test('Should return [map with all true values] if [both values are defaultColor and in second list both values are defaultColor]', () {
+      Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values) ivColor: true,
+      };
+
+      Map<IVColor, bool> actualIVColorMap = actualSecondGenCubit.getButtonsState(SecondGenIndex.one);
+
+      expect(actualIVColorMap, expectedIVColorMap);
+    });
+
+    test('Should return [map with all true values] if [one value is defaultColor and in second list both values are defaultColor]', () {
+      Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values) ivColor: true,
+      };
+
+      primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.defaultColor];
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+
+      Map<IVColor, bool> actualIVColorMap = actualSecondGenCubit.getButtonsState(SecondGenIndex.one);
+
+      expect(actualIVColorMap, expectedIVColorMap);
+    });
+
+    test('Should return [three true values] if [both values are not defaultColor  and in second list both values are defaultColor]', () {
+      Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{};
+      primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
+
+      for (IVColor ivColor in IVColor.values) {
+        if (primaryIVColorList.contains(ivColor)) {
+          expectedIVColorMap[ivColor] = true;
+        } else {
+          expectedIVColorMap[ivColor] = false;
+        }
+      }
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+
+      Map<IVColor, bool> actualIVColorMap = actualSecondGenCubit.getButtonsState(SecondGenIndex.one);
+
+      expect(actualIVColorMap, expectedIVColorMap);
+    });
+
+    test(
+        'Should return [four true values] if  [one value is defaultColor and in second list both values are not defaultColor and values in both list are different]',
+        () {
+      Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{};
+      primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
+      secondaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
+
+      for (IVColor ivColor in IVColor.values) {
+        if (primaryIVColorList.contains(ivColor) || secondaryIVColorList.contains(ivColor)) {
+          expectedIVColorMap[ivColor] = true;
+        } else {
+          expectedIVColorMap[ivColor] = false;
+        }
+      }
+
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.two] = secondaryIVColorList;
+
+      Map<IVColor, bool> actualIVColorMap = actualSecondGenCubit.getButtonsState(SecondGenIndex.one);
+
+      expect(actualIVColorMap, expectedIVColorMap);
+    });
+
+    test(
+        'Should return  [one false value] if  [one value is defaultColor and in second list both values are not defaultColor and primary and second list contains one the same value]',
+        () {
+      Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{};
+      primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
+      secondaryIVColorList = <IVColor>[IVColor.defColor, IVColor.spAtkColor];
+
+      for (IVColor ivColor in IVColor.values) {
+        if (ivColor == IVColor.spAtkColor) {
+          expectedIVColorMap[ivColor] = false;
+        } else {
+          expectedIVColorMap[ivColor] = true;
+        }
+      }
+
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.two] = secondaryIVColorList;
+
+      Map<IVColor, bool> actualIVColorMap = actualSecondGenCubit.getButtonsState(SecondGenIndex.one);
+
+      expect(actualIVColorMap, expectedIVColorMap);
+    });
+
+    test('Should return [all true values] if [one value in primary and second list is defaultColor, no value is repeated in both lists]', () {
+      Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values) ivColor: true,
+      };
+      primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
+      secondaryIVColorList = <IVColor>[IVColor.defaultColor, IVColor.spAtkColor];
+
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.two] = secondaryIVColorList;
+
+      Map<IVColor, bool> actualIVColorMap = actualSecondGenCubit.getButtonsState(SecondGenIndex.one);
+
+      expect(actualIVColorMap, expectedIVColorMap);
+    });
+
+    test('Should return [false] if [both values are defaultColor]', () {
+      bool expectedRestartButtonState = false;
+
+      primaryIVColorList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      bool actualRestartButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.one);
+
+      expect(actualRestartButtonState, expectedRestartButtonState);
+    });
+
+    test('Should return [true] if [one values are defaultColor]', () {
+      bool expectedRestartButtonState = true;
+      primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      bool actualRestartButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.one);
+
+      expect(actualRestartButtonState, expectedRestartButtonState);
+    });
+
+    test('Should return [true] if [both values are not defaultColor]', () {
+      bool expectedRestartButtonState = true;
+      primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.spAtkColor];
+      actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.one] = primaryIVColorList;
+      bool actualRestartButtonState = actualSecondGenCubit.isRestartButtonEnabled(SecondGenIndex.one);
+
+      expect(actualRestartButtonState, expectedRestartButtonState);
+    });
   });
 }

@@ -7,7 +7,6 @@ class SecondGenModel {
   };
 
   void updateMapValues(SecondGenIndex secondGenIndex, IVColor ivColor) {
-    // TODO(Balladyna): change name of currentList
     List<IVColor> ivColorList = List<IVColor>.from(secondGenMap[secondGenIndex]!);
 
     for (int i = 0; i <= 1; i++) {
@@ -19,7 +18,6 @@ class SecondGenModel {
         break;
       }
     }
-
     secondGenMap[secondGenIndex] = ivColorList;
   }
 
@@ -27,7 +25,7 @@ class SecondGenModel {
     secondGenMap[secondGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
   }
 
-  void restartAll() {
+  void resetAll() {
     secondGenMap = <SecondGenIndex, List<IVColor>>{
       for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
     };
@@ -38,20 +36,20 @@ class SecondGenModel {
   }
 
   bool hasCommonValue(SecondGenIndex secondGenIndex) {
-    List<IVColor> currentList = secondGenMap[secondGenIndex]!;
-    List<IVColor> secondList = secondGenMap[getIndex(secondGenIndex)]!;
-    return currentList.toSet().intersection(secondList.toSet()).isNotEmpty;
+    List<IVColor> primaryList = secondGenMap[secondGenIndex]!;
+    List<IVColor> secondaryList = secondGenMap[getIndex(secondGenIndex)]!;
+    return primaryList.toSet().intersection(secondaryList.toSet()).isNotEmpty;
   }
 
   SecondGenIndex getIndex(SecondGenIndex secondGenIndex) {
-    if (isFemale(secondGenIndex)) {
+    if (_isFemale(secondGenIndex)) {
       return _getMaleIndex(secondGenIndex);
     } else {
       return _getFemaleIndex(secondGenIndex);
     }
   }
 
-  bool isFemale(SecondGenIndex secondGenIndex) {
+  bool _isFemale(SecondGenIndex secondGenIndex) {
     if (secondGenIndex.value.isEven) {
       return false;
     }
@@ -59,12 +57,12 @@ class SecondGenModel {
   }
 
   SecondGenIndex _getMaleIndex(SecondGenIndex secondGenIndex) {
-    int next = secondGenIndex.value + 1;
-    return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == next);
+    int maleIndexValue = secondGenIndex.value + 1;
+    return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
   }
 
   SecondGenIndex _getFemaleIndex(SecondGenIndex secondGenIndex) {
-    int femaleIndex = secondGenIndex.value - 1;
-    return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndex);
+    int femaleIndexValue = secondGenIndex.value - 1;
+    return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
   }
 }
