@@ -45,27 +45,27 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
       for (IVColor ivColor in IVColor.values) ivColor: true,
     };
 
-    List<IVColor> primaryList = secondGenModel.secondGenMap[secondGenIndex]!;
-    List<IVColor> secondaryList = secondGenModel.secondGenMap[secondGenModel.getIndex(secondGenIndex)]!;
+    List<IVColor> activeMonsterIVList = secondGenModel.secondGenMap[secondGenIndex]!;
+    List<IVColor> pairedMonsterIVList = secondGenModel.secondGenMap[secondGenModel.getIndex(secondGenIndex)]!;
 
     if (secondGenModel.isListFilled(secondGenIndex)) {
-      int primaryListZeroCount = primaryList.where((IVColor element) => element == IVColor.defaultColor).length;
-      int secondaryListZeroCount = secondaryList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int activeMonsterDefaultCount = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int pairedMonsterDefaultCount = pairedMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
 
-      if (primaryListZeroCount == 0) {
+      if (activeMonsterDefaultCount == 0) {
         for (IVColor key in ivButtonsMap.keys) {
-          ivButtonsMap[key] = primaryList.contains(key);
+          ivButtonsMap[key] = activeMonsterIVList.contains(key);
         }
         return ivButtonsMap;
-      } else if (secondaryListZeroCount == 0) {
+      } else if (pairedMonsterDefaultCount == 0) {
         if (secondGenModel.hasCommonValue(secondGenIndex)) {
           for (IVColor key in ivButtonsMap.keys) {
-            ivButtonsMap[key] = primaryList.contains(key) || !secondaryList.contains(key);
+            ivButtonsMap[key] = activeMonsterIVList.contains(key) || !pairedMonsterIVList.contains(key);
           }
           return ivButtonsMap;
         } else {
           for (IVColor key in ivButtonsMap.keys) {
-            ivButtonsMap[key] = primaryList.contains(key) || secondaryList.contains(key);
+            ivButtonsMap[key] = activeMonsterIVList.contains(key) || pairedMonsterIVList.contains(key);
           }
           return ivButtonsMap;
         }

@@ -36,9 +36,9 @@ class SecondGenModel {
   }
 
   bool hasCommonValue(SecondGenIndex secondGenIndex) {
-    List<IVColor> primaryList = secondGenMap[secondGenIndex]!;
-    List<IVColor> secondaryList = secondGenMap[getIndex(secondGenIndex)]!;
-    return primaryList.toSet().intersection(secondaryList.toSet()).isNotEmpty;
+    List<IVColor> activeMonsterIVColorList = secondGenMap[secondGenIndex]!;
+    List<IVColor> pairedMonsterIVColorList = secondGenMap[getIndex(secondGenIndex)]!;
+    return activeMonsterIVColorList.toSet().intersection(pairedMonsterIVColorList.toSet()).isNotEmpty;
   }
 
   SecondGenIndex getIndex(SecondGenIndex secondGenIndex) {
