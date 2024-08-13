@@ -57,7 +57,7 @@ class _SecondGenSlidingPanelState extends State<SecondGenSlidingPanel> {
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: () => secondGenCubit.setListDefaultColors(widget.secondGenIndex),
+                  onPressed: () => secondGenCubit.resetIVListToDefaultColors(widget.secondGenIndex),
                   isEnabled: secondGenCubit.isRestartButtonEnabled(widget.secondGenIndex),
                 ),
               ),

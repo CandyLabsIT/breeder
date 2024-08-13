@@ -48,7 +48,7 @@ Future<void> main() async {
         expectedSecondGenMap[index] = primaryIVColorList;
       }
 
-      ASecondGenState expectedSecondGenState = SecondGenColorsChangedState(colorsMap: expectedSecondGenMap);
+      ASecondGenState expectedSecondGenState = SecondGenColorsChangedState(secondGenMap: expectedSecondGenMap);
 
       actualSecondGenCubit.setColors(SecondGenIndex.one, IVColor.defColor);
 
@@ -60,9 +60,9 @@ Future<void> main() async {
         for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
       };
 
-      ASecondGenState expectedSecondGenState = SecondGenColorsChangedState(colorsMap: expectedSecondGenMap);
+      ASecondGenState expectedSecondGenState = SecondGenColorsChangedState(secondGenMap: expectedSecondGenMap);
 
-      actualSecondGenCubit.setAllDefaultColors();
+      actualSecondGenCubit.resetAllToDefaultColors();
 
       expect(actualSecondGenCubit.state, expectedSecondGenState);
     });
@@ -72,19 +72,19 @@ Future<void> main() async {
         for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
       };
 
-      ASecondGenState expectedSecondGenState = SecondGenListColorsDefaultState(colorsMap: expectedSecondGenMap);
+      ASecondGenState expectedSecondGenState = SecondGenIVListDefaultState(secondGenMap: expectedSecondGenMap);
 
       primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
       actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = primaryIVColorList;
 
-      actualSecondGenCubit.setListDefaultColors(SecondGenIndex.six);
+      actualSecondGenCubit.resetIVListToDefaultColors(SecondGenIndex.six);
 
       expect(actualSecondGenCubit.state, expectedSecondGenState);
     });
 
     test('Should return [SecondGenMap] if [SecondGenColorsChangedState is emitted and ivColor changed]', () {
       actualSecondGenCubit.secondGenModel = secondGenModel;
-      actualSecondGenCubit.setAllDefaultColors();
+      actualSecondGenCubit.resetAllToDefaultColors();
 
       actualSecondGenCubit.setColors(SecondGenIndex.one, IVColor.atkColor);
 
@@ -106,7 +106,7 @@ Future<void> main() async {
       actualSecondGenCubit.secondGenModel = secondGenModel;
 
       actualSecondGenCubit.secondGenModel = secondGenModel;
-      actualSecondGenCubit.setAllDefaultColors();
+      actualSecondGenCubit.resetAllToDefaultColors();
 
       Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
         for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
@@ -123,7 +123,7 @@ Future<void> main() async {
       primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
       actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = primaryIVColorList;
 
-      actualSecondGenCubit.setListDefaultColors(SecondGenIndex.six);
+      actualSecondGenCubit.resetIVListToDefaultColors(SecondGenIndex.six);
 
       expect(actualSecondGenCubit.getColors(), expectedSecondGenMap);
     });

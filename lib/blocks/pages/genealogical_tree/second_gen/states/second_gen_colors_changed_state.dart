@@ -3,10 +3,10 @@ import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen_index.dart';
 
 class SecondGenColorsChangedState extends ASecondGenState {
-  final Map<SecondGenIndex, List<IVColor>> colorsMap;
+  final Map<SecondGenIndex, List<IVColor>> secondGenMap;
 
-  const SecondGenColorsChangedState({required this.colorsMap});
+  const SecondGenColorsChangedState({required this.secondGenMap});
 
   @override
-  List<Map<SecondGenIndex, List<IVColor>>> get props => <Map<SecondGenIndex, List<IVColor>>>[colorsMap];
+  List<Map<SecondGenIndex, List<IVColor>>> get props => <Map<SecondGenIndex, List<IVColor>>>[secondGenMap];
 }
