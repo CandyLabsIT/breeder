@@ -55,15 +55,18 @@ class SecondGenModel {
       return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
     }
 
-  bool hasCommonValue(int indexList) {
-    return secondGenIVList[indexList][0].toSet().intersection(secondGenIVList[indexList][1].toSet()).isNotEmpty;
+  SecondGenIndex getMaleIndex(SecondGenIndex secondGenIndex) {
+    if (secondGenIndex.value.isEven) {
+      return secondGenIndex;
+    }
+    int maleIndexValue = secondGenIndex.value + 1;
+    return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
   }
 
-
-  bool isPairFilled(int pairIndex) {
+  bool isPairFilled(SecondGenIndex secondGenIndex) {
     bool isFilled = true;
-    bool female = secondGenIVList[pairIndex][0].contains(0);
-    bool male = secondGenIVList[pairIndex][1].contains(0);
+    bool female = secondGenMap[getFemaleIndex(secondGenIndex)]!.contains(IVColor.defaultColor);
+    bool male = secondGenMap[getMaleIndex(secondGenIndex)]!.contains(IVColor.defaultColor);
 
     if (female || male) {
       return false;
@@ -71,11 +74,4 @@ class SecondGenModel {
     return isFilled;
   }
 }
-    SecondGenIndex getMaleIndex(SecondGenIndex secondGenIndex) {
-      if (secondGenIndex.value.isEven) {
-        return secondGenIndex;
-      }
-      int maleIndexValue = secondGenIndex.value + 1;
-      return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
-    }
-  }
+

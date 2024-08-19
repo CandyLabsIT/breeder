@@ -132,32 +132,5 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
     return buttonsList;
   }
 
-  void getFemaleChildColor(int listNumber, int index, int gender) {
-    if (secondGenCubit.secondGenModel.isPairFilled(listNumber)) {
-      Set<int> femaleSet = secondGenCubit.secondGenModel.secondGenIVList[listNumber][0].toSet();
-      Set<int> maleSet = secondGenCubit.secondGenModel.secondGenIVList[listNumber][1].toSet();
-      List<int> childList = femaleSet.union(maleSet).toList();
 
-      for (int i = 0; i < 3; i++) {
-        thirdGenerationModel.updateValues(thirdGenerationModel.thirdGenerationIVList[index][gender], childList[i]);
-      }
-    }
-  }
-
-  List<Color> _getColorsList(int index) {
-    return <Color>[
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[0][index][0]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[0][index][1]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[0][index][2]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[1][index][0]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[1][index][1]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[1][index][2]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[2][index][0]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[2][index][1]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[2][index][2]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[3][index][0]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[3][index][1]).color,
-      IVColorExtension.fromInt(thirdGenerationModel.thirdGenerationIVList[3][index][2]).color,
-    ];
-  }
 }

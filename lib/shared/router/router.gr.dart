@@ -35,8 +35,6 @@ abstract class $AppRouter extends _i5.RootStackRouter {
       );
     },
     SecondGenRoute.name: (routeData) {
-      return _i4.AutoRoutePage<dynamic>(
-    SecondGenWidget.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.SecondGenPage(),
@@ -82,15 +80,15 @@ class NewBreedingRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.SecondGenWidget]
-class SecondGenWidget extends _i5.PageRouteInfo<void> {
-  const SecondGenWidget({List<_i5.PageRouteInfo>? children})
+/// [_i3.SecondGenPage]
+class SecondGenRoute extends _i5.PageRouteInfo<void> {
+  const SecondGenRoute({List<_i5.PageRouteInfo>? children})
       : super(
-          SecondGenWidget.name,
+          SecondGenRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SecondGenWidget';
+  static const String name = 'SecondGenRoute';
 
   static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
 }
