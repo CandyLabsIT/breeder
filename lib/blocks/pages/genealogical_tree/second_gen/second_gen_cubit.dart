@@ -54,30 +54,36 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     }
   }
 
-  Map<IVColor, bool> _getButtonsState(List<IVColor> activeIVList, List<IVColor> pairedIVList, SecondGenIndex secondGenIndex) {
+  Map<IVColor, bool> _getButtonsState(List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList, SecondGenIndex secondGenIndex) {
 
     Map<IVColor, bool> ivButtonsMap = <IVColor, bool>{
       for (IVColor ivColor in IVColor.values) ivColor: true,
     };
-
+  
+    // Check if active monster has at least one non-default value
     if (secondGenModel.isIVListFilled(secondGenIndex)) {
-      int activeMonsterDefaultCount = activeIVList.where((IVColor element) => element == IVColor.defaultColor).length;
-      int pairedMonsterDefaultCount = pairedIVList.where((IVColor element) => element == IVColor.defaultColor).length;
-
+      // Count how many default values are in active and paired monsters lists
+      int activeMonsterDefaultCount = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int pairedMonsterDefaultCount = pairedMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
+      
+      // if active monster has zero default values, return map with true for values that are in the active monster's list.
       if (activeMonsterDefaultCount == 0) {
         for (IVColor key in ivButtonsMap.keys) {
-          ivButtonsMap[key] = activeIVList.contains(key);
+          ivButtonsMap[key] = activeMonsterIVList.contains(key);
         }
         return ivButtonsMap;
+        // If the active monster has more than 0 default values and the paired list has zero default values, check if they have any common values
       } else if (pairedMonsterDefaultCount == 0) {
         if (secondGenModel.hasCommonValue(secondGenIndex)) {
           for (IVColor key in ivButtonsMap.keys) {
-            ivButtonsMap[key] = activeIVList.contains(key) || !pairedIVList.contains(key);
+            // If they have a common value, return false for non-repeating value from the paired monster list
+            ivButtonsMap[key] = activeMonsterIVList.contains(key) || !pairedMonsterIVList.contains(key);
           }
           return ivButtonsMap;
         } else {
+          // If they do not have a common value, return  true for values in either the active monster list or the paired monster list
           for (IVColor key in ivButtonsMap.keys) {
-            ivButtonsMap[key] = activeIVList.contains(key) || pairedIVList.contains(key);
+            ivButtonsMap[key] = activeMonsterIVList.contains(key) || pairedMonsterIVList.contains(key);
           }
           return ivButtonsMap;
         }

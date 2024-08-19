@@ -180,7 +180,7 @@ Future<void> main() async {
     });
 
     test(
-        'Should return [four true values] if  [one value is defaultColor and in second list both values are not defaultColor and values in both list are different]',
+        'Should return [four true values] if  [one value is defaultColor and in second list both values are not defaultColor and second list does not contain value from first list]',
         () {
       Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{};
       primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
