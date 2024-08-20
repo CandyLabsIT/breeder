@@ -41,12 +41,12 @@ class _ThirdGenerationFemaleSlidingPanelState extends State<ThirdGenerationFemal
                 child: ClosePanelWidget(),
               ),
               AttributeButtonsWidget(
-                onPressedAtk: () => thirdGenerationCubit.getFemaleColors(widget.listIndex, 1),
-                onPressedHP: () => thirdGenerationCubit.getFemaleColors(widget.listIndex, 2),
-                onPressedSpAtk: () => thirdGenerationCubit.getFemaleColors(widget.listIndex, 3),
-                onPressedDef: () => thirdGenerationCubit.getFemaleColors(widget.listIndex, 4),
-                onPressedSpDef: () => thirdGenerationCubit.getFemaleColors(widget.listIndex, 5),
-                onPressedSpeed: () => thirdGenerationCubit.getFemaleColors(widget.listIndex, 6),
+                onPressedAtk: () => thirdGenerationCubit.setColors(widget.listIndex, 1),
+                onPressedHP: () => thirdGenerationCubit.setColors(widget.listIndex, 2),
+                onPressedSpAtk: () => thirdGenerationCubit.setColors(widget.listIndex, 3),
+                onPressedDef: () => thirdGenerationCubit.setColors(widget.listIndex, 4),
+                onPressedSpDef: () => thirdGenerationCubit.setColors(widget.listIndex, 5),
+                onPressedSpeed: () => thirdGenerationCubit.setColors(widget.listIndex, 6),
                 isEnabledAtk: isEnabledList[1],
                 isEnabledHP: isEnabledList[2],
                 isEnabledSpAtk: isEnabledList[3],
@@ -56,7 +56,7 @@ class _ThirdGenerationFemaleSlidingPanelState extends State<ThirdGenerationFemal
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: () => thirdGenerationCubit.resetFemaleValues(widget.listIndex),
+                  onPressed: () => thirdGenerationCubit.resetIVListToDefaultColors(widget.listIndex),
                   isEnabled: thirdGenerationCubit.isFemaleRestartButtonEnabled(widget.listIndex),
                 ),
               ),

@@ -38,20 +38,37 @@ class ThirdGenerationModel {
     };
   }
 
+  void updateListValues(ThirdGenIndex thirdGenIndex, List<IVColor> parentsList){
+    thirdGenMap[thirdGenIndex] = parentsList;
+  }
+
   bool isIVListFilled(ThirdGenIndex thirdGenIndex) {
     return thirdGenMap[thirdGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
   }
 
-  int hasCommonValue(List<int> primaryList, List<int> secondaryList) {
-    Set<int> secondarySet = secondaryList.toSet();
-    int commonElements = 0;
-
-    for (int element in primaryList) {
-      if (element > 0 && secondarySet.contains(element)) {
-        commonElements++;
-      }
-    }
-
-    return commonElements;
+  bool hasCommonValue(ThirdGenIndex thirdGenIndex) {
+    List<IVColor> femaleIVColorList = thirdGenMap[getFemaleIndex(thirdGenIndex)]!;
+    List<IVColor> maleIVColorList = thirdGenMap[getMaleIndex(thirdGenIndex)]!;
+    return femaleIVColorList
+        .toSet()
+        .intersection(maleIVColorList.toSet())
+        .isNotEmpty;
   }
+
+  ThirdGenIndex getFemaleIndex(ThirdGenIndex thirdGenIndex) {
+    if (thirdGenIndex.value.isOdd) {
+      return thirdGenIndex;
+    }
+    int femaleIndexValue = thirdGenIndex.value - 1;
+    return ThirdGenIndex.values.firstWhere((ThirdGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
+  }
+
+  ThirdGenIndex getMaleIndex(ThirdGenIndex thirdGenIndex) {
+    if (thirdGenIndex.value.isEven) {
+      return thirdGenIndex;
+    }
+    int maleIndexValue = thirdGenIndex.value + 1;
+    return ThirdGenIndex.values.firstWhere((ThirdGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
+  }
+
 }
