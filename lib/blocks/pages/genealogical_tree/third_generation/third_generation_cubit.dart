@@ -1,10 +1,10 @@
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/a_third_generation_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/init_third_generation_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/restarted_third_generation_female_values_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/restarted_third_generation_male_values_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/third_generation_female_color_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/state/third_generation_male_color_state.dart';
+import 'package:breeder/blocks/pages/third_generation/state/init_third_generation_state.dart';
+import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_female_values_state.dart';
+import 'package:breeder/blocks/pages/third_generation/state/restarted_third_generation_male_values_state.dart';
+import 'package:breeder/blocks/pages/third_generation/state/third_generation_female_color_state.dart';
+import 'package:breeder/blocks/pages/third_generation/state/third_generation_male_color_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_generation_model.dart';
@@ -30,8 +30,8 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   }
 
   void resetFemaleValues(int listNumber) {
-    if (thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][0])) {
-      thirdGenerationModel.restartListValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
+    if (thirdGenerationModel.isIVListFilled(thirdGenerationModel.thirdGenerationIVList[listNumber][0])) {
+      thirdGenerationModel.resetIVListValues(thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
     }
     emit(
       RestartedThirdGenerationFemaleValuesState(
@@ -41,8 +41,8 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   }
 
   void resetThirdMaleValues(int listNumber) {
-    if (thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][1])) {
-      thirdGenerationModel.restartListValues(thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
+    if (thirdGenerationModel.isIVListFilled(thirdGenerationModel.thirdGenerationIVList[listNumber][1])) {
+      thirdGenerationModel.resetIVListValues(thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
     }
     emit(
       RestartedThirdGenerationMaleValuesState(valuesList: _getColorsList(1)),
@@ -86,11 +86,11 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   }
 
   bool isFemaleRestartButtonEnabled(int listNumber) {
-    return thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
+    return thirdGenerationModel.isIVListFilled(thirdGenerationModel.thirdGenerationIVList[listNumber][0]);
   }
 
   bool isMaleRestartButtonEnabled(int listNumber) {
-    return thirdGenerationModel.isSumPositive(thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
+    return thirdGenerationModel.isIVListFilled(thirdGenerationModel.thirdGenerationIVList[listNumber][1]);
   }
 
   List<bool> isFemaleButtonsEnabled(int listNumber) {
@@ -104,7 +104,7 @@ class ThirdGenerationCubit extends Cubit<AThirdGenerationState> {
   List<bool> _getButtonsState(List<int> primaryList, List<int> secondaryList) {
     final List<bool> buttonsList = List<bool>.filled(7, true);
 
-    if (thirdGenerationModel.isSumPositive(primaryList)) {
+    if (thirdGenerationModel.isIVListFilled(primaryList)) {
       int primaryZeroCount = primaryList.where((int element) => element == 0).length;
       int secondaryZeroCount = secondaryList.where((int element) => element == 0).length;
       int commonValues = thirdGenerationModel.hasCommonValue(primaryList, secondaryList);

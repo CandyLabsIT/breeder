@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/a_third_generation_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/third_generation_cubit.dart';
+import 'package:breeder/blocks/pages/third_generation/third_generation_cubit.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/female/third_generation_female_button.dart';

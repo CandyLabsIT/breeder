@@ -4,7 +4,7 @@ import 'package:breeder/blocks/pages/new_breeding/states/new_breeding_init_state
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
-import 'package:breeder/shared/models/genealogical_tree/second_gen_index.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/models/new_breeding/new_breeding_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 

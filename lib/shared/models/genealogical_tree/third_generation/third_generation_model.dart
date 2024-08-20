@@ -1,41 +1,45 @@
 import 'dart:ui';
 
+import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
+import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
+
 class ThirdGenerationModel {
-  late List<List<List<int>>> thirdGenerationIVList =
-      List<List<List<int>>>.generate(4, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(3, (_) => 0)));
+  late Map<ThirdGenIndex, List<IVColor>> thirdGenMap = <ThirdGenIndex, List<IVColor>>{
+    for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+  };
 
   late List<List<Color>> childrenColorsList = List<List<Color>>.generate(8, (_) => List<Color>.generate(4, (_) => const Color(0xFFD9D9D9)));
 
-  List<int> updateValues(List<int> ivList, int value) {
-    if (ivList.contains(value)) {
-      int index = ivList.indexOf(value);
-      ivList[index] = 0;
-      return ivList;
-    } else {
-      for (int i = 0; i < 3; i++) {
-        if (ivList[i] == value) {
-          ivList[i] = 0;
-          break;
-        }
-        if (ivList[i] == 0) {
-          ivList[i] = value;
-          break;
-        }
+  void updateMapValues(ThirdGenIndex thirdGenIndex, IVColor ivColor) {
+    List<IVColor> ivColorList = List<IVColor>.from(thirdGenMap[thirdGenIndex]!);
+
+    // find if ivColorList contains ivColor, if yes set this color to replace, if not set defaultColor as IVColor to replace
+    IVColor ivColorToReplace = ivColorList.contains(ivColor) ? ivColor : IVColor.defaultColor;
+
+    for (int i = 0; i <= 2; i++) {
+      if (ivColorList[i] == ivColorToReplace) {
+
+        // replace list element with ivColorToReplace, if element is ivColor -> defaultColor else defaultColor -> ivColor
+        ivColorList[i] = (ivColorToReplace == ivColor) ? IVColor.defaultColor : ivColor;
+        break;
       }
     }
-    return ivList;
+
+    thirdGenMap[thirdGenIndex] = ivColorList;
   }
 
-  void restartListValues(List<int> list) {
-    list.fillRange(0, list.length, 0);
+  void resetIVListValues(ThirdGenIndex thirdGenIndex) {
+    thirdGenMap[thirdGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
   }
 
   void restartAll() {
-    thirdGenerationIVList = List<List<List<int>>>.generate(4, (_) => List<List<int>>.generate(2, (_) => List<int>.generate(3, (_) => 0)));
+    thirdGenMap = <ThirdGenIndex, List<IVColor>>{
+      for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+    };
   }
 
-  bool isSumPositive(List<int> list) {
-    return list.fold(0, (int previousValue, int element) => previousValue + element) > 0;
+  bool isIVListFilled(ThirdGenIndex thirdGenIndex) {
+    return thirdGenMap[thirdGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
   }
 
   int hasCommonValue(List<int> primaryList, List<int> secondaryList) {

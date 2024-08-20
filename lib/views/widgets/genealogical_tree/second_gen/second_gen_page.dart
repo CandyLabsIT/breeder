@@ -3,7 +3,7 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_s
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
-import 'package:breeder/shared/models/genealogical_tree/second_gen_index.dart';
+import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/genealogical_tree/generic/sliding_panel_widget.dart';
 import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_sliding_panel/second_gen_sliding_panel.dart';
