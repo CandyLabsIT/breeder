@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
 
-class ThirdGenerationModel {
+class ThirdGenModel {
   late Map<ThirdGenIndex, List<IVColor>> thirdGenMap = <ThirdGenIndex, List<IVColor>>{
     for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
   };
@@ -18,7 +18,6 @@ class ThirdGenerationModel {
 
     for (int i = 0; i <= 2; i++) {
       if (ivColorList[i] == ivColorToReplace) {
-
         // replace list element with ivColorToReplace, if element is ivColor -> defaultColor else defaultColor -> ivColor
         ivColorList[i] = (ivColorToReplace == ivColor) ? IVColor.defaultColor : ivColor;
         break;
@@ -38,8 +37,10 @@ class ThirdGenerationModel {
     };
   }
 
-  void updateListValues(ThirdGenIndex thirdGenIndex, List<IVColor> parentsList){
-    thirdGenMap[thirdGenIndex] = parentsList;
+  void updateListValues(ThirdGenIndex thirdGenIndex, List<IVColor> parentsList) {
+    if (!parentsList.contains(IVColor.defaultColor)) {
+      thirdGenMap[thirdGenIndex] = parentsList;
+    }
   }
 
   bool isIVListFilled(ThirdGenIndex thirdGenIndex) {
@@ -60,7 +61,7 @@ class ThirdGenerationModel {
       return thirdGenIndex;
     }
     int femaleIndexValue = thirdGenIndex.value - 1;
-    return ThirdGenIndex.values.firstWhere((ThirdGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
+    return ThirdGenIndex.values.firstWhere((ThirdGenIndex thirdGenIndex) => thirdGenIndex.value == femaleIndexValue);
   }
 
   ThirdGenIndex getMaleIndex(ThirdGenIndex thirdGenIndex) {
@@ -71,4 +72,15 @@ class ThirdGenerationModel {
     return ThirdGenIndex.values.firstWhere((ThirdGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
   }
 
+  int countCommonValues(ThirdGenIndex thirdGenIndex) {
+    Set<IVColor> femaleSet = thirdGenMap[getFemaleIndex(thirdGenIndex)]!.toSet()
+      ..remove(IVColor.defaultColor);
+    Set<IVColor> maleSet = thirdGenMap[getMaleIndex(thirdGenIndex)]!.toSet()
+      ..remove(IVColor.defaultColor);
+
+    Set<IVColor> intersectionSet = femaleSet.intersection(maleSet);
+    int commonValues = intersectionSet.length;
+
+    return commonValues;
+  }
 }

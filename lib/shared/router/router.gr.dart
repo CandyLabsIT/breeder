@@ -13,9 +13,8 @@ import 'package:breeder/views/pages/main_menu_page.dart' as _i1;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i2;
 import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_page.dart'
     as _i3;
-import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_genaration_page.dart'
+import 'package:breeder/views/widgets/generic/third_generation/third_gen_page.dart'
     as _i4;
-import 'package:flutter/material.dart' as _i6;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -40,12 +39,10 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         child: const _i3.SecondGenPage(),
       );
     },
-    ThirdGenerationRoute.name: (routeData) {
-      final args = routeData.argsAs<ThirdGenerationRouteArgs>(
-          orElse: () => const ThirdGenerationRouteArgs());
+    ThirdGenRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.ThirdGenerationPage(key: args.key),
+        child: const _i4.ThirdGenPage(),
       );
     },
   };
@@ -94,30 +91,15 @@ class SecondGenRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ThirdGenerationPage]
-class ThirdGenerationRoute extends _i5.PageRouteInfo<ThirdGenerationRouteArgs> {
-  ThirdGenerationRoute({
-    _i6.Key? key,
-    List<_i5.PageRouteInfo>? children,
-  }) : super(
-          ThirdGenerationRoute.name,
-          args: ThirdGenerationRouteArgs(key: key),
+/// [_i4.ThirdGenPage]
+class ThirdGenRoute extends _i5.PageRouteInfo<void> {
+  const ThirdGenRoute({List<_i5.PageRouteInfo>? children})
+      : super(
+          ThirdGenRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'ThirdGenerationRoute';
+  static const String name = 'ThirdGenRoute';
 
-  static const _i5.PageInfo<ThirdGenerationRouteArgs> page =
-      _i5.PageInfo<ThirdGenerationRouteArgs>(name);
-}
-
-class ThirdGenerationRouteArgs {
-  const ThirdGenerationRouteArgs({this.key});
-
-  final _i6.Key? key;
-
-  @override
-  String toString() {
-    return 'ThirdGenerationRouteArgs{key: $key}';
-  }
+  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
 }

@@ -9,9 +9,9 @@ class AppRouter extends $AppRouter {
       AutoRoute(page: MainMenuRoute.page, initial: true),
       AutoRoute(page: NewBreedingRoute.page),
       // AutoRoute(page: MaxIVFormRoute.page),
-      AutoRoute(page: SecondGenWidget.page)
-      AutoRoute(page: ThirdGenerationRoute.page),
-      AutoRoute(page: SecondGenerationWidget.page),
+
+      AutoRoute(page: SecondGenRoute.page),
+      AutoRoute(page: ThirdGenRoute.page),
     ];
   }
 }

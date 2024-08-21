@@ -91,4 +91,5 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     }
     return ivButtonsMap;
   }
+
 }

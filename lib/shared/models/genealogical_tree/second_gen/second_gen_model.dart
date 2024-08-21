@@ -59,6 +59,15 @@ class SecondGenModel {
     return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
   }
 
+  List<IVColor> getChildList(SecondGenIndex maleIndex) {
+    List<IVColor> childList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
+    SecondGenIndex femaleIndex = getFemaleIndex(maleIndex);
+    if (isPairFilled(maleIndex)) {
+      childList = (secondGenMap[femaleIndex]! + secondGenMap[maleIndex]!).toSet().toList();
+    }
+    return childList;
+  }
+
   bool isPairFilled(SecondGenIndex secondGenIndex) {
     bool isFilled = true;
     bool female = secondGenMap[getFemaleIndex(secondGenIndex)]!.contains(IVColor.defaultColor);
@@ -68,14 +77,5 @@ class SecondGenModel {
       return false;
     }
     return isFilled;
-  }
-
-  List<IVColor> getChild(SecondGenIndex maleIndex) {
-    List<IVColor> childList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
-    SecondGenIndex femaleIndex = getFemaleIndex(maleIndex);
-    if (isPairFilled(maleIndex)) {
-      childList = (secondGenMap[femaleIndex]! + secondGenMap[maleIndex]!).toSet().toList();
-    }
-    return childList;
   }
 }
