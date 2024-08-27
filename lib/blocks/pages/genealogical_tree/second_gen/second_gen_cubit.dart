@@ -29,10 +29,13 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   Map<SecondGenIndex, List<IVColor>> getColors() {
     if (state is SecondGenColorsChangedState) {
+      secondGenModel.getChildrenMap();
       return (state as SecondGenColorsChangedState).secondGenMap;
     } else if (state is SecondGenIVListDefaultState) {
+      secondGenModel.getChildrenMap();
       return (state as SecondGenIVListDefaultState).secondGenMap;
     }
+    secondGenModel.getChildrenMap();
     return Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
   }
 

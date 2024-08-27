@@ -5,7 +5,7 @@ import 'package:breeder/shared/models/genealogical_tree/third_generation/third_g
 
 class ThirdGenModel {
   late Map<ThirdGenIndex, List<IVColor>> thirdGenMap = <ThirdGenIndex, List<IVColor>>{
-    for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+    for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor]
   };
 
   late List<List<Color>> childrenColorsList = List<List<Color>>.generate(8, (_) => List<Color>.generate(4, (_) => const Color(0xFFD9D9D9)));
@@ -28,12 +28,12 @@ class ThirdGenModel {
   }
 
   void resetIVListValues(ThirdGenIndex thirdGenIndex) {
-    thirdGenMap[thirdGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
+    thirdGenMap[thirdGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
   }
 
   void restartAll() {
     thirdGenMap = <ThirdGenIndex, List<IVColor>>{
-      for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
+      for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor]
     };
   }
 

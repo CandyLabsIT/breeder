@@ -32,7 +32,13 @@ class ThirdGenCubit extends Cubit<AThirdGenState> {
   }
 
   Map<ThirdGenIndex, List<IVColor>> getColors() {
-    checkParents();
+    Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.secondGenModel.getChildrenMap();
+    for (ThirdGenIndex thirdGenIndex in ThirdGenIndex.values) {
+      List<IVColor> parentsList = childrenMap[thirdGenIndex]!;
+      if (isParentsListFilled(parentsList)) {
+        thirdGenModel.updateListValues(thirdGenIndex, parentsList);
+      }
+    }
 
     if (state is ThirdGenColorsChangedState) {
       return (state as ThirdGenColorsChangedState).thirdGenMap;
@@ -42,17 +48,9 @@ class ThirdGenCubit extends Cubit<AThirdGenState> {
     return Map<ThirdGenIndex, List<IVColor>>.from(thirdGenModel.thirdGenMap);
   }
 
-  void checkParents() {
-    for (ThirdGenIndex index in ThirdGenIndex.values) {
-      int indexValue = index.value;
-      int fatherIndexValue = indexValue * 2;
-      SecondGenIndex fatherIndex = SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == fatherIndexValue);
-      List<IVColor> childrenIVList = secondGenCubit.secondGenModel.getChildList(fatherIndex);
-      if (childrenIVList.contains(IVColor.defaultColor)) {
-        continue;
-      }
-      thirdGenModel.updateListValues(index, childrenIVList);
-    }
+
+  bool isParentsListFilled(List<IVColor> parentsList) {
+    return !parentsList.contains(IVColor.defaultColor);
   }
 
   bool isRestartButtonEnabled(ThirdGenIndex thirdGenIndex) {
@@ -61,12 +59,12 @@ class ThirdGenCubit extends Cubit<AThirdGenState> {
 
   Map<IVColor, bool> getButtonState(ThirdGenIndex thirdGenIndex) {
     ThirdGenIndex femaleIndex = thirdGenModel.getFemaleIndex(thirdGenIndex);
-    ThirdGenIndex maleIndex = thirdGenModel.getFemaleIndex(thirdGenIndex);
+    ThirdGenIndex maleIndex = thirdGenModel.getMaleIndex(thirdGenIndex);
 
     List<IVColor> femaleIVList = thirdGenModel.thirdGenMap[femaleIndex]!;
     List<IVColor> maleIVList = thirdGenModel.thirdGenMap[maleIndex]!;
 
-    if (thirdGenIndex == femaleIndex){
+    if (thirdGenIndex == femaleIndex) {
       return _setButtonsState(femaleIVList, maleIVList, thirdGenIndex);
     } else {
       return _setButtonsState(maleIVList, femaleIVList, thirdGenIndex);
@@ -88,10 +86,6 @@ class ThirdGenCubit extends Cubit<AThirdGenState> {
           ivButtonsMap[key] = activeMonsterIVList.contains(key);
         }
         return ivButtonsMap;
-      // } else if (activeMonsterDefaultCount == 0) {
-      //   for (IVColor key in ivButtonsMap.keys) {
-      //     ivButtonsMap[key] = activeMonsterIVList.contains(key);
-      //   }
       } else if (pairedMonsterDefaultCount <= 1) {
         if ((activeMonsterDefaultCount == 2 && commonValues == 0) || (activeMonsterDefaultCount == 1 && commonValues == 1)) {
           for (IVColor key in ivButtonsMap.keys) {

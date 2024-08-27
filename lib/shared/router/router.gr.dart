@@ -13,7 +13,7 @@ import 'package:breeder/views/pages/main_menu_page.dart' as _i1;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i2;
 import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_page.dart'
     as _i3;
-import 'package:breeder/views/widgets/generic/third_generation/third_gen_page.dart'
+import 'package:breeder/views/widgets/genealogical_tree/third_generation/third_gen_page.dart'
     as _i4;
 
 abstract class $AppRouter extends _i5.RootStackRouter {

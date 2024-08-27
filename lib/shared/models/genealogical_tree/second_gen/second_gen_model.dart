@@ -1,5 +1,6 @@
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
+import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
 
 class SecondGenModel {
   late Map<SecondGenIndex, List<IVColor>> secondGenMap = <SecondGenIndex, List<IVColor>>{
@@ -59,13 +60,29 @@ class SecondGenModel {
     return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
   }
 
-  List<IVColor> getChildList(SecondGenIndex maleIndex) {
-    List<IVColor> childList = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
-    SecondGenIndex femaleIndex = getFemaleIndex(maleIndex);
-    if (isPairFilled(maleIndex)) {
-      childList = (secondGenMap[femaleIndex]! + secondGenMap[maleIndex]!).toSet().toList();
+  Map<ThirdGenIndex, List<IVColor>> getChildrenMap() {
+    late Map<ThirdGenIndex, List<IVColor>> childrenMap = <ThirdGenIndex, List<IVColor>>{
+      for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor]
+    };
+
+    for (ThirdGenIndex thirdGenIndex in ThirdGenIndex.values) {
+      List<IVColor> childrenList = getParentsList(thirdGenIndex);
+      if (childrenList.length == 3){
+      childrenMap[thirdGenIndex] = getParentsList(thirdGenIndex);}
+      else {
+        childrenMap[thirdGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
+      }
     }
-    return childList;
+    return childrenMap;
+  }
+
+  List<IVColor> getParentsList(ThirdGenIndex thirdGenIndex) {
+    int indexValue = thirdGenIndex.value;
+    int fatherIndexValue = indexValue * 2;
+    SecondGenIndex maleIndex = SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == fatherIndexValue);
+    SecondGenIndex femaleIndex = getFemaleIndex(maleIndex);
+    List<IVColor> parentsIVList = (secondGenMap[femaleIndex]! + secondGenMap[maleIndex]!).toSet().toList();
+    return parentsIVList;
   }
 
   bool isPairFilled(SecondGenIndex secondGenIndex) {

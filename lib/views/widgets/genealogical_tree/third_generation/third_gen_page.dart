@@ -4,9 +4,10 @@ import 'package:breeder/blocks/pages/genealogical_tree/third_generation/third_ge
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
+import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/genealogical_tree/generic/sliding_panel_widget.dart';
-import 'package:breeder/views/widgets/generic/third_generation/third_generation_pair_widget.dart';
-import 'package:breeder/views/widgets/generic/third_generation/third_generation_sliding_panel/third_gen_sliding_panel.dart';
+import 'package:breeder/views/widgets/genealogical_tree/third_generation/third_gen_widget.dart';
+import 'package:breeder/views/widgets/genealogical_tree/third_generation/third_generation_sliding_panel/third_gen_sliding_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -55,7 +56,7 @@ class _ThirdGenState extends State<ThirdGenPage> {
     if (_panelController.isPanelOpen) {
       _panelController.close();
     } else if (_panelController.isPanelClosed) {
-      // AutoRouter.of(context).push();
+      AutoRouter.of(context).push(const SecondGenRoute());
     }
   }
 
@@ -76,7 +77,7 @@ class _ThirdGenState extends State<ThirdGenPage> {
                 thumbVisibility: true,
                 child: Stack(
                   children: <Widget>[
-                    ThirdGenPairWidget(colorsMap: colors, onTogglePanel: _togglePanel),
+                    ThirdGenWidget(colorsMap: colors, onTogglePanel: _togglePanel),
                     SlidingPanelWidget(
                       controller: _panelController,
                       onTap: () {},

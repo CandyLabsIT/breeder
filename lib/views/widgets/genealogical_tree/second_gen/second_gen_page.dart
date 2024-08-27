@@ -85,6 +85,14 @@ class _SecondGenPageState extends State<SecondGenPage> {
                       onTap: () {},
                       bodyContent: Container(),
                     ),
+                    Positioned(
+                      bottom: 16,
+                        right: 16,
+                        child: FloatingActionButton(
+                          onPressed: () => AutoRouter.of(context).push(const ThirdGenRoute()),
+                          child: const Icon(Icons.navigate_next),
+                        ),
+                    ),
                   ],
                 ),
               ),

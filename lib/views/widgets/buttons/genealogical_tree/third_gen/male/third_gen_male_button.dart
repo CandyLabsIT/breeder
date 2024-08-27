@@ -1,13 +1,13 @@
 import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/male/male_branch_line_painter.dart';
 import 'package:flutter/material.dart';
 
-class ThirdGenerationMaleButton extends StatelessWidget {
+class ThirdGenMaleButton extends StatelessWidget {
   final Color leftColor;
   final Color middleColor;
   final Color rightColor;
   final VoidCallback onPressed;
 
-  const ThirdGenerationMaleButton({
+  const ThirdGenMaleButton({
     required this.leftColor,
     required this.middleColor,
     required this.rightColor,

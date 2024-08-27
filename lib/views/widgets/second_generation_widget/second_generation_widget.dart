@@ -2,8 +2,8 @@
 // import 'package:breeder/blocks/pages/genealogical_tree/second_gen/third_generation/third_gen_cubit.dart';
 // import 'package:breeder/config/locator.dart';
 // import 'package:breeder/shared/router/router.gr.dart';
-// import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/female/third_generation_female_button.dart';
-// import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/male/third_generation_male_button.dart';
+// import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/female/third_gen_female_button.dart';
+// import 'package:breeder/views/widgets/buttons/genealogical_tree_button/third_generation/male/third_gen_male_button.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:sliding_up_panel/sliding_up_panel.dart';
