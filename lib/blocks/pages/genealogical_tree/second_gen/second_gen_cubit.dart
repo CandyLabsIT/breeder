@@ -17,30 +17,30 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     emit(SecondGenColorsChangedState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
-  void resetAllToDefaultColors() {
-    secondGenModel.resetAll();
+  void resetGenToDefaultColors() {
+    secondGenModel.resetMapToDefaultIVColors();
     emit(SecondGenColorsChangedState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
-  void resetIVListToDefaultColors(SecondGenIndex secondGenIndex) {
-    secondGenModel.resetIVListValues(secondGenIndex);
-    emit(SecondGenIVListDefaultState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
+  void resetMonsterToDefaultColors(SecondGenIndex secondGenIndex) {
+    secondGenModel.resetIVLisToDefaultIVColors(secondGenIndex);
+    emit(SecondGenMonsterDefaultState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
   Map<SecondGenIndex, List<IVColor>> getColors() {
     if (state is SecondGenColorsChangedState) {
       return (state as SecondGenColorsChangedState).secondGenMap;
-    } else if (state is SecondGenIVListDefaultState) {
-      return (state as SecondGenIVListDefaultState).secondGenMap;
+    } else if (state is SecondGenMonsterDefaultState) {
+      return (state as SecondGenMonsterDefaultState).secondGenMap;
     }
     return Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
   }
 
   bool isRestartButtonEnabled(SecondGenIndex secondGenIndex) {
-    return secondGenModel.isIVListFilled(secondGenIndex);
+    return secondGenModel.hasNonDefaultIVColor(secondGenIndex);
   }
 
-  Map<IVColor, bool> getButtonsState(SecondGenIndex secondGenIndex) {
+  Map<IVColor, bool> getIVButtonsState(SecondGenIndex secondGenIndex) {
     SecondGenIndex femaleIndex = secondGenModel.getFemaleIndex(secondGenIndex);
     SecondGenIndex maleIndex = secondGenModel.getMaleIndex(secondGenIndex);
 
@@ -48,21 +48,22 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     List<IVColor> maleIVList = secondGenModel.secondGenMap[maleIndex]!;
 
     if (secondGenIndex == femaleIndex) {
-      return _setButtonsState(femaleIVList, maleIVList, secondGenIndex);
+      return _setIVButtonsState(femaleIVList, maleIVList, secondGenIndex);
     } else {
-      return _setButtonsState(maleIVList, femaleIVList, secondGenIndex);
+      return _setIVButtonsState(maleIVList, femaleIVList, secondGenIndex);
     }
   }
 
-  Map<IVColor, bool> _setButtonsState(List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList, SecondGenIndex secondGenIndex) {
+  Map<IVColor, bool> _setIVButtonsState(List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList, SecondGenIndex secondGenIndex) {
 
     Map<IVColor, bool> ivButtonsMap = <IVColor, bool>{
-      for (IVColor ivColor in IVColor.values) ivColor: true,
+      for (IVColor ivColor in IVColor.values)
+        if (ivColor != IVColor.defaultColor) ivColor: true
     };
   
     // check if active monster has at least one non-defaultColor
-    if (secondGenModel.isIVListFilled(secondGenIndex)) {
-      // Count how many defaultColor are in active and paired monsters lists
+    if (secondGenModel.hasNonDefaultIVColor(secondGenIndex)) {
+      // count how many defaultColor are in active and paired monsters lists
       int activeMonsterDefaultCount = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
       int pairedMonsterDefaultCount = pairedMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
       
@@ -74,14 +75,14 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
         return ivButtonsMap;
         // if the active monster has only one defaultColor and the paired list has zero defaultColor, check if they have any common IVColor
       } else if (pairedMonsterDefaultCount == 0) {
-        if (secondGenModel.hasCommonValue(secondGenIndex)) {
+        if (secondGenModel.hasCommonIVColor(secondGenIndex)) {
           for (IVColor key in ivButtonsMap.keys) {
-            // If they have a common IVColor, return map with one false for non-repeating value from the paired monster list
+            // if they have a common IVColor, return map with one false for non-repeating value from the paired monster list
             ivButtonsMap[key] = activeMonsterIVList.contains(key) || !pairedMonsterIVList.contains(key);
           }
           return ivButtonsMap;
         } else {
-          // If the two lists do not share common value, return map with three true values for IVColors contained in active monster list and the paired monster list
+          // if the two lists do not share common value, return map with three true values for IVColors contained in active monster list and the paired monster list
           for (IVColor key in ivButtonsMap.keys) {
             ivButtonsMap[key] = activeMonsterIVList.contains(key) || pairedMonsterIVList.contains(key);
           }

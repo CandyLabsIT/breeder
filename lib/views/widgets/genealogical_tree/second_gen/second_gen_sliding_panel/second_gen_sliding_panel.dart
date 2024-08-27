@@ -33,7 +33,7 @@ class _SecondGenSlidingPanelState extends State<SecondGenSlidingPanel> {
     return BlocBuilder<SecondGenCubit, ASecondGenState>(
       bloc: secondGenCubit,
       builder: (BuildContext context, ASecondGenState state) {
-        Map<IVColor, bool> isEnabledList = secondGenCubit.getButtonsState(widget.secondGenIndex);
+        Map<IVColor, bool> isEnabledList = secondGenCubit.getIVButtonsState(widget.secondGenIndex);
         return Center(
           child: Column(
             children: <Widget>[
@@ -57,7 +57,7 @@ class _SecondGenSlidingPanelState extends State<SecondGenSlidingPanel> {
               ),
               Expanded(
                 child: ResetButton(
-                  onPressed: () => secondGenCubit.resetIVListToDefaultColors(widget.secondGenIndex),
+                  onPressed: () => secondGenCubit.resetMonsterToDefaultColors(widget.secondGenIndex),
                   isEnabled: secondGenCubit.isRestartButtonEnabled(widget.secondGenIndex),
                 ),
               ),
