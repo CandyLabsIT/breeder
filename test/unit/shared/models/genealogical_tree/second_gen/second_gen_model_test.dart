@@ -11,22 +11,22 @@ void main() {
   };
   Map<SecondGenIndex, List<IVColor>> actualSecondGenMap = secondGenModel.secondGenMap;
 
-  group('Tests of SecondGenModel.updateMapValues()', () {
-    test('Should return [defaultColor and non-default IVColor] if [activeList both values are equal to defaultColor and actualIVColor is non-default IVColor]', () {
+  group('Tests of SecondGenModel.updateValues()', () {
+    test('Should return [defaultColor and IV value] if [activeList both values are defaultColors and actualIVColor is IV value]', () {
       IVColor actualIVColor = IVColor.atkColor;
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      secondGenModel.updateIVColor(actualSecondGenIndex, actualIVColor);
       expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.atkColor;
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [non-default IVColor in activeList] if [activeList first IVColor is non defaultColor and second is defaultColor and actualIVColor is non-default IVColor]', () {
+    test('Should return [only IV values in activeList] if [activeList first element is IV value and second is defaultColor and actualIVColor is IV value]', () {
       IVColor actualIVColor = IVColor.defColor;
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      secondGenModel.updateIVColor(actualSecondGenIndex, actualIVColor);
 
       expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.atkColor;
       expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defColor;
@@ -34,33 +34,33 @@ void main() {
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [not changed map] if [activeList is filled with non-default IVColor] and if [activeList not contain actualIVColor]', () {
+    test('Should return [not changed map] if [activeList is filled with IV value] and if [activeList not contain actualIVColor]', () {
       IVColor actualIVColor = IVColor.spAtkColor;
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      secondGenModel.updateIVColor(actualSecondGenIndex, actualIVColor);
       expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.atkColor;
       expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defColor;
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [default IVColor and non-default IVColor in activeList] if [activeList is filled] and if [activeList contain actualIVColor]', () {
+    test('Should return [defaultColor and IV value in activeList] if [activeList is filled] and if [activeList contain actualIVColor]', () {
       IVColor actualIVColor = IVColor.atkColor;
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      secondGenModel.updateIVColor(actualSecondGenIndex, actualIVColor);
       expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.defaultColor;
       expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defColor;
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [default IVColors] if [activeList is filled with one non-default IVColor] and if [activeList contain actualIVColor]', () {
+    test('Should return [defaultColor] if [activeList is filled with one IV value] and if [activeList contain actualIVColor]', () {
       IVColor actualIVColor = IVColor.defColor;
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      secondGenModel.updateMapValues(actualSecondGenIndex, actualIVColor);
+      secondGenModel.updateIVColor(actualSecondGenIndex, actualIVColor);
       expectedSecondGenMap[SecondGenIndex.one]![0] = IVColor.defaultColor;
       expectedSecondGenMap[SecondGenIndex.one]![1] = IVColor.defaultColor;
 
@@ -68,64 +68,64 @@ void main() {
     });
   });
   group('Tests of SecondGenModel.resetIVLisToDefaultIVColors()', () {
-    test('Should return [all default IVColors in activeList] if [activeList contains only non-default IVColors]', () {
+    test('Should return [all defaultColors in activeList] if [activeList contains only IV values]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
       actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
       actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.spAtkColor;
-      secondGenModel.resetIVLisToDefaultIVColors(actualSecondGenIndex);
+      secondGenModel.resetMonsterToDefaultIVColors(actualSecondGenIndex);
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [all default IVColors in activeList] if [only first element of activeList is non-default IVColor]', () {
+    test('Should return [all defaultColors in activeList] if [only first element of activeList is IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
       actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
-      secondGenModel.resetIVLisToDefaultIVColors(actualSecondGenIndex);
+      secondGenModel.resetMonsterToDefaultIVColors(actualSecondGenIndex);
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [all default IVColors in activeList] if [only second IVColor in activeList is non-default IVColor]', () {
+    test('Should return [all defaultColors in activeList] if [only second IVColor in activeList is IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
       actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.defColor;
-      secondGenModel.resetIVLisToDefaultIVColors(actualSecondGenIndex);
+      secondGenModel.resetMonsterToDefaultIVColors(actualSecondGenIndex);
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
   });
 
-  group('Tests of SecondGenModel.resetMapToDefaultIVColors()', () {
-    test('Should return [all default IVColors inactiveList] if [activeList contains only non-default IVColor]', () {
+  group('Tests of SecondGenModel.resetAll()', () {
+    test('Should return [all defaultColors in activeList] if [activeList contains only IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
       actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
       actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.spAtkColor;
-      secondGenModel.resetMapToDefaultIVColors();
+      secondGenModel.resetAll();
 
       actualSecondGenMap = secondGenModel.secondGenMap;
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [all default IVColors in activeList] if [only first IVColor of activeList is non-default IVColor]', () {
+    test('Should return [all defaultColors in activeList] if [only first IVColor of activeList is IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
       actualSecondGenMap[actualSecondGenIndex]![0] = IVColor.defColor;
-      secondGenModel.resetMapToDefaultIVColors();
+      secondGenModel.resetAll();
 
       actualSecondGenMap = secondGenModel.secondGenMap;
 
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [all default IVColors in activeList] if [only second IVColors of activeList is non-default IVColor]', () {
+    test('Should return [all defaultColors in activeList] if [only second IVColors of activeList is IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
       actualSecondGenMap[actualSecondGenIndex]![1] = IVColor.defColor;
-      secondGenModel.resetMapToDefaultIVColors();
+      secondGenModel.resetAll();
 
       actualSecondGenMap = secondGenModel.secondGenMap;
 
@@ -133,11 +133,11 @@ void main() {
     });
   });
 
-  group('Tests of SecondGenModel.hasNonDefaultIVColor()', () {
+  group('Tests of SecondGenModel.hasIVValue()', () {
     test('Should return [false] if [activeList contains only defaultColor]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
-      bool actualBool = secondGenModel.hasNonDefaultIVColor(actualSecondGenIndex);
+      bool actualBool = secondGenModel.hasIVValue(actualSecondGenIndex);
       bool expectedBool = false;
 
       expect(actualBool, expectedBool);
@@ -147,7 +147,7 @@ void main() {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
 
-      bool actualBool = secondGenModel.hasNonDefaultIVColor(actualSecondGenIndex);
+      bool actualBool = secondGenModel.hasIVValue(actualSecondGenIndex);
       bool expectedBool = true;
 
       expect(actualBool, expectedBool);
@@ -158,7 +158,7 @@ void main() {
       secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
       secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.atkColor;
 
-      bool actualBool = secondGenModel.hasNonDefaultIVColor(actualSecondGenIndex);
+      bool actualBool = secondGenModel.hasIVValue(actualSecondGenIndex);
       bool expectedBool = true;
 
       expect(actualBool, expectedBool);
@@ -166,7 +166,7 @@ void main() {
   });
 
   group('Tests of SecondGenModel.hasCommonIVColor()', () {
-    test('Should return [false] if [activeList has non-default IVColors and pairedList has default IVColors]', () {
+    test('Should return [false] if [activeList has IV values and pairedList has defaultColors]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
       
@@ -184,7 +184,7 @@ void main() {
       expect(actualBool, expectedBool);
     });
 
-    test('Should return [true] if [activeList has IVColor from pairedList, pairedList has non-default IVColor]', () {
+    test('Should return [true] if [activeList has IVColor from pairedList, pairedList has IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
       
@@ -200,7 +200,7 @@ void main() {
       expect(actualBool, expectedBool);
     });
 
-    test('Should return [true] if [activeList has only one non default IVColor and IVColor is in pairedList, pairedList has non-default IVColor]', () {
+    test('Should return [true] if [activeList has only one non defaultColor and IVColor is in pairedList, pairedList has IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
       
@@ -216,7 +216,7 @@ void main() {
       expect(actualBool, expectedBool);
     });
 
-    test('Should return [false] if [activeList contains only one non-default IVColor and IVColor is in pairedList, second list has non-default IVColor]', () {
+    test('Should return [false] if [activeList contains only one IV value and IVColor is in pairedList, second list has IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
       

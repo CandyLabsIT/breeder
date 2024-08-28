@@ -6,7 +6,7 @@ class SecondGenModel {
     for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
   };
 
-  void updateMapValues(SecondGenIndex secondGenIndex, IVColor ivColor) {
+  void updateIVColor(SecondGenIndex secondGenIndex, IVColor ivColor) {
     List<IVColor> ivColorList = List<IVColor>.from(secondGenMap[secondGenIndex]!);
 
     // find if ivColorList contains ivColor, if yes set this color to replace, if not set defaultColor as IVColor to replace
@@ -23,20 +23,21 @@ class SecondGenModel {
     secondGenMap[secondGenIndex] = ivColorList;
   }
 
-  void resetIVLisToDefaultIVColors(SecondGenIndex secondGenIndex) {
+  // TODO(balladyna): method names is very similar to cubit method name and also "Monster" in name could be misleading
+  void resetMonsterToDefaultIVColors(SecondGenIndex secondGenIndex) {
     secondGenMap[secondGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor];
   }
 
-  void resetMapToDefaultIVColors() {
+  void resetAll() {
     secondGenMap = <SecondGenIndex, List<IVColor>>{
       for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
     };
   }
 
-  bool hasNonDefaultIVColor(SecondGenIndex secondGenIndex) {
-    bool nonDefaultIVColorBool = secondGenMap[secondGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
+  bool hasIVValue(SecondGenIndex secondGenIndex) {
+    bool ivValueBool = secondGenMap[secondGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
     
-    return nonDefaultIVColorBool;
+    return ivValueBool;
     }
 
   bool hasCommonIVColor(SecondGenIndex secondGenIndex) {

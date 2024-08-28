@@ -13,17 +13,17 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
   SecondGenCubit() : super(InitSecondGenState());
 
   void setColors(SecondGenIndex secondGenIndex, IVColor ivColor) {
-    secondGenModel.updateMapValues(secondGenIndex, ivColor);
+    secondGenModel.updateIVColor(secondGenIndex, ivColor);
     emit(SecondGenColorsChangedState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
-  void resetGenToDefaultColors() {
-    secondGenModel.resetMapToDefaultIVColors();
+  void resetAllToDefaultColors() {
+    secondGenModel.resetAll();
     emit(SecondGenColorsChangedState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
   void resetMonsterToDefaultColors(SecondGenIndex secondGenIndex) {
-    secondGenModel.resetIVLisToDefaultIVColors(secondGenIndex);
+    secondGenModel.resetMonsterToDefaultIVColors(secondGenIndex);
     emit(SecondGenMonsterDefaultState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
@@ -37,7 +37,7 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
   }
 
   bool isRestartButtonEnabled(SecondGenIndex secondGenIndex) {
-    return secondGenModel.hasNonDefaultIVColor(secondGenIndex);
+    return secondGenModel.hasIVValue(secondGenIndex);
   }
 
   Map<IVColor, bool> getIVButtonsState(SecondGenIndex secondGenIndex) {
@@ -61,8 +61,8 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
         if (ivColor != IVColor.defaultColor) ivColor: true
     };
   
-    // check if active monster has at least one non-defaultColor
-    if (secondGenModel.hasNonDefaultIVColor(secondGenIndex)) {
+    // check if active monster has at least one IVValue
+    if (secondGenModel.hasIVValue(secondGenIndex)) {
       // count how many defaultColor are in active and paired monsters lists
       int activeMonsterDefaultCount = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
       int pairedMonsterDefaultCount = pairedMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
