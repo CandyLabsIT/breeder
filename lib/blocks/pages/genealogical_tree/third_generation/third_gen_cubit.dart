@@ -5,7 +5,6 @@ import 'package:breeder/blocks/pages/genealogical_tree/third_generation/state/th
 import 'package:breeder/blocks/pages/genealogical_tree/third_generation/state/third_gen_iv_list_default_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
-import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/third_generation/third_generation_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +31,7 @@ class ThirdGenCubit extends Cubit<AThirdGenState> {
   }
 
   Map<ThirdGenIndex, List<IVColor>> getColors() {
-    Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.secondGenModel.getChildrenMap();
+    Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.getChildren();
     for (ThirdGenIndex thirdGenIndex in ThirdGenIndex.values) {
       List<IVColor> parentsList = childrenMap[thirdGenIndex]!;
       if (isParentsListFilled(parentsList)) {

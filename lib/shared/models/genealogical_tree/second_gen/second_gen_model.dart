@@ -7,6 +7,10 @@ class SecondGenModel {
     for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
   };
 
+  late Map<ThirdGenIndex, List<IVColor>> childrenMap = <ThirdGenIndex, List<IVColor>>{
+    for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor]
+  };
+
   void updateMapValues(SecondGenIndex secondGenIndex, IVColor ivColor) {
     List<IVColor> ivColorList = List<IVColor>.from(secondGenMap[secondGenIndex]!);
 
@@ -20,7 +24,7 @@ class SecondGenModel {
         break;
       }
     }
-
+    print("updateMapValues $ivColorList");
     secondGenMap[secondGenIndex] = ivColorList;
   }
 
@@ -60,20 +64,16 @@ class SecondGenModel {
     return SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == maleIndexValue);
   }
 
-  Map<ThirdGenIndex, List<IVColor>> getChildrenMap() {
-    late Map<ThirdGenIndex, List<IVColor>> childrenMap = <ThirdGenIndex, List<IVColor>>{
-      for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor]
-    };
-
+  void setChildrenMap() {
     for (ThirdGenIndex thirdGenIndex in ThirdGenIndex.values) {
       List<IVColor> childrenList = getParentsList(thirdGenIndex);
-      if (childrenList.length == 3){
-      childrenMap[thirdGenIndex] = getParentsList(thirdGenIndex);}
-      else {
+      if (childrenList.length == 3 && !childrenList.contains(IVColor.defaultColor)) {
+        childrenMap[thirdGenIndex] = childrenList;
+      } else {
         childrenMap[thirdGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
       }
     }
-    return childrenMap;
+    print("Model ${secondGenMap[SecondGenIndex.one]}");
   }
 
   List<IVColor> getParentsList(ThirdGenIndex thirdGenIndex) {

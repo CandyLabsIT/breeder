@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_colors_changed_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_colors_default_state.dart';
@@ -5,6 +7,7 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_model.dart';
+import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SecondGenCubit extends Cubit<ASecondGenState> {
@@ -29,18 +32,22 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
 
   Map<SecondGenIndex, List<IVColor>> getColors() {
     if (state is SecondGenColorsChangedState) {
-      secondGenModel.getChildrenMap();
       return (state as SecondGenColorsChangedState).secondGenMap;
     } else if (state is SecondGenIVListDefaultState) {
-      secondGenModel.getChildrenMap();
       return (state as SecondGenIVListDefaultState).secondGenMap;
     }
-    secondGenModel.getChildrenMap();
     return Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
   }
 
   bool isRestartButtonEnabled(SecondGenIndex secondGenIndex) {
     return secondGenModel.isIVListFilled(secondGenIndex);
+  }
+
+  Map<ThirdGenIndex, List<IVColor>> getChildren() {
+    secondGenModel.setChildrenMap();
+    print("cubit ${secondGenModel.childrenMap[ThirdGenIndex.one]}");
+    Map<ThirdGenIndex, List<IVColor>> childrenMap = Map<ThirdGenIndex, List<IVColor>>.from(secondGenModel.childrenMap);
+    return childrenMap;
   }
 
   Map<IVColor, bool> getButtonsState(SecondGenIndex secondGenIndex) {
@@ -58,17 +65,16 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
   }
 
   Map<IVColor, bool> _getButtonsState(List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList, SecondGenIndex secondGenIndex) {
-
     Map<IVColor, bool> ivButtonsMap = <IVColor, bool>{
       for (IVColor ivColor in IVColor.values) ivColor: true,
     };
-  
+
     // Check if active monster has at least one non-default value
     if (secondGenModel.isIVListFilled(secondGenIndex)) {
       // Count how many default values are in active and paired monsters lists
       int activeMonsterDefaultCount = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
       int pairedMonsterDefaultCount = pairedMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
-      
+
       // if active monster has zero default values, return map with true for values that are in the active monster's list.
       if (activeMonsterDefaultCount == 0) {
         for (IVColor key in ivButtonsMap.keys) {
@@ -94,5 +100,4 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     }
     return ivButtonsMap;
   }
-
 }

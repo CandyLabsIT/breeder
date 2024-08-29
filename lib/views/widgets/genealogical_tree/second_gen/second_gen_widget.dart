@@ -6,6 +6,7 @@ import 'package:breeder/shared/models/genealogical_tree/third_generation/third_g
 import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/female/second_gen_female_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/male/second_gen_male_button.dart';
 import 'package:breeder/views/widgets/buttons/genealogical_tree/third_gen/female/third_gen_female_button.dart';
+import 'package:breeder/views/widgets/buttons/genealogical_tree/third_gen/male/third_gen_male_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,8 +26,8 @@ class SecondGenWidget extends StatelessWidget {
     return BlocBuilder<SecondGenCubit, ASecondGenState>(
       bloc: secondGenCubit,
       builder: (BuildContext context, ASecondGenState state) {
-
-        final Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.secondGenModel.getChildrenMap();
+        final Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.getChildren();
+        print("widget ${childrenMap[ThirdGenIndex.one]}");
         return SizedBox(
           width: double.infinity,
           child: Center(
@@ -100,6 +101,19 @@ class SecondGenWidget extends StatelessWidget {
                                           onPressed: () {
                                             onTogglePanel(SecondGenIndex.four);
                                           },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      children: <Widget>[
+                                        ThirdGenMaleButton(
+                                          leftColor: childrenMap[ThirdGenIndex.two]![0].color,
+                                          middleColor: childrenMap[ThirdGenIndex.two]![1].color,
+                                          rightColor: childrenMap[ThirdGenIndex.two]![2].color,
+                                          onPressed: () {},
                                         ),
                                       ],
                                     ),
