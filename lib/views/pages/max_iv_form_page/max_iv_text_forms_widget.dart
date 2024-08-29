@@ -11,7 +11,7 @@ class MaxIVTextFormsWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(top: 20, bottom: 40),
+            margin: const EdgeInsets.only(bottom: 20),
             child: MaxIVTextFormWidget(
               indexTextEditingControllerList: 0,
               ivTextInfo: '1 IV',
@@ -21,7 +21,7 @@ class MaxIVTextFormsWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 40),
+            margin: const EdgeInsets.only(bottom: 20),
             child: MaxIVTextFormWidget(
               indexTextEditingControllerList: 1,
               ivTextInfo: '2 IVs',
@@ -31,7 +31,7 @@ class MaxIVTextFormsWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 40),
+            margin: const EdgeInsets.only(bottom: 20),
             child: MaxIVTextFormWidget(
               indexTextEditingControllerList: 2,
               ivTextInfo: '3 IVs',
@@ -41,7 +41,7 @@ class MaxIVTextFormsWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 40),
+            margin: const EdgeInsets.only(bottom: 20),
             child: MaxIVTextFormWidget(
               indexTextEditingControllerList: 3,
               ivTextInfo: '4 IVs',
@@ -51,7 +51,7 @@ class MaxIVTextFormsWidget extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 20),
             child: MaxIVTextFormWidget(
               indexTextEditingControllerList: 4,
               ivTextInfo: '5 IVs',

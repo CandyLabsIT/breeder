@@ -1,16 +1,18 @@
+import 'package:breeder/shared/models/genealogical_tree/first_gen/first_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
-import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
-import 'package:breeder/views/pages/second_gen_page/widgets/second_gen_female_button.dart';
-import 'package:breeder/views/pages/second_gen_page/widgets/second_gen_male_button.dart';
+import 'package:breeder/views/pages/second_gen_page/widgets/first_gen_female_button.dart';
+import 'package:breeder/views/pages/second_gen_page/widgets/first_gen_male_button.dart';
 import 'package:flutter/material.dart';
 
-class SecondGenWidget extends StatelessWidget {
-  final Map<SecondGenIndex, List<IVColor>> colorsMap;
-  final void Function(SecondGenIndex index) onTogglePanel;
+class FirstGenWidget extends StatelessWidget {
+  final Map<FirstGenIndex, List<IVColor>> colorsMap;
+  final Map<FirstGenIndex, bool> monsterButtonsMap;
+  final void Function(FirstGenIndex index) onTogglePanel;
 
-  const SecondGenWidget({
+  const FirstGenWidget({
     required this.colorsMap,
     required this.onTogglePanel,
+    required this.monsterButtonsMap,
     Key? key,
   }) : super(key: key);
 
@@ -38,19 +40,18 @@ class SecondGenWidget extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: Column(
                                   children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.one]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.one]![1].color,
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.one]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.one);
+                                        onTogglePanel(FirstGenIndex.one);
                                       },
-                                    ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.two]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.two]![1].color,
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.one]!),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.two]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.two);
+                                        onTogglePanel(FirstGenIndex.two);
                                       },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.two]!,
                                     ),
                                   ],
                                 ),
@@ -63,44 +64,19 @@ class SecondGenWidget extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: Column(
                                   children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.three]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.three]![1].color,
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.three]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.three);
+                                        onTogglePanel(FirstGenIndex.three);
                                       },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.three]!,
                                     ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.four]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.four]![1].color,
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.four]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.four);
+                                        onTogglePanel(FirstGenIndex.four);
                                       },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Column(
-                                  children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.five]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.five]![1].color,
-                                      onPressed: () {
-                                        onTogglePanel(SecondGenIndex.five);
-                                      },
-                                    ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.six]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.six]![1].color,
-                                      onPressed: () {
-                                        onTogglePanel(SecondGenIndex.six);
-                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.four]!,
                                     ),
                                   ],
                                 ),
@@ -113,44 +89,19 @@ class SecondGenWidget extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: Column(
                                   children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.seven]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.seven]![1].color,
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.five]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.seven);
+                                        onTogglePanel(FirstGenIndex.five);
                                       },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.five]!,
                                     ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.eight]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.eight]![1].color,
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.six]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.eight);
+                                        onTogglePanel(FirstGenIndex.six);
                                       },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Column(
-                                  children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.nine]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.nine]![1].color,
-                                      onPressed: () {
-                                        onTogglePanel(SecondGenIndex.nine);
-                                      },
-                                    ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.ten]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.ten]![1].color,
-                                      onPressed: () {
-                                        onTogglePanel(SecondGenIndex.ten);
-                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.six]!,
                                     ),
                                   ],
                                 ),
@@ -163,44 +114,20 @@ class SecondGenWidget extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: Column(
                                   children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.eleven]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.eleven]![1].color,
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.seven]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.eleven);
+                                        onTogglePanel(FirstGenIndex.seven);
                                       },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.seven]!,
                                     ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.twelve]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.twelve]![1].color,
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.eight]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.twelve);
+                                        onTogglePanel(FirstGenIndex.eight);
                                       },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: Column(
-                                  children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.thirteen]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.thirteen]![1].color,
-                                      onPressed: () {
-                                        onTogglePanel(SecondGenIndex.thirteen);
-                                      },
-                                    ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.fourteen]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.fourteen]![1].color,
-                                      onPressed: () {
-                                        onTogglePanel(SecondGenIndex.fourteen);
-                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.eight]!,
+
                                     ),
                                   ],
                                 ),
@@ -213,19 +140,95 @@ class SecondGenWidget extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: Column(
                                   children: <Widget>[
-                                    SecondGenFemaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.fifteen]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.fifteen]![1].color,
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.nine]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.fifteen);
+                                        onTogglePanel(FirstGenIndex.nine);
                                       },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.nine]!,
                                     ),
-                                    SecondGenMaleButton(
-                                      leftColor: colorsMap[SecondGenIndex.sixteen]![0].color,
-                                      rightColor: colorsMap[SecondGenIndex.sixteen]![1].color,
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.ten]![0].color,
                                       onPressed: () {
-                                        onTogglePanel(SecondGenIndex.sixteen);
+                                        onTogglePanel(FirstGenIndex.ten);
                                       },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.ten]!,
+
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.eleven]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.eleven);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.eleven]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twelve]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twelve);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twelve]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.thirteen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.thirteen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.thirteen]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.fourteen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.fourteen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.fourteen]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.fifteen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.fifteen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.fifteen]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.sixteen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.sixteen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.sixteen]!,
                                     ),
                                   ],
                                 ),

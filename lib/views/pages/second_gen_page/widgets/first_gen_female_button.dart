@@ -1,15 +1,15 @@
 import 'package:breeder/views/widgets/genealogical_tree/branch_lines/female_branch_line_painter.dart';
 import 'package:flutter/material.dart';
 
-class SecondGenFemaleButton extends StatelessWidget {
-  final Color leftColor;
-  final Color rightColor;
+class FirstGenFemaleButton extends StatelessWidget {
+  final Color ivColor;
   final VoidCallback onPressed;
+  final bool isEnabled;
 
-  const SecondGenFemaleButton({
-    required this.leftColor,
-    required this.rightColor,
+  const FirstGenFemaleButton({
+    required this.ivColor,
     required this.onPressed,
+    required this.isEnabled,
     Key? key,
   }) : super(key: key);
 
@@ -28,12 +28,14 @@ class SecondGenFemaleButton extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: onPressed,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: Container(color: leftColor)),
-                      Expanded(child: Container(color: rightColor)),
-                    ],
+                  onTap: isEnabled ? onPressed : null,
+                  child: Opacity(
+                    opacity: isEnabled ? 1.0 : 0.5,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(child: Container(color: ivColor)),
+                      ],
+                    ),
                   ),
                 ),
               ),

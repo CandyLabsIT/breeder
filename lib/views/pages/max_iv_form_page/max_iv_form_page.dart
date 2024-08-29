@@ -7,23 +7,27 @@ import 'package:breeder/views/widgets/generic/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// @RoutePage()
+@RoutePage()
 class MaxIVFormPage extends StatelessWidget {
   const MaxIVFormPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double containerWidth = screenSize.width * 0.8;
+    final double containerHeight = screenSize.height * 0.75;
+
     return BlocProvider<MaxIVFormCubit>(
       create: (_) => MaxIVFormCubit(),
       child: Scaffold(
         body: Center(
           child: SingleChildScrollView(
             child: CustomContainer(
-              containerWidth: 350,
-              containerHeight: 650,
+              containerWidth: containerWidth,
+              containerHeight: containerHeight,
               columnItems: <Widget>[
                 Container(
-                  margin: const EdgeInsets.only(top: 30, left: 30, right: 30, bottom: 25),
+                  margin: const EdgeInsets.only(top: 10, left: 30, right: 30),
                   child: const Text(
                     'Enter the quantity of monsters with maximum IVs',
                     textAlign: TextAlign.center,
@@ -35,7 +39,8 @@ class MaxIVFormPage extends StatelessWidget {
                 ),
                 const MaxIVTextFormsWidget(),
                 SizedBox(
-                  width: 300,
+                  width: containerWidth,
+                  // height: containerHeight * 0.05,
                   child: Center(
                     child: Row(
                       children: <Widget>[
@@ -55,7 +60,7 @@ class MaxIVFormPage extends StatelessWidget {
                           buttonText: 'Next',
                           icon: Icons.navigate_next,
                           leftMargin: 25,
-                          onPressed: () => AutoRouter.of(context).push(const SecondGenRoute()),
+                          onPressed: () => AutoRouter.of(context).push(const FirstGenRoute()),
                         ),
                       ],
                     ),
