@@ -1,4 +1,4 @@
-import 'package:breeder/views/widgets/buttons/genealogical_tree/attribute_value/attribute_value_button.dart';
+import 'package:breeder/views/widgets/genealogical_tree/buttons/attribute_value_button.dart';
 import 'package:flutter/cupertino.dart';
 
 class ResetButton extends StatelessWidget {

@@ -10,6 +10,7 @@ enum IVColor {
   speedColor(Color(0xFF96EF9E));
 
   final Color color;
+
   const IVColor(this.color);
 }
 

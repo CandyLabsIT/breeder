@@ -1,12 +1,12 @@
-import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/male/male_branch_line_painter.dart';
+import 'package:breeder/views/widgets/genealogical_tree/branch_lines/female_branch_line_painter.dart';
 import 'package:flutter/material.dart';
 
-class SecondGenMaleButton extends StatelessWidget {
+class SecondGenFemaleButton extends StatelessWidget {
   final Color leftColor;
   final Color rightColor;
   final VoidCallback onPressed;
 
-  const SecondGenMaleButton({
+  const SecondGenFemaleButton({
     required this.leftColor,
     required this.rightColor,
     required this.onPressed,
@@ -44,7 +44,7 @@ class SecondGenMaleButton extends StatelessWidget {
             width: 150,
             child: CustomPaint(
               size: const Size(400, 400),
-              painter: MaleBranchLinePainter(),
+              painter: FemaleBranchLinePainter(),
             ),
           ),
         ],

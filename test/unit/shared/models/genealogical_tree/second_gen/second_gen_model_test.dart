@@ -22,7 +22,9 @@ void main() {
       expect(actualSecondGenMap, expectedSecondGenMap);
     });
 
-    test('Should return [only IV values in activeList] if [activeList first element is IV value and second is defaultColor and actualIVColor is IV value]', () {
+    test(
+        'Should return [only IV values in activeList] if [activeList first element is IV value and second is defaultColor and actualIVColor is IV value]',
+        () {
       IVColor actualIVColor = IVColor.defColor;
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
 
@@ -169,14 +171,12 @@ void main() {
     test('Should return [false] if [activeList has IV values and pairedList has defaultColors]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
-      
 
       secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
       secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.atkColor;
 
       secondGenModel.secondGenMap[pairedSecondGenIndex]![0] = IVColor.defaultColor;
       secondGenModel.secondGenMap[pairedSecondGenIndex]![1] = IVColor.defaultColor;
-      
 
       bool actualBool = secondGenModel.hasCommonIVColor(actualSecondGenIndex);
       bool expectedBool = false;
@@ -187,7 +187,6 @@ void main() {
     test('Should return [true] if [activeList has IVColor from pairedList, pairedList has IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
-      
 
       secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
       secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.atkColor;
@@ -203,7 +202,6 @@ void main() {
     test('Should return [true] if [activeList has only one non defaultColor and IVColor is in pairedList, pairedList has IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
-      
 
       secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
       secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.defaultColor;
@@ -219,7 +217,6 @@ void main() {
     test('Should return [false] if [activeList contains only one IV value and IVColor is in pairedList, second list has IV value]', () {
       SecondGenIndex actualSecondGenIndex = SecondGenIndex.one;
       SecondGenIndex pairedSecondGenIndex = SecondGenIndex.two;
-      
 
       secondGenModel.secondGenMap[actualSecondGenIndex]![0] = IVColor.spAtkColor;
       secondGenModel.secondGenMap[actualSecondGenIndex]![1] = IVColor.defaultColor;

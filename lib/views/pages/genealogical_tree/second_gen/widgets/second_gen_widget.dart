@@ -1,7 +1,7 @@
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/female/second_gen_female_button.dart';
-import 'package:breeder/views/widgets/buttons/genealogical_tree/second_gen/male/second_gen_male_button.dart';
+import 'package:breeder/views/pages/genealogical_tree/second_gen/widgets/second_gen_female_button.dart';
+import 'package:breeder/views/pages/genealogical_tree/second_gen/widgets/second_gen_male_button.dart';
 import 'package:flutter/material.dart';
 
 class SecondGenWidget extends StatelessWidget {

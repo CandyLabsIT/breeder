@@ -17,6 +17,7 @@ enum SecondGenIndex {
   sixteen(16);
 
   final int value;
+
   const SecondGenIndex(this.value);
 
   int get number => value;

@@ -18,7 +18,6 @@ Future<void> main() async {
     NewBreedingModel newBreedingModel = NewBreedingModel()..newBreedingTextEditingController.text = 'Test123';
     SecondGenModel secondGenerationModel = SecondGenModel();
 
-
     test('Should emit [NewBreedingInitState] state', () {
       NewBreedingInitState expectedNewBreedingState = const NewBreedingInitState();
 
@@ -51,7 +50,6 @@ Future<void> main() async {
       Map<SecondGenIndex, List<IVColor>> expectedSecondGenMap = <SecondGenIndex, List<IVColor>>{
         for (SecondGenIndex index in SecondGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor]
       };
-
 
       expect(actualNewBreedingCubit.newBreedingModel.newBreedingTextEditingController.text, expectedNewBreedingState);
       expect(actualSecondGenCubit.secondGenModel.secondGenMap, expectedSecondGenMap);

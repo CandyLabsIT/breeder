@@ -36,18 +36,15 @@ class SecondGenModel {
 
   bool hasIVValue(SecondGenIndex secondGenIndex) {
     bool ivValueBool = secondGenMap[secondGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
-    
+
     return ivValueBool;
-    }
+  }
 
   bool hasCommonIVColor(SecondGenIndex secondGenIndex) {
     List<IVColor> femaleIVColorList = secondGenMap[getFemaleIndex(secondGenIndex)]!;
     List<IVColor> maleIVColorList = secondGenMap[getMaleIndex(secondGenIndex)]!;
 
-    bool commonIVColorBool = femaleIVColorList
-        .toSet()
-        .intersection(maleIVColorList.toSet())
-        .isNotEmpty;
+    bool commonIVColorBool = femaleIVColorList.toSet().intersection(maleIVColorList.toSet()).isNotEmpty;
 
     return commonIVColorBool;
   }
@@ -58,7 +55,8 @@ class SecondGenModel {
     }
 
     int femaleIndexValue = secondGenIndex.value - 1;
-    SecondGenIndex femaleSecondGenIndex = SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
+    SecondGenIndex femaleSecondGenIndex =
+        SecondGenIndex.values.firstWhere((SecondGenIndex secondGenIndex) => secondGenIndex.value == femaleIndexValue);
 
     return femaleSecondGenIndex;
   }

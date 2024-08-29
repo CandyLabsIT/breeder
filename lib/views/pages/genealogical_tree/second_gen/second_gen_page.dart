@@ -5,9 +5,9 @@ import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
 import 'package:breeder/shared/router/router.gr.dart';
+import 'package:breeder/views/pages/genealogical_tree/second_gen/widgets/second_gen_sliding_panel.dart';
+import 'package:breeder/views/pages/genealogical_tree/second_gen/widgets/second_gen_widget.dart';
 import 'package:breeder/views/widgets/genealogical_tree/generic/sliding_panel_widget.dart';
-import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_sliding_panel/second_gen_sliding_panel.dart';
-import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -25,40 +25,11 @@ class _SecondGenPageState extends State<SecondGenPage> {
 
   late PanelController _panelController;
   SecondGenIndex secondGenIndex = SecondGenIndex.one;
-  bool _isPanelActionInProgress = false;
 
   @override
   void initState() {
     super.initState();
     _panelController = PanelController();
-  }
-
-  Future<void> _togglePanel(SecondGenIndex index) async {
-    if (_isPanelActionInProgress) {
-      return;
-    }
-    setState(() {
-      _isPanelActionInProgress = true;
-      secondGenIndex = index;
-    });
-
-    if (_panelController.isPanelOpen) {
-      await _panelController.close();
-    } else {
-      await _panelController.open();
-    }
-
-    setState(() {
-      _isPanelActionInProgress = false;
-    });
-  }
-
-  void _onPopInvoked(bool didPop) {
-    if (_panelController.isPanelOpen) {
-      _panelController.close();
-    } else if (_panelController.isPanelClosed) {
-      AutoRouter.of(context).push(const NewBreedingRoute());
-    }
   }
 
   @override
@@ -93,5 +64,25 @@ class _SecondGenPageState extends State<SecondGenPage> {
         },
       ),
     );
+  }
+
+  void _onPopInvoked(bool didPop) {
+    if (_panelController.isPanelOpen) {
+      _panelController.close();
+    } else if (_panelController.isPanelClosed) {
+      AutoRouter.of(context).push(const NewBreedingRoute());
+    }
+  }
+
+  Future<void> _togglePanel(SecondGenIndex index) async {
+    setState(() {
+      secondGenIndex = index;
+    });
+
+    if (_panelController.isPanelOpen) {
+      await _panelController.close();
+    } else {
+      await _panelController.open();
+    }
   }
 }

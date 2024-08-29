@@ -5,5 +5,4 @@ abstract class ASecondGenState extends Equatable {
 
   @override
   List<Object> get props => <Object>[];
-
 }

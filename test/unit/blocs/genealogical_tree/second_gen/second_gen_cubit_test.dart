@@ -1,8 +1,8 @@
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_second_gen_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cubit.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_colors_changed_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_colors_default_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_init_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_monster_default_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
@@ -77,7 +77,7 @@ Future<void> main() async {
       primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
       actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = primaryIVColorList;
 
-      actualSecondGenCubit.resetMonsterToDefaultColors(SecondGenIndex.six);
+      actualSecondGenCubit.resetMonsterToDefaultIVColors(SecondGenIndex.six);
 
       expect(actualSecondGenCubit.state, expectedSecondGenState);
     });
@@ -123,12 +123,14 @@ Future<void> main() async {
       primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
       actualSecondGenCubit.secondGenModel.secondGenMap[SecondGenIndex.six] = primaryIVColorList;
 
-      actualSecondGenCubit.resetMonsterToDefaultColors(SecondGenIndex.six);
+      actualSecondGenCubit.resetMonsterToDefaultIVColors(SecondGenIndex.six);
 
       expect(actualSecondGenCubit.getColors(), expectedSecondGenMap);
     });
 
-    test('Should return [map with all true values] if [both IVColors are defaultColor in activeList and in pairedList both IVColors are default IVColor]', () {
+    test(
+        'Should return [map with all true values] if [both IVColors are defaultColor in activeList and in pairedList both IVColors are default IVColor]',
+        () {
       Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
         for (IVColor ivColor in IVColor.values)
           if (ivColor != IVColor.defaultColor) ivColor: true
@@ -139,7 +141,9 @@ Future<void> main() async {
       expect(actualIVColorMap, expectedIVColorMap);
     });
 
-    test('Should return [map with all true values] if [one IVColors is defaultColor in activeList and in pairedList both values are default IVColors]', () {
+    test(
+        'Should return [map with all true values] if [one IVColors is defaultColor in activeList and in pairedList both values are default IVColors]',
+        () {
       Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
         for (IVColor ivColor in IVColor.values)
           if (ivColor != IVColor.defaultColor) ivColor: true
@@ -153,15 +157,16 @@ Future<void> main() async {
       expect(actualIVColorMap, expectedIVColorMap);
     });
 
-    test('Should return [map with two true values - for IVColors from activeList] if [both IVColors are non-default IVColor in activeList and in pairedList both values are default IVColors]', () {
+    test(
+        'Should return [map with two true values - for IVColors from activeList] if [both IVColors are non-default IVColor in activeList and in pairedList both values are default IVColors]',
+        () {
       Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{};
       primaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
 
       for (IVColor ivColor in IVColor.values) {
-        if (ivColor == IVColor.defaultColor){
+        if (ivColor == IVColor.defaultColor) {
           continue;
-        }
-        else if (primaryIVColorList.contains(ivColor)) {
+        } else if (primaryIVColorList.contains(ivColor)) {
           expectedIVColorMap[ivColor] = true;
         } else {
           expectedIVColorMap[ivColor] = false;
@@ -182,10 +187,9 @@ Future<void> main() async {
       secondaryIVColorList = <IVColor>[IVColor.atkColor, IVColor.spAtkColor];
 
       for (IVColor ivColor in IVColor.values) {
-        if (ivColor == IVColor.defaultColor){
+        if (ivColor == IVColor.defaultColor) {
           continue;
-        }
-        else if (primaryIVColorList.contains(ivColor) || secondaryIVColorList.contains(ivColor)) {
+        } else if (primaryIVColorList.contains(ivColor) || secondaryIVColorList.contains(ivColor)) {
           expectedIVColorMap[ivColor] = true;
         } else {
           expectedIVColorMap[ivColor] = false;
@@ -208,10 +212,9 @@ Future<void> main() async {
       secondaryIVColorList = <IVColor>[IVColor.defColor, IVColor.spAtkColor];
 
       for (IVColor ivColor in IVColor.values) {
-        if (ivColor == IVColor.defaultColor){
+        if (ivColor == IVColor.defaultColor) {
           continue;
-        }
-        else if (ivColor == IVColor.spAtkColor) {
+        } else if (ivColor == IVColor.spAtkColor) {
           expectedIVColorMap[ivColor] = false;
         } else {
           expectedIVColorMap[ivColor] = true;
@@ -226,10 +229,12 @@ Future<void> main() async {
       expect(actualIVColorMap, expectedIVColorMap);
     });
 
-    test('Should return [map with all true values] if [one IVColor in activeList and in pairedList is one non-default IVColor, no value is repeated in both lists]', () {
+    test(
+        'Should return [map with all true values] if [one IVColor in activeList and in pairedList is one non-default IVColor, no value is repeated in both lists]',
+        () {
       Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
         for (IVColor ivColor in IVColor.values)
-        if (ivColor != IVColor.defaultColor) ivColor: true
+          if (ivColor != IVColor.defaultColor) ivColor: true
       };
       primaryIVColorList = <IVColor>[IVColor.defColor, IVColor.defaultColor];
       secondaryIVColorList = <IVColor>[IVColor.defaultColor, IVColor.spAtkColor];
@@ -242,7 +247,9 @@ Future<void> main() async {
       expect(actualIVColorMap, expectedIVColorMap);
     });
 
-    test('Should return [map with all true values] if [one IVColor in activeList and in pairedList is one non-default IVColor, and the value is common in both lists]', () {
+    test(
+        'Should return [map with all true values] if [one IVColor in activeList and in pairedList is one non-default IVColor, and the value is common in both lists]',
+        () {
       Map<IVColor, bool> expectedIVColorMap = <IVColor, bool>{
         for (IVColor ivColor in IVColor.values)
           if (ivColor != IVColor.defaultColor) ivColor: true
