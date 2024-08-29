@@ -3,9 +3,9 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cub
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
+import 'package:breeder/views/widgets/genealogical_tree/attribute_buttons_widget.dart';
 import 'package:breeder/views/widgets/genealogical_tree/buttons/reset_button.dart';
-import 'package:breeder/views/widgets/genealogical_tree/generic/attribute_buttons_widget.dart';
-import 'package:breeder/views/widgets/genealogical_tree/generic/close_panel_widget.dart';
+import 'package:breeder/views/widgets/genealogical_tree/close_panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

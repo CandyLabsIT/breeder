@@ -36,11 +36,13 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     } else if (state is SecondGenMonsterDefaultState) {
       return (state as SecondGenMonsterDefaultState).secondGenMap;
     }
-    return Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
+    Map<SecondGenIndex, List<IVColor>> secondGenMap = Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
+    return secondGenMap;
   }
 
   bool isRestartButtonEnabled(SecondGenIndex secondGenIndex) {
-    return secondGenModel.hasIVValue(secondGenIndex);
+    bool restartButtonEnabledBool = secondGenModel.hasIVValue(secondGenIndex);
+    return restartButtonEnabledBool;
   }
 
   Map<IVColor, bool> getIVButtonsState(SecondGenIndex secondGenIndex) {
@@ -66,11 +68,11 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
     // check if active monster has at least one IVValue
     if (secondGenModel.hasIVValue(secondGenIndex)) {
       // count how many defaultColor are in active and paired monsters lists
-      int activeMonsterDefaultIVValue = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
+      int activeMonsterDefaultIVCount = activeMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
       int pairedMonsterIVDefaultIVCount = pairedMonsterIVList.where((IVColor element) => element == IVColor.defaultColor).length;
 
       // if active monster has zero defaultColor, return map with true for IVColor that are in the active monster's list.
-      if (activeMonsterDefaultIVValue == 0) {
+      if (activeMonsterDefaultIVCount == 0) {
         for (IVColor key in ivButtonsMap.keys) {
           ivButtonsMap[key] = activeMonsterIVList.contains(key);
         }
