@@ -8,8 +8,6 @@ class ThirdGenModel {
     for (ThirdGenIndex index in ThirdGenIndex.values) index: <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor]
   };
 
-  late List<List<Color>> childrenColorsList = List<List<Color>>.generate(8, (_) => List<Color>.generate(4, (_) => const Color(0xFFD9D9D9)));
-
   void updateMapValues(ThirdGenIndex thirdGenIndex, IVColor ivColor) {
     List<IVColor> ivColorList = List<IVColor>.from(thirdGenMap[thirdGenIndex]!);
 

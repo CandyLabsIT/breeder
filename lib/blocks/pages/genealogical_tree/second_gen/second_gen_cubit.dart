@@ -16,24 +16,32 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
   SecondGenCubit() : super(InitSecondGenState());
 
   void setColors(SecondGenIndex secondGenIndex, IVColor ivColor) {
-    secondGenModel.updateMapValues(secondGenIndex, ivColor);
+    secondGenModel
+      ..updateMapValues(secondGenIndex, ivColor)
+      ..setChildrenMap();
     emit(SecondGenColorsChangedState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
   void resetAllToDefaultColors() {
-    secondGenModel.resetAll();
+    secondGenModel
+      ..resetAll()
+      ..setChildrenMap();
     emit(SecondGenColorsChangedState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
   void resetIVListToDefaultColors(SecondGenIndex secondGenIndex) {
-    secondGenModel.resetIVListValues(secondGenIndex);
+    secondGenModel
+      ..resetIVListValues(secondGenIndex)
+      ..setChildrenMap();
     emit(SecondGenIVListDefaultState(secondGenMap: Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap)));
   }
 
   Map<SecondGenIndex, List<IVColor>> getColors() {
     if (state is SecondGenColorsChangedState) {
+      secondGenModel.setChildrenMap();
       return (state as SecondGenColorsChangedState).secondGenMap;
     } else if (state is SecondGenIVListDefaultState) {
+      secondGenModel.setChildrenMap();
       return (state as SecondGenIVListDefaultState).secondGenMap;
     }
     return Map<SecondGenIndex, List<IVColor>>.from(secondGenModel.secondGenMap);
@@ -44,8 +52,6 @@ class SecondGenCubit extends Cubit<ASecondGenState> {
   }
 
   Map<ThirdGenIndex, List<IVColor>> getChildren() {
-    secondGenModel.setChildrenMap();
-    print("cubit ${secondGenModel.childrenMap[ThirdGenIndex.one]}");
     Map<ThirdGenIndex, List<IVColor>> childrenMap = Map<ThirdGenIndex, List<IVColor>>.from(secondGenModel.childrenMap);
     return childrenMap;
   }

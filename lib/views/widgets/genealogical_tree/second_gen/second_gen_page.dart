@@ -4,6 +4,7 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/second_gen_cub
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
 import 'package:breeder/shared/models/genealogical_tree/second_gen/second_gen_index.dart';
+import 'package:breeder/shared/models/genealogical_tree/third_generation/third_gen_index.dart';
 import 'package:breeder/shared/router/router.gr.dart';
 import 'package:breeder/views/widgets/genealogical_tree/generic/sliding_panel_widget.dart';
 import 'package:breeder/views/widgets/genealogical_tree/second_gen/second_gen_sliding_panel/second_gen_sliding_panel.dart';
@@ -69,6 +70,7 @@ class _SecondGenPageState extends State<SecondGenPage> {
         bloc: secondGenCubit,
         builder: (BuildContext context, ASecondGenState state) {
           final Map<SecondGenIndex, List<IVColor>> colors = secondGenCubit.getColors();
+          final Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.getChildren();
           return PopScope(
             canPop: false,
             onPopInvoked: _onPopInvoked,
@@ -78,21 +80,21 @@ class _SecondGenPageState extends State<SecondGenPage> {
                 thumbVisibility: true,
                 child: Stack(
                   children: <Widget>[
-                    SecondGenWidget(colorsMap: colors, onTogglePanel: _togglePanel),
+                    SecondGenWidget(colorsMap: colors, onTogglePanel: _togglePanel, childrenMap: childrenMap,),
                     SlidingPanelWidget(
                       controller: _panelController,
                       panel: SecondGenSlidingPanel(secondGenIndex: secondGenIndex),
                       onTap: () {},
                       bodyContent: Container(),
                     ),
-                    // Positioned(
-                    //   bottom: 16,
-                    //     right: 16,
-                    //     child: FloatingActionButton(
-                    //       onPressed: () => AutoRouter.of(context).push(const ThirdGenRoute()),
-                    //       child: const Icon(Icons.navigate_next),
-                    //     ),
-                    // ),
+                    Positioned(
+                      bottom: 16,
+                        right: 16,
+                        child: FloatingActionButton(
+                          onPressed: () => AutoRouter.of(context).push(const ThirdGenRoute()),
+                          child: const Icon(Icons.navigate_next),
+                        ),
+                    ),
                   ],
                 ),
               ),

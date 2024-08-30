@@ -24,7 +24,6 @@ class SecondGenModel {
         break;
       }
     }
-    print("updateMapValues $ivColorList");
     secondGenMap[secondGenIndex] = ivColorList;
   }
 
@@ -73,7 +72,6 @@ class SecondGenModel {
         childrenMap[thirdGenIndex] = <IVColor>[IVColor.defaultColor, IVColor.defaultColor, IVColor.defaultColor];
       }
     }
-    print("Model ${secondGenMap[SecondGenIndex.one]}");
   }
 
   List<IVColor> getParentsList(ThirdGenIndex thirdGenIndex) {

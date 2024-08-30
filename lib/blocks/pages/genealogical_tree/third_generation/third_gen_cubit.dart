@@ -31,7 +31,7 @@ class ThirdGenCubit extends Cubit<AThirdGenState> {
   }
 
   Map<ThirdGenIndex, List<IVColor>> getColors() {
-    Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.getChildren();
+    Map<ThirdGenIndex, List<IVColor>> childrenMap = secondGenCubit.secondGenModel.childrenMap;
     for (ThirdGenIndex thirdGenIndex in ThirdGenIndex.values) {
       List<IVColor> parentsList = childrenMap[thirdGenIndex]!;
       if (isParentsListFilled(parentsList)) {
