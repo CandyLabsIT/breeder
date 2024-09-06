@@ -5,6 +5,7 @@ import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/first_g
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/first_gen_monster_default_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_init_state.dart';
 import 'package:breeder/blocks/pages/max_iv_form/max_iv_form_cubit.dart';
+import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/first_gen/first_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/first_gen/first_gen_model.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstGenCubit extends Cubit<ASecondGenState> {
   FirstGenModel firstGenModel = FirstGenModel();
-  MaxIVFormCubit maxIVFormCubit = MaxIVFormCubit();
+  MaxIVFormCubit maxIVFormCubit = globalLocator<MaxIVFormCubit>();
 
   FirstGenCubit() : super(InitSecondGenState());
 
@@ -59,7 +60,7 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
     int maxIVSum = maxIVFormCubit.maxIVFormModel.calculateWeightedSum();
     int firstGenIndexValue = firstGenIndex.value;
 
-    if (maxIVList[0] != 0 && maxIVSum > maxIVList[0]) {
+    if (maxIVList[0] != 0 && maxIVSum > maxIVList[0] && firstGenIndexValue <= maxIVList[0]) {
       if (firstGenIndexValue <= 2) {
         isEnabledBool = true;
         return isEnabledBool;

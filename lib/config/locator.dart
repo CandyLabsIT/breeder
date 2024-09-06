@@ -13,5 +13,5 @@ void _initControllers() {
   globalLocator
     ..registerLazySingleton<NewBreedingCubit>(NewBreedingCubit.new)
     ..registerLazySingleton<MaxIVFormCubit>(MaxIVFormCubit.new)
-  ..registerLazySingleton<FirstGenCubit>(FirstGenCubit.new);
+    ..registerLazySingleton<FirstGenCubit>(FirstGenCubit.new);
 }

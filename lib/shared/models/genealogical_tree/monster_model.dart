@@ -28,10 +28,10 @@ class MonsterModel {
     return ivColorList;
   }
 
-  List<IVColor> resetMonsterToDefaultIVColors(List<IVColor> ivColorList) {
+  List<IVColor> resetMonsterToDefaultIVColors() {
     for (int index = 0; index < monsterGen.value; index++){
       ivList[index] = IVColor.defaultColor;
     }
-      return ivColorList;
+      return ivList;
   }
 }

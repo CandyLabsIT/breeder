@@ -24,20 +24,17 @@ class FirstGenModel {
   }
 
   void resetMonsterToDefaultIVColors(FirstGenIndex firstGenIndex) {
-    List<IVColor> ivColorList = List<IVColor>.from(firstGenMap[firstGenIndex]!);
-    firstGenMap[firstGenIndex] = monsterModel().resetMonsterToDefaultIVColors(ivColorList);
+    firstGenMap[firstGenIndex] = monsterModel().resetMonsterToDefaultIVColors();
   }
 
   void resetAll() {
     for (FirstGenIndex index in FirstGenIndex.values) {
-      List<IVColor> ivColorList = List<IVColor>.from(firstGenMap[index]!);
-      firstGenMap[index] = monsterModel().resetMonsterToDefaultIVColors(ivColorList);
+      firstGenMap[index] = monsterModel().resetMonsterToDefaultIVColors();
     }
   }
 
   bool hasIVValue(FirstGenIndex firstGenIndex) {
     bool ivValueBool = firstGenMap[firstGenIndex]!.any((IVColor ivColor) => ivColor != IVColor.defaultColor);
-
     return ivValueBool;
   }
 
@@ -53,13 +50,13 @@ class FirstGenModel {
       previousMaleFirstGenIndex = getMaleIndex(previousFemaleFirstGenIndex);
     } else {
       previousMaleFirstGenIndex = getPreviousMaleIndex(firstGenIndex);
-      previousFemaleFirstGenIndex = getFemaleIndex(firstGenIndex);
+      previousFemaleFirstGenIndex = getFemaleIndex(previousMaleFirstGenIndex);
     }
 
     bool isPreviousFemaleFilled = firstGenMap[previousFemaleFirstGenIndex]!.contains(IVColor.defaultColor);
     bool isPreviousMaleFilled = firstGenMap[previousMaleFirstGenIndex]!.contains(IVColor.defaultColor);
 
-    if (!isPreviousFemaleFilled || !isPreviousMaleFilled) {
+    if (isPreviousFemaleFilled || isPreviousMaleFilled) {
       isFilled = false;
     }
 
@@ -82,18 +79,18 @@ class FirstGenModel {
   }
 
   FirstGenIndex getPreviousMaleIndex(FirstGenIndex firstGenIndex) {
-    int previousFemaleValue;
+    int previousMaleValue;
     int firstGenValue = firstGenIndex.value;
 
-    if (firstGenValue.isOdd) {
-      previousFemaleValue = firstGenValue - 2;
+    if (firstGenValue.isEven) {
+      previousMaleValue = firstGenValue - 2;
     } else {
-      previousFemaleValue = firstGenValue - 3;
+      previousMaleValue = firstGenValue - 3;
     }
 
-    FirstGenIndex previousFemaleFirstGenIndex =
-    FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == previousFemaleValue);
-    return previousFemaleFirstGenIndex;
+    FirstGenIndex previousMaleFirstGenIndex =
+        FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == previousMaleValue);
+    return previousMaleFirstGenIndex;
   }
 
   FirstGenIndex getFemaleIndex(FirstGenIndex firstGenIndex) {
