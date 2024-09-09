@@ -24,7 +24,18 @@ class FirstGenModel {
   }
 
   void resetMonsterToDefaultIVColors(FirstGenIndex firstGenIndex) {
-    firstGenMap[firstGenIndex] = monsterModel().resetMonsterToDefaultIVColors();
+    int firstGenIndexValue = firstGenIndex.value;
+    int firstGenIndexLength = FirstGenIndex.values.length;
+
+    for (int i = firstGenIndexValue; i < firstGenIndexLength; i++) {
+      FirstGenIndex currentFirstGenIndex = getIndexFromValue(i);
+      if (hasIVValue(currentFirstGenIndex)) {
+        firstGenMap[currentFirstGenIndex] = monsterModel().resetMonsterToDefaultIVColors();
+      }
+      else{
+        break;
+      }
+    }
   }
 
   void resetAll() {
@@ -73,8 +84,7 @@ class FirstGenModel {
       previousFemaleValue = firstGenValue - 3;
     }
 
-    FirstGenIndex previousFemaleFirstGenIndex =
-        FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == previousFemaleValue);
+    FirstGenIndex previousFemaleFirstGenIndex = getIndexFromValue(previousFemaleValue);
     return previousFemaleFirstGenIndex;
   }
 
@@ -88,8 +98,7 @@ class FirstGenModel {
       previousMaleValue = firstGenValue - 3;
     }
 
-    FirstGenIndex previousMaleFirstGenIndex =
-        FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == previousMaleValue);
+    FirstGenIndex previousMaleFirstGenIndex = getIndexFromValue(previousMaleValue);
     return previousMaleFirstGenIndex;
   }
 
@@ -99,7 +108,7 @@ class FirstGenModel {
     }
 
     int femaleIndexValue = firstGenIndex.value - 1;
-    FirstGenIndex femaleFirstGenIndex = FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == femaleIndexValue);
+    FirstGenIndex femaleFirstGenIndex = getIndexFromValue(femaleIndexValue);
 
     return femaleFirstGenIndex;
   }
@@ -110,8 +119,36 @@ class FirstGenModel {
     }
 
     int maleIndexValue = firstGenIndex.value + 1;
-    FirstGenIndex maleFirstGenIndex = FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == maleIndexValue);
+    FirstGenIndex maleFirstGenIndex = getIndexFromValue(maleIndexValue);
 
     return maleFirstGenIndex;
   }
+
+  FirstGenIndex getIndexFromValue(int firstGenIndexValue) {
+    FirstGenIndex firstGenIndex = FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == firstGenIndexValue);
+    return firstGenIndex;
+  }
+
+  bool isQuotientIndexValueEven(FirstGenIndex firstGenIndex){
+    int firstGenIndexValue = firstGenIndex.value;
+    int firstGenIndexQuotient = firstGenIndexValue ~/ 2;
+    bool isQuotientEvenBool = firstGenIndexQuotient.isEven;
+    return isQuotientEvenBool;
+  }
+
+  Set<IVColor> getFirstGenSet(FirstGenIndex firstGenIndex){
+    int firstGenIndexValue = firstGenIndex.value;
+    Set<IVColor> firstGenSet = <IVColor>{};
+    for (int i = 0; i< firstGenIndexValue; i++){
+      FirstGenIndex index = getIndexFromValue(i);
+      firstGenSet.addAll(firstGenMap[index]!);
+    }
+    return firstGenSet;
+  }
+
+  bool hasListValues (FirstGenIndex firstGenIndex){
+    Set<IVColor> firstGenSet = getFirstGenSet(firstGenIndex);
+    List<IVColor> ivColorList = firstGenMap[firstGenIndex]!;
+    bool containsListValuesBool = firstGenSet.containsAll(ivColorList);
+    return containsListValuesBool;
 }
