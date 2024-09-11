@@ -31,8 +31,7 @@ class FirstGenModel {
       FirstGenIndex currentFirstGenIndex = getIndexFromValue(i);
       if (hasIVValue(currentFirstGenIndex)) {
         firstGenMap[currentFirstGenIndex] = monsterModel().resetMonsterToDefaultIVColors();
-      }
-      else{
+      } else {
         break;
       }
     }
@@ -129,26 +128,68 @@ class FirstGenModel {
     return firstGenIndex;
   }
 
-  bool isQuotientIndexValueEven(FirstGenIndex firstGenIndex){
+  bool isQuotientIndexValueEven(FirstGenIndex firstGenIndex) {
     int firstGenIndexValue = firstGenIndex.value;
     int firstGenIndexQuotient = firstGenIndexValue ~/ 2;
     bool isQuotientEvenBool = firstGenIndexQuotient.isEven;
     return isQuotientEvenBool;
   }
 
-  Set<IVColor> getFirstGenSet(FirstGenIndex firstGenIndex){
+  Set<IVColor> getFirstGenSet(FirstGenIndex firstGenIndex) {
     int firstGenIndexValue = firstGenIndex.value;
     Set<IVColor> firstGenSet = <IVColor>{};
-    for (int i = 0; i< firstGenIndexValue; i++){
+    for (int i = 0; i < firstGenIndexValue; i++) {
       FirstGenIndex index = getIndexFromValue(i);
       firstGenSet.addAll(firstGenMap[index]!);
     }
     return firstGenSet;
   }
 
-  bool hasListValues (FirstGenIndex firstGenIndex){
+  bool hasListValues(FirstGenIndex firstGenIndex) {
     Set<IVColor> firstGenSet = getFirstGenSet(firstGenIndex);
     List<IVColor> ivColorList = firstGenMap[firstGenIndex]!;
     bool containsListValuesBool = firstGenSet.containsAll(ivColorList);
     return containsListValuesBool;
+  }
+
+  Set<IVColor> getPreviousPair(FirstGenIndex firstGenIndex) {
+    FirstGenIndex femaleIndex = getPreviousFemaleIndex(firstGenIndex);
+    FirstGenIndex maleIndex = getPreviousMaleIndex(firstGenIndex);
+
+    Set<IVColor> previousPairSet = <IVColor>{}..addAll(firstGenMap[femaleIndex]!)..addAll(firstGenMap[maleIndex]!);
+
+    return previousPairSet;
+  }
+
+  Set<IVColor> getPreviousIVColorSet(FirstGenIndex firstGenIndex) {
+    Set<IVColor> ivColorSet = <IVColor>{};
+    int firstGenIndexValue = firstGenIndex.value;
+    int maxFirstGenIndexValue;
+    if (firstGenIndexValue > 4 && firstGenIndexValue <= 8) {
+      maxFirstGenIndexValue = FirstGenIndex.four.value;
+      ivColorSet = getIVColorSet(maxFirstGenIndexValue);
+    } else if (firstGenIndexValue >= 9 && firstGenIndexValue <= 16) {
+      maxFirstGenIndexValue = FirstGenIndex.eight.value;
+      ivColorSet = getIVColorSet(maxFirstGenIndexValue);
+    } else if (firstGenIndexValue > 16){
+      maxFirstGenIndexValue = FirstGenIndex.sixteen.value;
+      ivColorSet = getIVColorSet(maxFirstGenIndexValue);
+    }
+    return ivColorSet;
+  }
+
+
+
+  Set<IVColor> getIVColorSet(int maxFirstGenIndexValue) {
+    Set<IVColor> ivColorSet = <IVColor>{};
+    int startNumber = FirstGenIndex.one.value;
+    for (int i = startNumber; i <= maxFirstGenIndexValue; i++) {
+      FirstGenIndex currentIndex = getIndexFromValue(i);
+      List<IVColor> firstGenList = firstGenMap[currentIndex]!;
+      ivColorSet.addAll(firstGenList);
+    }
+    return ivColorSet;
+  }
+
+
 }
