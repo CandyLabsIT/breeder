@@ -9,11 +9,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:breeder/views/pages/first_gen_page/first_gen_page.dart' as _i1;
 import 'package:breeder/views/pages/main_menu_page.dart' as _i2;
 import 'package:breeder/views/pages/max_iv_form_page/max_iv_form_page.dart'
     as _i3;
 import 'package:breeder/views/pages/new_breeding_page.dart' as _i4;
-import 'package:breeder/views/pages/second_gen_page/first_gen_page.dart' as _i1;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
   $AppRouter({super.navigatorKey});

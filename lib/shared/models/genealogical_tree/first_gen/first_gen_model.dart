@@ -91,12 +91,7 @@ class FirstGenModel {
     int previousMaleValue;
     int firstGenValue = firstGenIndex.value;
 
-    if (firstGenValue.isEven) {
-      previousMaleValue = firstGenValue - 2;
-    } else {
-      previousMaleValue = firstGenValue - 3;
-    }
-
+    previousMaleValue = firstGenValue.isEven ? firstGenValue - 2 : firstGenValue - 3;
     FirstGenIndex previousMaleFirstGenIndex = getIndexFromValue(previousMaleValue);
     return previousMaleFirstGenIndex;
   }
@@ -138,7 +133,7 @@ class FirstGenModel {
   Set<IVColor> getFirstGenSet(FirstGenIndex firstGenIndex) {
     int firstGenIndexValue = firstGenIndex.value;
     Set<IVColor> firstGenSet = <IVColor>{};
-    for (int i = 0; i < firstGenIndexValue; i++) {
+    for (int i = 1; i <= firstGenIndexValue; i++) {
       FirstGenIndex index = getIndexFromValue(i);
       firstGenSet.addAll(firstGenMap[index]!);
     }
@@ -155,6 +150,8 @@ class FirstGenModel {
   Set<IVColor> getPreviousPair(FirstGenIndex firstGenIndex) {
     FirstGenIndex femaleIndex = getPreviousFemaleIndex(firstGenIndex);
     FirstGenIndex maleIndex = getPreviousMaleIndex(firstGenIndex);
+    print(femaleIndex);
+    print(maleIndex);
 
     Set<IVColor> previousPairSet = <IVColor>{}..addAll(firstGenMap[femaleIndex]!)..addAll(firstGenMap[maleIndex]!);
 

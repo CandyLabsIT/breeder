@@ -1,7 +1,7 @@
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/a_first_gen_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/first_gen_cubit.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/first_gen_colors_changed_state.dart';
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/second_gen_init_state.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/first_gen_init_state.dart';
 import 'package:breeder/blocks/pages/genealogical_tree/second_gen/states/first_gen_monster_default_state.dart';
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';

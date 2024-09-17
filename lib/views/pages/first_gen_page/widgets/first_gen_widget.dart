@@ -1,7 +1,7 @@
 import 'package:breeder/shared/models/genealogical_tree/first_gen/first_gen_index.dart';
 import 'package:breeder/shared/models/genealogical_tree/iv_colors.dart';
-import 'package:breeder/views/pages/second_gen_page/widgets/first_gen_female_button.dart';
-import 'package:breeder/views/pages/second_gen_page/widgets/first_gen_male_button.dart';
+import 'package:breeder/views/pages/first_gen_page/widgets/first_gen_female_button.dart';
+import 'package:breeder/views/pages/first_gen_page/widgets/first_gen_male_button.dart';
 import 'package:flutter/material.dart';
 
 class FirstGenWidget extends StatelessWidget {

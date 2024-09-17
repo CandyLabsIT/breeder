@@ -1,4 +1,4 @@
-import 'package:breeder/blocks/pages/genealogical_tree/second_gen/first_gen_cubit.dart';
+import 'package:breeder/blocks/pages/genealogical_tree/first_gen/first_gen_cubit.dart';
 import 'package:breeder/blocks/pages/max_iv_form/max_iv_form_cubit.dart';
 import 'package:breeder/blocks/pages/new_breeding/new_breeding_cubit.dart';
 import 'package:get_it/get_it.dart';
