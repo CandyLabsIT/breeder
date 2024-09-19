@@ -106,6 +106,7 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
       for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
     };
 
+
     int indexValue = activeGenIndex.value;
     Set<IVColor> firstGenSet;
     Set<IVColor> previousPair;
@@ -139,8 +140,9 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
         }
         return ivButtonsMap;
       }
-    } else if (indexValue < 8) {
+    } else if (indexValue < 9) {
       firstGenSet = firstGenModel.getFirstGenSet(FirstGenIndex.four);
+      previousPair = firstGenModel.getPreviousPair(activeGenIndex);
       if (indexValue < 7) {
         if (firstGenModel.hasIVValue(pairedGenIndex)) {
           if (firstGenSet.containsAll(pairedMonsterIVList)) {
@@ -154,23 +156,9 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
           }
           return ivButtonsMap;
         } else {
-          if (firstGenModel.hasIVValue(pairedGenIndex)) {
-            if (firstGenSet.containsAll(pairedMonsterIVList)) {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = !firstGenSet.contains(key);
-              }
-            } else {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = firstGenSet.contains(key);
-              }
-            }
-            return ivButtonsMap;
-          }
+          return ivButtonsMap;
         }
       } else {
-        print("object");
-        previousPair = firstGenModel.getPreviousPair(activeGenIndex);
-        print("object $previousPair");
         if (firstGenSet.containsAll(previousPair)) {
           if (firstGenModel.hasIVValue(pairedGenIndex)) {
             if (previousPair.containsAll(pairedMonsterIVList)) {
@@ -187,25 +175,19 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
             return ivButtonsMap;
           }
         } else {
-          print("1111");
-          print(firstGenModel.hasIVValue(pairedGenIndex));
-          print(pairedMonsterIVList);
           if (firstGenModel.hasIVValue(pairedGenIndex)) {
-            print(">>>>>>>>");
             if (previousPair.containsAll(pairedMonsterIVList)) {
               for (IVColor key in ivButtonsMap.keys) {
                 ivButtonsMap[key] = firstGenSet.contains(key) && !previousPair.contains(key);
               }
             } else {
-              print("@2222");
               for (IVColor key in ivButtonsMap.keys) {
                 ivButtonsMap[key] = firstGenSet.intersection(previousPair).contains(key);
               }
             }
           } else {
-            print("??????");
             for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = firstGenSet.contains(key);
+              ivButtonsMap[key] = firstGenSet.contains(key) || previousPair.contains(key);
             }
           }
         }

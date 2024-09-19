@@ -91,7 +91,11 @@ class FirstGenModel {
     int previousMaleValue;
     int firstGenValue = firstGenIndex.value;
 
-    previousMaleValue = firstGenValue.isEven ? firstGenValue - 2 : firstGenValue - 3;
+    if (firstGenValue.isEven) {
+      previousMaleValue = firstGenValue - 2;
+    } else {
+      previousMaleValue = firstGenValue - 1;
+    }
     FirstGenIndex previousMaleFirstGenIndex = getIndexFromValue(previousMaleValue);
     return previousMaleFirstGenIndex;
   }
@@ -150,10 +154,11 @@ class FirstGenModel {
   Set<IVColor> getPreviousPair(FirstGenIndex firstGenIndex) {
     FirstGenIndex femaleIndex = getPreviousFemaleIndex(firstGenIndex);
     FirstGenIndex maleIndex = getPreviousMaleIndex(firstGenIndex);
-    print(femaleIndex);
-    print(maleIndex);
 
-    Set<IVColor> previousPairSet = <IVColor>{}..addAll(firstGenMap[femaleIndex]!)..addAll(firstGenMap[maleIndex]!);
+
+    Set<IVColor> previousPairSet = <IVColor>{}
+      ..addAll(firstGenMap[femaleIndex]!)
+      ..addAll(firstGenMap[maleIndex]!);
 
     return previousPairSet;
   }
@@ -168,14 +173,12 @@ class FirstGenModel {
     } else if (firstGenIndexValue >= 9 && firstGenIndexValue <= 16) {
       maxFirstGenIndexValue = FirstGenIndex.eight.value;
       ivColorSet = getIVColorSet(maxFirstGenIndexValue);
-    } else if (firstGenIndexValue > 16){
+    } else if (firstGenIndexValue > 16) {
       maxFirstGenIndexValue = FirstGenIndex.sixteen.value;
       ivColorSet = getIVColorSet(maxFirstGenIndexValue);
     }
     return ivColorSet;
   }
-
-
 
   Set<IVColor> getIVColorSet(int maxFirstGenIndexValue) {
     Set<IVColor> ivColorSet = <IVColor>{};
@@ -187,6 +190,4 @@ class FirstGenModel {
     }
     return ivColorSet;
   }
-
-
 }
