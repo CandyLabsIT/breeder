@@ -20,6 +20,10 @@ class FirstGenModel {
   void updateIVColor(FirstGenIndex firstGenIndex, IVColor ivColor) {
     List<IVColor> ivColorList = List<IVColor>.from(firstGenMap[firstGenIndex]!);
 
+    if (ivColorList[0] == ivColor){
+      resetMonsterToDefaultIVColors(firstGenIndex);
+    }
+
     firstGenMap[firstGenIndex] = monsterModel().updateIVColor(ivColorList, ivColor);
   }
 
@@ -163,27 +167,11 @@ class FirstGenModel {
     return previousPairSet;
   }
 
-  Set<IVColor> getPreviousIVColorSet(FirstGenIndex firstGenIndex) {
+  Set<IVColor> getPartlyIVColorSet(FirstGenIndex startIndex, FirstGenIndex maxFirstGenIndex) {
     Set<IVColor> ivColorSet = <IVColor>{};
-    int firstGenIndexValue = firstGenIndex.value;
-    int maxFirstGenIndexValue;
-    if (firstGenIndexValue > 4 && firstGenIndexValue <= 8) {
-      maxFirstGenIndexValue = FirstGenIndex.four.value;
-      ivColorSet = getIVColorSet(maxFirstGenIndexValue);
-    } else if (firstGenIndexValue >= 9 && firstGenIndexValue <= 16) {
-      maxFirstGenIndexValue = FirstGenIndex.eight.value;
-      ivColorSet = getIVColorSet(maxFirstGenIndexValue);
-    } else if (firstGenIndexValue > 16) {
-      maxFirstGenIndexValue = FirstGenIndex.sixteen.value;
-      ivColorSet = getIVColorSet(maxFirstGenIndexValue);
-    }
-    return ivColorSet;
-  }
-
-  Set<IVColor> getIVColorSet(int maxFirstGenIndexValue) {
-    Set<IVColor> ivColorSet = <IVColor>{};
-    int startNumber = FirstGenIndex.one.value;
-    for (int i = startNumber; i <= maxFirstGenIndexValue; i++) {
+    int startValue = startIndex.value;
+    int maxFirstGenValue = maxFirstGenIndex.value;
+    for (int i = startValue; i <= maxFirstGenValue; i++) {
       FirstGenIndex currentIndex = getIndexFromValue(i);
       List<IVColor> firstGenList = firstGenMap[currentIndex]!;
       ivColorSet.addAll(firstGenList);
