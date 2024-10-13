@@ -235,6 +235,206 @@ class FirstGenWidget extends StatelessWidget {
                               ),
                             ],
                           ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.seventeen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.seventeen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.seventeen]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.eighteen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.eighteen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.eighteen]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.nineteen]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.nineteen);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.nineteen]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twenty]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twenty);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twenty]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyOne]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyOne);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyOne]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyTwo]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyTwo);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyTwo]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyThree]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyThree);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyThree]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyFour]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyFour);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyFour]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyFive]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyFive);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyFive]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentySix]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentySix);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentySix]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentySeven]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentySeven);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentySeven]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyEight]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyEight);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyEight]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.twentyNine]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.twentyNine);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.twentyNine]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.thirty]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.thirty);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.thirty]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Column(
+                                  children: <Widget>[
+                                    FirstGenFemaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.thirtyOne]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.thirtyOne);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.thirtyOne]!,
+                                    ),
+                                    FirstGenMaleButton(
+                                      ivColor: colorsMap[FirstGenIndex.thirtyTwo]![0].color,
+                                      onPressed: () {
+                                        onTogglePanel(FirstGenIndex.thirtyTwo);
+                                      },
+                                      isEnabled: monsterButtonsMap[FirstGenIndex.thirtyTwo]!,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ],

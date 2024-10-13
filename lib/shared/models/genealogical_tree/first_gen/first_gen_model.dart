@@ -29,7 +29,8 @@ class FirstGenModel {
 
   void resetMonsterToDefaultIVColors(FirstGenIndex firstGenIndex) {
     int firstGenIndexValue = firstGenIndex.value;
-    int firstGenIndexLength = FirstGenIndex.values.length;
+    int firstGenIndexLength = FirstGenIndex.values.length + 1;
+    print(firstGenIndexLength);
 
     for (int i = firstGenIndexValue; i < firstGenIndexLength; i++) {
       FirstGenIndex currentFirstGenIndex = getIndexFromValue(i);
@@ -174,6 +175,9 @@ class FirstGenModel {
     for (int i = startValue; i <= maxFirstGenValue; i++) {
       FirstGenIndex currentIndex = getIndexFromValue(i);
       List<IVColor> firstGenList = firstGenMap[currentIndex]!;
+      if (firstGenList[0] == IVColor.defaultColor){
+        continue;
+      }
       ivColorSet.addAll(firstGenList);
     }
     return ivColorSet;

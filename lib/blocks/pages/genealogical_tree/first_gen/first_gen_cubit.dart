@@ -102,13 +102,12 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
 
   Map<IVColor, bool> _setIVButtonsState(
       List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList, FirstGenIndex activeGenIndex, FirstGenIndex pairedGenIndex) {
-    Map<IVColor, bool> ivButtonsMap = <IVColor, bool>{
-      for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
-    };
+    Map<IVColor, bool> ivButtonsMap = generateIVButtonMap();
 
     int indexValue = activeGenIndex.value;
     Set<IVColor> firstGenSet;
-    Set<IVColor> previousPair;
+    Set<IVColor> previousPairSet;
+    Set<IVColor> partlyIVColorSet;
 
     if (firstGenModel.hasIVValue(activeGenIndex)) {
       for (IVColor key in ivButtonsMap.keys) {
@@ -118,9 +117,7 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
     }
     if (indexValue <= 2) {
       if (firstGenModel.hasIVValue(pairedGenIndex)) {
-        for (IVColor key in ivButtonsMap.keys) {
-          ivButtonsMap[key] = !pairedMonsterIVList.contains(key);
-        }
+        return isNotPairedMonsterIV(pairedMonsterIVList, ivButtonsMap);
       }
       return ivButtonsMap;
     }
@@ -129,119 +126,82 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
       firstGenSet = firstGenModel.getFirstGenSet(FirstGenIndex.two);
       if (firstGenModel.hasIVValue(pairedGenIndex)) {
         if (firstGenSet.containsAll(pairedMonsterIVList)) {
-          for (IVColor key in ivButtonsMap.keys) {
-            ivButtonsMap[key] = !firstGenSet.contains(key);
-          }
+          return isNotInFirstGenSet(firstGenSet, ivButtonsMap);
         } else {
-          for (IVColor key in ivButtonsMap.keys) {
-            ivButtonsMap[key] = firstGenSet.contains(key);
-          }
+          return isInFirstGenSet(firstGenSet, ivButtonsMap);
         }
-        return ivButtonsMap;
       }
     }
-    previousPair = firstGenModel.getPreviousPair(activeGenIndex);
+    previousPairSet = firstGenModel.getPreviousPair(activeGenIndex);
     if (indexValue < 9) {
       firstGenSet = firstGenModel.getFirstGenSet(FirstGenIndex.four);
       if (indexValue < 7) {
         if (firstGenModel.hasIVValue(pairedGenIndex)) {
           if (firstGenSet.containsAll(pairedMonsterIVList)) {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = !pairedMonsterIVList.contains(key);
-            }
+            return isNotPairedMonsterIV(pairedMonsterIVList, ivButtonsMap);
           } else {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = firstGenSet.contains(key);
-            }
+            return isInFirstGenSet(firstGenSet, ivButtonsMap);
           }
-          return ivButtonsMap;
         } else {
           return ivButtonsMap;
         }
       } else {
-        if (firstGenSet.containsAll(previousPair)) {
+        if (firstGenSet.containsAll(previousPairSet)) {
           if (firstGenModel.hasIVValue(pairedGenIndex)) {
-            if (previousPair.containsAll(pairedMonsterIVList)) {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = !firstGenSet.contains(key);
-              }
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              return isNotInFirstGenSet(firstGenSet, ivButtonsMap);
             } else {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = previousPair.contains(key);
-              }
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
             }
           } else {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = previousPair.contains(key) || !firstGenSet.contains(key);
-            }
+            return isInPreviousPairOrNotFirstGen(firstGenSet, previousPairSet, ivButtonsMap);
           }
-          return ivButtonsMap;
         } else {
           if (firstGenModel.hasIVValue(pairedGenIndex)) {
-            if (previousPair.containsAll(pairedMonsterIVList)) {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = firstGenSet.contains(key) && !previousPair.contains(key);
-              }
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              return isInFirstGenSetAndNotInInPreviousPair(firstGenSet, previousPairSet, ivButtonsMap);
             } else {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = previousPair.contains(key);
-              }
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
             }
           } else {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = firstGenSet.contains(key) || previousPair.contains(key);
-            }
+            return isKeyInFirstGenOrPreviousPair(firstGenSet, previousPairSet, ivButtonsMap);
           }
         }
       }
-      return ivButtonsMap;
     } else if (indexValue < 17) {
-      Set<IVColor> partlyIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.nine, FirstGenIndex.twelve);
+      partlyIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.nine, FirstGenIndex.twelve);
       firstGenSet = firstGenModel.getFirstGenSet(FirstGenIndex.eight);
       if (indexValue < 11) {
         if (firstGenModel.hasIVValue(pairedGenIndex)) {
           if (firstGenSet.containsAll(pairedMonsterIVList)) {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = !pairedMonsterIVList.contains(key);
-            }
+            return isNotPairedMonsterIV(pairedMonsterIVList, ivButtonsMap);
           } else {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = firstGenSet.contains(key);
-            }
+            return isInFirstGenSet(firstGenSet, ivButtonsMap);
           }
-          return ivButtonsMap;
         } else {
           return ivButtonsMap;
         }
       } else if (indexValue < 13) {
-        if (partlyIVColorSet.containsAll(previousPair)) {
+        if (firstGenSet.containsAll(previousPairSet)) {
           if (firstGenModel.hasIVValue(pairedGenIndex)) {
-            if (previousPair.containsAll(pairedMonsterIVList)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
               for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = !previousPair.contains(key);
+                ivButtonsMap[key] = !previousPairSet.contains(key);
               }
             } else {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = previousPair.contains(key);
-              }
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
             }
           }
           return ivButtonsMap;
         } else {
           if (firstGenModel.hasIVValue(pairedGenIndex)) {
-            if (previousPair.containsAll(pairedMonsterIVList)) {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = firstGenSet.contains(key) && !previousPair.contains(key);
-              }
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              return isInFirstGenSetAndNotInInPreviousPair(firstGenSet, previousPairSet, ivButtonsMap);
             } else {
-              for (IVColor key in ivButtonsMap.keys) {
-                ivButtonsMap[key] = previousPair.contains(key);
-              }
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
             }
           } else {
-            for (IVColor key in ivButtonsMap.keys) {
-              ivButtonsMap[key] = firstGenSet.contains(key) || previousPair.contains(key);
-            }
+            return isKeyInFirstGenOrPreviousPair(firstGenSet, previousPairSet, ivButtonsMap);
           }
         }
       } else {
@@ -264,39 +224,28 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
             }
             return ivButtonsMap;
           } else {
-            if (partlyIVColorSet.containsAll(previousPair)) {
+            if (partlyIVColorSet.containsAll(previousPairSet)) {
               if (firstGenModel.hasIVValue(pairedGenIndex)) {
-                if (previousPair.containsAll(pairedMonsterIVList)) {
+                if (previousPairSet.containsAll(pairedMonsterIVList)) {
                   for (IVColor key in ivButtonsMap.keys) {
                     ivButtonsMap[key] = !(firstGenSet.contains(key) || partlyIVColorSet.contains(key) || pairedMonsterIVList.contains(key));
                   }
                 } else {
-                  for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = previousPair.contains(key);
-                  }
+                  return isInPreviousPair(previousPairSet, ivButtonsMap);
                 }
               } else {
-                for (IVColor key in ivButtonsMap.keys) {
-                  ivButtonsMap[key] = previousPair.contains(key) || !firstGenSet.contains(key);
-                }
+                return isInPreviousPairOrNotFirstGen(firstGenSet, previousPairSet, ivButtonsMap);
               }
             } else {
               if (firstGenModel.hasIVValue(pairedGenIndex)) {
-                if (previousPair.containsAll(pairedMonsterIVList)) {
-                  for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = partlyIVColorSet.contains(key) && !previousPair.contains(key);
-                  }
+                if (previousPairSet.containsAll(pairedMonsterIVList)) {
+                  return isInPartlyIVColorAndNotInPreviousPair(partlyIVColorSet, previousPairSet, ivButtonsMap);
                 } else {
-                  for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = previousPair.contains(key);
-                  }
+                  return isInPreviousPair(previousPairSet, ivButtonsMap);
                 }
               } else {
-                for (IVColor key in ivButtonsMap.keys) {
-                  ivButtonsMap[key] = partlyIVColorSet.contains(key) || previousPair.contains(key);
-                }
+                return isInPartlyIVColorOrPreviousPair(partlyIVColorSet, previousPairSet, ivButtonsMap);
               }
-              return ivButtonsMap;
             }
           }
         } else {
@@ -318,45 +267,419 @@ class FirstGenCubit extends Cubit<ASecondGenState> {
             }
             return ivButtonsMap;
           } else {
-            if (partlyIVColorSet.containsAll(previousPair)) {
+            if (partlyIVColorSet.containsAll(previousPairSet)) {
               if (firstGenModel.hasIVValue(pairedGenIndex)) {
-                if (previousPair.containsAll(pairedMonsterIVList)) {
+                if (previousPairSet.containsAll(pairedMonsterIVList)) {
                   for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = firstGenSet.difference(partlyIVColorSet).contains(key) && !previousPair.contains(key);
+                    ivButtonsMap[key] = firstGenSet.difference(partlyIVColorSet).contains(key) && !previousPairSet.contains(key);
                   }
                 } else {
-                  for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = previousPair.contains(key);
-                  }
+                  return isInPreviousPair(previousPairSet, ivButtonsMap);
                 }
               } else {
-                // print("3 ${previousPair}");
                 for (IVColor key in ivButtonsMap.keys) {
-                  ivButtonsMap[key] = firstGenSet.difference(partlyIVColorSet).contains(key) || previousPair.contains(key);
+                  ivButtonsMap[key] = firstGenSet.difference(partlyIVColorSet).contains(key) || previousPairSet.contains(key);
                 }
               }
               return ivButtonsMap;
             } else {
               if (firstGenModel.hasIVValue(pairedGenIndex)) {
-                if (previousPair.containsAll(pairedMonsterIVList)) {
-                  for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = partlyIVColorSet.contains(key) && !previousPair.contains(key);
-                  }
+                if (previousPairSet.containsAll(pairedMonsterIVList)) {
+                  return isInPartlyIVColorAndNotInPreviousPair(partlyIVColorSet, previousPairSet, ivButtonsMap);
                 } else {
-                  for (IVColor key in ivButtonsMap.keys) {
-                    ivButtonsMap[key] = previousPair.contains(key);
-                  }
+                  return isInPreviousPair(previousPairSet, ivButtonsMap);
                 }
               } else {
-                for (IVColor key in ivButtonsMap.keys) {
-                  ivButtonsMap[key] = partlyIVColorSet.contains(key) || previousPair.contains(key);
-                }
+                return isInPartlyIVColorOrPreviousPair(partlyIVColorSet, previousPairSet, ivButtonsMap);
               }
-              return ivButtonsMap;
             }
           }
         }
       }
+    }
+    firstGenSet = firstGenModel.getFirstGenSet(FirstGenIndex.sixteen);
+    if (indexValue > 16) {
+      firstGenSet = firstGenModel.getFirstGenSet(FirstGenIndex.sixteen);
+      partlyIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.thirtyTwo);
+      print(indexValue);
+      if (indexValue < 25) {
+        return getIVButtonMapIndexBelow25(firstGenSet, activeMonsterIVList, pairedMonsterIVList, activeGenIndex, pairedGenIndex, indexValue);
+      } else {
+        if (firstGenSet.containsAll(partlyIVColorSet)) {
+          return getIVIVButtonMapAbove25(firstGenSet, activeMonsterIVList, pairedMonsterIVList, activeGenIndex, pairedGenIndex, indexValue);
+        } else {
+          return getIVIVButtonMapAbove25P2(firstGenSet, activeMonsterIVList, pairedMonsterIVList, activeGenIndex, pairedGenIndex, indexValue);
+        }
+      }
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> getIVButtonMapIndexBelow25(Set<IVColor> firstGenSet, List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList,
+      FirstGenIndex activeGenIndex, FirstGenIndex pairedGenIndex, int indexValue) {
+    Map<IVColor, bool> ivButtonsMap = generateIVButtonMap();
+
+    Set<IVColor> secondPartIVColorSet;
+    Set<IVColor> previousPairSet;
+
+    if (firstGenModel.hasIVValue(activeGenIndex)) {
+      for (IVColor key in ivButtonsMap.keys) {
+        ivButtonsMap[key] = activeMonsterIVList.contains(key);
+      }
+      return ivButtonsMap;
+    }
+    if (indexValue <= 18) {
+      if (firstGenModel.hasIVValue(pairedGenIndex)) {
+        return isNotPairedMonsterIV(pairedMonsterIVList, ivButtonsMap);
+      }
+      return ivButtonsMap;
+    }
+
+    if (indexValue < 21) {
+      secondPartIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.eighteen);
+      if (firstGenModel.hasIVValue(pairedGenIndex)) {
+        if (secondPartIVColorSet.containsAll(pairedMonsterIVList)) {
+          return isNotInFirstGenSet(secondPartIVColorSet, ivButtonsMap);
+        } else {
+          return isInFirstGenSet(secondPartIVColorSet, ivButtonsMap);
+        }
+      }
+    }
+    previousPairSet = firstGenModel.getPreviousPair(activeGenIndex);
+    if (indexValue < 25) {
+      secondPartIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.twenty);
+      if (indexValue < 23) {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          if (secondPartIVColorSet.containsAll(pairedMonsterIVList)) {
+            return isNotPairedMonsterIV(pairedMonsterIVList, ivButtonsMap);
+          } else {
+            return isInFirstGenSet(secondPartIVColorSet, ivButtonsMap);
+          }
+        } else {
+          return ivButtonsMap;
+        }
+      } else {
+        if (secondPartIVColorSet.containsAll(previousPairSet)) {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              return isNotInFirstGenSet(secondPartIVColorSet, ivButtonsMap);
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            return isInPreviousPairOrNotFirstGen(secondPartIVColorSet, previousPairSet, ivButtonsMap);
+          }
+        } else {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              return isInFirstGenSetAndNotInInPreviousPair(secondPartIVColorSet, previousPairSet, ivButtonsMap);
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            return isKeyInFirstGenOrPreviousPair(secondPartIVColorSet, previousPairSet, ivButtonsMap);
+          }
+        }
+      }
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> getIVIVButtonMapAbove25(Set<IVColor> firstGenSet, List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList,
+      FirstGenIndex activeGenIndex, FirstGenIndex pairedGenIndex, int indexValue) {
+    Map<IVColor, bool> ivButtonsMap = generateIVButtonMap();
+
+    Set<IVColor> secondPartIVColorSet;
+    Set<IVColor> previousPairSet;
+    Set<IVColor> partlyIVColorSet;
+
+    previousPairSet = firstGenModel.getPreviousPair(activeGenIndex);
+    secondPartIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.twentyFour);
+
+    if (indexValue < 29) {
+      if (indexValue < 27) {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = !pairedMonsterIVList.contains(key) && !firstGenSet.difference(secondPartIVColorSet).contains(key);
+          }
+        } else {
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = !firstGenSet.difference(secondPartIVColorSet).contains(key);
+          }
+        }
+      } else {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          if (previousPairSet.containsAll(pairedMonsterIVList)) {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !previousPairSet.contains(key) && !firstGenSet.difference(secondPartIVColorSet).contains(key);
+            }
+          } else {
+            return isInPreviousPair(previousPairSet, ivButtonsMap);
+          }
+        } else {
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = !firstGenSet.difference(secondPartIVColorSet).contains(key);
+          }
+        }
+      }
+      return ivButtonsMap;
+    } else {
+      partlyIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.twentyFive, FirstGenIndex.twentyEight);
+      if (indexValue < 31) {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          if (partlyIVColorSet.containsAll(pairedMonsterIVList)) {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !(firstGenSet.difference(secondPartIVColorSet).contains(key) ||
+                  secondPartIVColorSet.difference(partlyIVColorSet).contains(key) ||
+                  pairedMonsterIVList.contains(key));
+            }
+          }
+        } else {
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] =
+                !(firstGenSet.difference(secondPartIVColorSet).contains(key) || secondPartIVColorSet.difference(partlyIVColorSet).contains(key));
+          }
+        }
+        return ivButtonsMap;
+      } else {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          if (previousPairSet.containsAll(pairedMonsterIVList)) {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !firstGenSet.contains(key);
+            }
+          } else {
+            return isInPreviousPair(previousPairSet, ivButtonsMap);
+          }
+        } else {
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = !firstGenSet.contains(key) || previousPairSet.contains(key);
+          }
+        }
+      }
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> getIVIVButtonMapAbove25P2(Set<IVColor> firstGenSet, List<IVColor> activeMonsterIVList, List<IVColor> pairedMonsterIVList,
+      FirstGenIndex activeGenIndex, FirstGenIndex pairedGenIndex, int indexValue) {
+    Map<IVColor, bool> ivButtonsMap = generateIVButtonMap();
+
+    Set<IVColor> secondPartIVColorSet;
+    Set<IVColor> previousPairSet;
+    Set<IVColor> partlyIVColorSet;
+
+    previousPairSet = firstGenModel.getPreviousPair(activeGenIndex);
+    partlyIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.twentyFour);
+
+    if (indexValue < 29) {
+      if (indexValue < 27) {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          secondPartIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.twentyFive);
+          if (secondPartIVColorSet.length < 5) {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !pairedMonsterIVList.contains(key);
+            }
+          } else {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !pairedMonsterIVList.contains(key) && secondPartIVColorSet.contains(key);
+            }
+          }
+        }
+        return ivButtonsMap;
+      } else {
+        secondPartIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.twentySix);
+        if (secondPartIVColorSet.length < 5) {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              for (IVColor key in ivButtonsMap.keys) {
+                ivButtonsMap[key] = !previousPairSet.contains(key);
+              }
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          }
+          return ivButtonsMap;
+        } else {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              for (IVColor key in ivButtonsMap.keys) {
+                ivButtonsMap[key] = !previousPairSet.contains(key) && partlyIVColorSet.contains(key);
+              }
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            return isInFirstGenSet(partlyIVColorSet.union(previousPairSet), ivButtonsMap);
+          }
+        }
+      }
+      return ivButtonsMap;
+    }
+    secondPartIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.seventeen, FirstGenIndex.twentyFour);
+    if (indexValue < 31) {
+      partlyIVColorSet = firstGenModel.getPartlyIVColorSet(FirstGenIndex.twentyFive, FirstGenIndex.twentyEight);
+      if (secondPartIVColorSet.union(partlyIVColorSet).length < 5) {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          if (partlyIVColorSet.containsAll(pairedMonsterIVList)) {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !pairedMonsterIVList.contains(key);
+            }
+          } else {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = !pairedMonsterIVList.contains(key) && partlyIVColorSet.contains(key);
+            }
+          }
+        } else {
+          return ivButtonsMap;
+        }
+        return ivButtonsMap;
+      } else {
+        if (firstGenModel.hasIVValue(pairedGenIndex)) {
+          for (IVColor key in ivButtonsMap.keys) {
+            ivButtonsMap[key] = !pairedMonsterIVList.contains(key) && partlyIVColorSet.union(partlyIVColorSet).contains(key);
+          }
+        } else {
+          return isInFirstGenSet(secondPartIVColorSet.union(partlyIVColorSet), ivButtonsMap);
+        }
+      }
+    } else {
+      print('1 ${secondPartIVColorSet.union(partlyIVColorSet).length}');
+      print('2 ${partlyIVColorSet.containsAll(previousPairSet)}');
+      if (secondPartIVColorSet.union(partlyIVColorSet).union(previousPairSet).length < 5) {
+        if (firstGenSet.containsAll(secondPartIVColorSet.union(partlyIVColorSet))) {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              for (IVColor key in ivButtonsMap.keys) {
+                ivButtonsMap[key] = !firstGenSet.contains(key) && !partlyIVColorSet.union(partlyIVColorSet).contains(key);
+              }
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] =
+                  previousPairSet.contains(key) || !(firstGenSet.contains(key) && secondPartIVColorSet.union(partlyIVColorSet).contains(key));
+            }
+          }
+        } else {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              print('3 ${firstGenSet.difference(secondPartIVColorSet.union(partlyIVColorSet))}');
+              for (IVColor key in ivButtonsMap.keys) {
+                ivButtonsMap[key] = firstGenSet.difference(secondPartIVColorSet.union(partlyIVColorSet)).contains(key);
+              }
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = previousPairSet.contains(key) || firstGenSet.difference(secondPartIVColorSet.union(partlyIVColorSet)).contains(key);
+            }
+          }
+        }
+      } else {
+        if (partlyIVColorSet.containsAll(previousPairSet)) {
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              for (IVColor key in ivButtonsMap.keys) {
+                ivButtonsMap[key] = secondPartIVColorSet.difference(partlyIVColorSet).contains(key);
+              }
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = secondPartIVColorSet.difference(partlyIVColorSet).contains(key) && previousPairSet.contains(key);
+            }
+          }
+        } else {
+          print('4 $partlyIVColorSet');
+          if (firstGenModel.hasIVValue(pairedGenIndex)) {
+            if (previousPairSet.containsAll(pairedMonsterIVList)) {
+              for (IVColor key in ivButtonsMap.keys) {
+                ivButtonsMap[key] = partlyIVColorSet.contains(key) && !pairedMonsterIVList.contains(key);
+              }
+            } else {
+              return isInPreviousPair(previousPairSet, ivButtonsMap);
+            }
+          } else {
+            for (IVColor key in ivButtonsMap.keys) {
+              ivButtonsMap[key] = partlyIVColorSet.contains(key) || previousPairSet.contains(key);
+            }
+          }
+        }
+      }
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> generateIVButtonMap() {
+    Map<IVColor, bool> ivButtonsMap = <IVColor, bool>{
+      for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
+    };
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isNotPairedMonsterIV(List<IVColor> pairedMonsterIVList, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = !pairedMonsterIVList.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isInFirstGenSet(Set<IVColor> firstGenSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = firstGenSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isInFirstGenSetAndNotInInPreviousPair(Set<IVColor> firstGenSet, Set<IVColor> previousPairSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = firstGenSet.contains(key) && !previousPairSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isNotInFirstGenSet(Set<IVColor> firstGenSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = !firstGenSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isInPreviousPair(Set<IVColor> previousPairSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = previousPairSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isInPreviousPairOrNotFirstGen(Set<IVColor> firstGenSet, Set<IVColor> previousPairSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = previousPairSet.contains(key) || !firstGenSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isKeyInFirstGenOrPreviousPair(Set<IVColor> firstGenSet, Set<IVColor> previousPairSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = firstGenSet.contains(key) || previousPairSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isInPartlyIVColorAndNotInPreviousPair(
+      Set<IVColor> partlyIVColorSet, Set<IVColor> previousPairSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = partlyIVColorSet.contains(key) && !previousPairSet.contains(key);
+    }
+    return ivButtonsMap;
+  }
+
+  Map<IVColor, bool> isInPartlyIVColorOrPreviousPair(Set<IVColor> partlyIVColorSet, Set<IVColor> previousPairSet, Map<IVColor, bool> ivButtonsMap) {
+    for (IVColor key in ivButtonsMap.keys) {
+      ivButtonsMap[key] = partlyIVColorSet.contains(key) || previousPairSet.contains(key);
     }
     return ivButtonsMap;
   }
