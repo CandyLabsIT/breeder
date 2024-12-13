@@ -85,18 +85,6 @@ class FirstGenModel {
     return previousMaleFirstGenIndex;
   }
 
-  Set<IVColor> getIVColorsSet(FirstGenIndex startFirstGenIndex, FirstGenIndex endFirstGenIndex) {
-    Set<IVColor> setIVColors = <IVColor>{};
-    int startFirstGenIndexValue = startFirstGenIndex.value;
-    int endFirstGenIndexValue = endFirstGenIndex.value;
-    for (int i = startFirstGenIndexValue; i <= endFirstGenIndexValue; i++) {
-      FirstGenIndex currentIndex = getIndexFromValue(i);
-      List<IVColor> currentIVColorList = firstGenMap[currentIndex]!.ivColorList;
-      setIVColors.addAll(currentIVColorList);
-    }
-    return setIVColors;
-  }
-
   FirstGenIndex getIndexFromValue(int firstGenIndexValue) {
     FirstGenIndex firstGenIndex = FirstGenIndex.values.firstWhere((FirstGenIndex firstGenIndex) => firstGenIndex.value == firstGenIndexValue);
     return firstGenIndex;

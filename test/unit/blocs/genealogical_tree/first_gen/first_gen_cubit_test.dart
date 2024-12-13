@@ -260,36 +260,109 @@ Future<void> main() async {
       expect(actualFirstGenCubit.state, expectedFirstGenState);
     });
 
-    test('Should emit [FirstGenIVButtonsState] if [monster value is defaultColor]', () {
+    test('Should emit [FirstGenIVButtonsState for index three] if [monster value is defaultColor]', () {
       late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
         for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
       };
 
+      AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+      actualFirstGenCubit.setIVStateIndexThree();
+
+      expect(actualFirstGenCubit.state, expectedFirstGenState);
+    });
+
+    test('Should emit [FirstGenIVButtonsState for index three] if [monster value is defaultColor and new IVColor is atkColor]', () {
+      late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: false
+      };
+
+      expectedIVButtonMap[IVColor.atkColor] = true;
+
+      AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+      actualFirstGenCubit
+        ..setIVColors(FirstGenIndex.three, IVColor.atkColor)
+        ..setIVStateIndexThree();
+
+      expect(actualFirstGenCubit.state, expectedFirstGenState);
+    });
+
+    test('Should emit [FirstGenIVButtonsState for index three] if [monster value is atkColor and user tried chose defColor]', () {
+      late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: false
+      };
+
+      expectedIVButtonMap[IVColor.atkColor] = true;
+
+      AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+      actualFirstGenCubit
+        ..setIVColors(FirstGenIndex.three, IVColor.defColor)
+        ..setIVStateIndexThree();
+
+      expect(actualFirstGenCubit.state, expectedFirstGenState);
+    });
+
+    test('Should emit [FirstGenIVButtonsState for index three] if [monster value is atkColor and user chose atkColor]', () {
+      late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
+      };
+
+      AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+      actualFirstGenCubit
+        ..setIVColors(FirstGenIndex.three, IVColor.atkColor)
+        ..setIVStateIndexThree();
+
+      expect(actualFirstGenCubit.state, expectedFirstGenState);
+    });
+
+    test(
+        'Should emit [FirstGenIVButtonsState for index four] if [monster value is defaultColor and in previous pair is atkColor and speedColor and female was atkColor]',
+        () {
+      late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
+      };
+
+      expectedIVButtonMap[IVColor.atkColor] = false;
       expectedIVButtonMap[IVColor.speedColor] = false;
 
       AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
 
-      actualFirstGenCubit.setIVColors(FirstGenIndex.two, IVColor.atkColor);
+      actualFirstGenCubit
+        ..setIVColors(FirstGenIndex.two, IVColor.atkColor)
+        ..setIVColors(FirstGenIndex.three, IVColor.atkColor)
+        ..setIVStateIndexFour();
 
-      actualFirstGenCubit.setIVStateIndexTwo();
+      expect(actualFirstGenCubit.state, expectedFirstGenState);
+    });
+
+    test(
+        'Should emit [FirstGenIVButtonsState for index four] if [monster value is defaultColor and in previous pair is atkColor and speedColor and female was hpColor]',
+        () {
+      late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+        for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: false
+      };
+
+      expectedIVButtonMap[IVColor.atkColor] = true;
+      expectedIVButtonMap[IVColor.speedColor] = true;
+
+      AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+      actualFirstGenCubit
+        ..resetMonsterToDefaultIVColors(FirstGenIndex.three)
+        ..setIVColors(FirstGenIndex.three, IVColor.hpColor)
+        ..setIVStateIndexFour();
 
       expect(actualFirstGenCubit.state, expectedFirstGenState);
     });
 
     test('Should return [true] if [firstGenIndex is one and index value is equal to 1]', () {
       bool expectBool = true;
-
+      actualFirstGenCubit.resetAllToDefaultColors();
       FirstGenIndex actualFirstGenIndex = FirstGenIndex.one;
       bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
-      expect(actualBool, expectBool);
-    });
-
-    test('Should return [false] if [firstGenIndex is three and index value is equal to 3]', () {
-      bool expectBool = false;
-
-      FirstGenIndex actualFirstGenIndex = FirstGenIndex.three;
-      bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
-
       expect(actualBool, expectBool);
     });
 
@@ -297,6 +370,7 @@ Future<void> main() async {
       bool expectBool = true;
 
       FirstGenIndex actualFirstGenIndex = FirstGenIndex.two;
+      actualFirstGenCubit.setIVColors(FirstGenIndex.one, IVColor.speedColor);
       bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
 
       expect(actualBool, expectBool);
@@ -317,6 +391,44 @@ Future<void> main() async {
 
       FirstGenIndex actualFirstGenIndex = FirstGenIndex.two;
       bool actualBool = actualFirstGenCubit.isRestartButtonEnabled(actualFirstGenIndex);
+
+      expect(actualBool, expectBool);
+    });
+
+    test('Should return [false] if [firstGenIndex is three and index value is equal to 3]', () {
+      bool expectBool = false;
+
+      FirstGenIndex actualFirstGenIndex = FirstGenIndex.three;
+      bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
+
+      expect(actualBool, expectBool);
+    });
+
+    test('Should return [true] if [firstGenIndex is three and index value is equal to 3 and previous index contains non default value]', () {
+      bool expectBool = true;
+
+      FirstGenIndex actualFirstGenIndex = FirstGenIndex.three;
+      actualFirstGenCubit.setIVColors(FirstGenIndex.two, IVColor.atkColor);
+      bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
+
+      expect(actualBool, expectBool);
+    });
+
+    test('Should return [four] if [firstGenIndex is four and index value is equal to 4 and previous monster has default color]', () {
+      bool expectBool = false;
+
+      FirstGenIndex actualFirstGenIndex = FirstGenIndex.four;
+      bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
+
+      expect(actualBool, expectBool);
+    });
+
+    test('Should return [four] if [firstGenIndex is four and index value is equal to 4 and previous monster has default color]', () {
+      bool expectBool = true;
+
+      FirstGenIndex actualFirstGenIndex = FirstGenIndex.four;
+      actualFirstGenCubit.setIVColors(FirstGenIndex.three, IVColor.atkColor);
+      bool actualBool = actualFirstGenCubit.getMonstersEnabledState()[actualFirstGenIndex]!;
 
       expect(actualBool, expectBool);
     });

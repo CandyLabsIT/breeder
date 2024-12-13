@@ -71,6 +71,8 @@ Future<void> main() async {
         ..setIVColors(FirstGenIndex.two, IVColor.atkColor);
 
       await expectLater(actualSecondGenCubit.stream, emitsInOrder(<dynamic>[expectedSecondGenState]));
+
+      firstGenCubit.resetAllToDefaultColors();
     });
 
     test('Should return [false for key SecondGenIndex.one in map] if FirstGenIndex.one and two in firstGen map has default values', () {
