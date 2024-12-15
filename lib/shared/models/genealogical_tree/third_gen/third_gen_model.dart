@@ -24,5 +24,5 @@ class ThirdGenModel {
     return fatherIndexValue;
   }
 
-  int getMotherIndex
+  int getMotherIndex(){}
 }
