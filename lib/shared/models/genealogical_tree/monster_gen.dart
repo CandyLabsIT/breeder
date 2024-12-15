@@ -1,6 +1,7 @@
 enum MonsterGen {
   firstGen(1),
-  secondGen(2);
+  secondGen(2),
+  thirdGen(3);
 
   final int value;
 
