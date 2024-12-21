@@ -1,8 +1,14 @@
 import 'package:breeder/config/locator.dart';
 import 'package:breeder/shared/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+  ]);
+
   await initLocator();
   runApp(const CoreApp());
 }
@@ -18,11 +24,13 @@ class _CoreApp extends State<CoreApp> {
   @override
   Widget build(BuildContext context) {
     AppRouter appRouter = AppRouter();
-    return MaterialApp.router(
-      routerConfig: appRouter.config(),
-      title: 'Breeder',
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFFFEAC5),
+    return SafeArea(
+      child: MaterialApp.router(
+        routerConfig: appRouter.config(),
+        title: 'Breeder',
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xFFFFEAC5),
+        ),
       ),
     );
   }
