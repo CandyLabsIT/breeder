@@ -308,6 +308,115 @@ Future<void> main() async {
       });
     });
 
+    group('Test of FirstGenCubit.setIVStateIndexThree()', () {
+      // Act
+      setUpAll(() {
+        actualFirstGenCubit = FirstGenCubit();
+      });
+
+      test('Should emit [FirstGenIVButtonsState] with [ivButtonMap where all IVColors has true values] when [third monster IV is not filled with IV]',
+          () {
+        //Arrange
+        Map<IVColor, bool> expectedIVButtonMap = Map<IVColor, bool>.from(ivButtonsModel.ivButtonsMap);
+
+        AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+        // Act
+        actualFirstGenCubit.setIVStateIndexThree();
+
+        // Assert
+        expect(actualFirstGenCubit.state, expectedFirstGenState);
+      });
+
+      test(
+          'Should emit [FirstGenIVButtonsState] with [ivButtonMap where only atkColor has true value] when [user choose attack IV for third monster]',
+          () {
+        //Arrange
+        late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+          for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: false
+        };
+
+        expectedIVButtonMap[IVColor.atkColor] = true;
+        AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+        // Act
+        actualFirstGenCubit.setIVColors(FirstGenIndex.three, IVColor.atkColor);
+        actualFirstGenCubit.setIVStateIndexThree();
+
+        // Assert
+        expect(actualFirstGenCubit.state, expectedFirstGenState);
+      });
+    });
+
+    group('Test of FirstGenCubit.setIVStateIndexFour()', () {
+      // Act
+      setUpAll(() {
+        actualFirstGenCubit = FirstGenCubit();
+      });
+
+      test(
+          'Should emit [FirstGenIVButtonsState] with [ivButtonMap where atkColor and hpColor has false value] when [third monster is filled with attack IV and previous pair contain hp IV and attack IV] and [fourth monster is not filled with IV]',
+          () {
+        //Arrange
+        late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+          for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: true
+        };
+
+        expectedIVButtonMap[IVColor.hpColor] = false;
+        expectedIVButtonMap[IVColor.atkColor] = false;
+
+        AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+        actualFirstGenCubit
+          ..setIVColors(FirstGenIndex.one, IVColor.atkColor)
+          ..setIVColors(FirstGenIndex.two, IVColor.hpColor)
+          ..setIVColors(FirstGenIndex.three, IVColor.atkColor)
+          ..setIVStateIndexFour();
+
+        expect(actualFirstGenCubit.state, expectedFirstGenState);
+      });
+
+      test(
+          'Should emit [FirstGenIVButtonsState] with [ivButtonMap where only atkColor and hpColor has true value] when [third monster is filled with speed IV and previous pair contain hp IV and attack IV] and [fourth monster is not filled with IV]',
+              () {
+            //Arrange
+            late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+              for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: false
+            };
+
+            expectedIVButtonMap[IVColor.hpColor] = true;
+            expectedIVButtonMap[IVColor.atkColor] = true;
+
+            AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+            actualFirstGenCubit
+              ..resetMonsterToDefaultIVColors(FirstGenIndex.three)
+              ..setIVColors(FirstGenIndex.three, IVColor.speedColor)
+              ..setIVStateIndexFour();
+
+            expect(actualFirstGenCubit.state, expectedFirstGenState);
+          });
+
+      test(
+          'Should emit [FirstGenIVButtonsState] with [ivButtonMap where only atkColor has true value] when [user choose attack IV for fourth monster]',
+              () {
+            //Arrange
+            late Map<IVColor, bool> expectedIVButtonMap = <IVColor, bool>{
+              for (IVColor ivColor in IVColor.values.where((IVColor ivColor) => ivColor != IVColor.defaultColor)) ivColor: false
+            };
+
+            expectedIVButtonMap[IVColor.atkColor] = true;
+            AFirstGenState expectedFirstGenState = FirstGenIVButtonsState(ivButtonMap: expectedIVButtonMap);
+
+            // Act
+            actualFirstGenCubit.setIVColors(FirstGenIndex.four, IVColor.atkColor);
+            actualFirstGenCubit.setIVStateIndexFour();
+
+            // Assert
+            expect(actualFirstGenCubit.state, expectedFirstGenState);
+          });
+    });
+
     group('Tests of FirstGenCubit.resetMonsterToDefaultIVColors()', () {
       // Act
       setUpAll(() {
